@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
+from flask import Flask, flash
+from flask_login import login_required, current_user, LoginManager
 #from flask_jwt import jwt_required, current_identity
 
 from.index import index_views
@@ -15,7 +17,30 @@ user_views = Blueprint('user_views', __name__, template_folder='../templates')
 @user_views.route('/add_User',methods=['POST'])
 def create_user():
     data=request.form
+    user=get_user_by_username(data['username'])
+    if user:
+        flash("Username is taken please enter a new username.")
+        #return jsonify("Username is taken please enter a new username.")
+    user=create_user(data['username'], data['password'])
     pass
+    #return render_template("login.html")
+
+@user_views.route('/login',methods=['POST'])
+def loginUser():
+    data=request.form
+    permittedUser=authenticate(data['username'], data['password'])
+    if permittedUser==None:
+        flash("Wrong Credentials, Please try again")
+        #return redirect(url_for(''))
+    login_user(permittedUser,remember=True)
+    flash('You were successfully logged in!')
+    pass
+    #return redirect(url_for(''))
+
+
+
+
+
 
 @user_views.route('/users', methods=['GET'])
 def get_user_page():
