@@ -53,6 +53,6 @@ def create_app(config={}):
     configure_uploads(app, photos)
     add_views(app)
     create_db(app)
-    setup_jwt(app)
+    #setup_jwt(app)
     app.app_context().push()
     return app
