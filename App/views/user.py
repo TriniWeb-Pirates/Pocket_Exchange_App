@@ -42,11 +42,11 @@ def create_user_action():
     
 
 
-@user_views.route('/identify', methods=['GET'])
+#@user_views.route('/identify', methods=['GET'])
 #@jwt_required()
-def identify_user_action():
-    return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
+#def identify_user_action():
+#    return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
 
-@user_views.route('/static/users', methods=['GET'])
-def static_user_page():
-  return send_from_directory('static', 'static-user.html')
+#@user_views.route('/static/users', methods=['GET'])
+#def static_user_page():
+#  return send_from_directory('static', 'static-user.html')
