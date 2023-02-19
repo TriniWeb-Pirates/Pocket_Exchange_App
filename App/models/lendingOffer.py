@@ -29,7 +29,7 @@ class LendingOffer(db.Model):
             'condition': self.condition,
             'item': self.item,
             #image
-            'preferedLocation'=self.preferedLocation,
-            'Status'=self.Status,
-            'RulesOfUse'=self.RulesOfUse
+            'preferedLocation':self.preferedLocation,
+            'Status':self.Status,
+            'RulesOfUse':self.RulesOfUse
         }
