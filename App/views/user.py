@@ -21,7 +21,8 @@ def create_user():
     if user:
         flash("Username is taken please enter a new username.")
         #return jsonify("Username is taken please enter a new username.")
-    user=create_user(data['username'], data['password'])
+    user=create_user(data['username'], data['password'], data['firstName'], data['lastName'], data['phoneNumber'], data['email']
+                    , data['city'], data['Bio'], data['links'])
     pass
     #return render_template("login.html")
 

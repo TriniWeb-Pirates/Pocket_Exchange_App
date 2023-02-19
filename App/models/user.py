@@ -11,6 +11,7 @@ class User(db.Model):
     email = db.Column(db.String(120), nullable=False)
     city = db.Column(db.String(120), nullable=False)
     Bio = db.Column(db.String(1000), nullable=False)
+    links = db.Column(db.String(120), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     reportsCount= db.Column(db.Integer, nullable=False)
     #profile_pic
@@ -23,7 +24,7 @@ class User(db.Model):
     reports=db.relationship('Report',backref='report',lazy=True,cascade="all, delete-orphan")
     rates=db.relationship('Rating',backref='rating',lazy=True,cascade="all, delete-orphan")
 
-    def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio):
+    def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio,links):
         self.username = username
         self.set_password(password)
         self.firstName=firstName
@@ -32,6 +33,7 @@ class User(db.Model):
         self.email=email
         self.city=city
         self.Bio=Bio
+        self.links=links
         self.rating=0
         self.reportsCount=0
 
@@ -44,7 +46,8 @@ class User(db.Model):
             'phoneNumber': self.phoneNumber,
             'email': self.email,
             'city': self.city,
-            'Bio': self.Bio
+            'Bio': self.Bio,
+            'links':self.links
         }
 
     def set_password(self, password):
