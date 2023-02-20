@@ -23,7 +23,7 @@ class LendingRequest(db.Model):
         return{
             'lendRequestID': self.lendRequestID,
             'lenderID': self.lenderID,
-            'borrowingDays':self.borrowingDays
+            'borrowingDays':self.borrowingDays,
             'returnDate': self.returnDate,
             'borrowDate': self.borrowDate
             
