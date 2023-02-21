@@ -16,6 +16,18 @@ from App.controllers import (
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
+#testing route
+@user_views.route('/testAddUser',methods=['POST'])
+def testAddUser():
+    data1=request.json
+    user=get_user_by_username(data1['username'])
+    if user:
+        flash("Username is taken please enter a new username.")
+        return jsonify("Username is taken please enter a new username.")
+    user=create_user(data1['username'], data1['password'], data1['firstName'], data1['lastName'], data1['phoneNumber'], data1['city'], data1['Bio'], data1['email'], data1['links'])
+    return jsonify(user)
+
+
 @user_views.route('/signupPage1', methods=['GET'])
 def getSignupPage1():
     pass
