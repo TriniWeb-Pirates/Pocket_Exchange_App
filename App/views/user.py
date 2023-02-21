@@ -30,7 +30,7 @@ def create_user_page1():
         #return jsonify("Username is taken please enter a new username.")
     #user=create_user(data['username'], data['password'], data['firstName'], data['lastName'], data['phoneNumber'], data['email']
      #               , data['city'], data['Bio'], data['links'])
-    return redirect(url_for('user_views.getSignupPage2'))
+    return redirect(url_for('user_views.getSignupPage2',data1=data1))
 
 @user_views.route('/signupPage2<data1>', methods=['GET'])
 def getSignupPage2(data1):
