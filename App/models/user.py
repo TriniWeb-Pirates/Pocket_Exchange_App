@@ -14,7 +14,7 @@ class User(db.Model):
     links = db.Column(db.String(120), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     reportsCount= db.Column(db.Integer, nullable=False)
-    #profile_pic
+    profile_pic= db.Column(db.BLOB(), nullable=False)
     #notifications = db.Column(db.Array(String),nullable=false)
     accounts=db.relationship('AccountInfo',backref='accountInfo',lazy=True,cascade="all, delete-orphan")
     communication=db.relationship('Message',backref='message',lazy=True,cascade="all, delete-orphan")
@@ -24,7 +24,7 @@ class User(db.Model):
     reports=db.relationship('Report',backref='report',lazy=True,cascade="all, delete-orphan")
     rates=db.relationship('Rating',backref='rating',lazy=True,cascade="all, delete-orphan")
 
-    def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio,links):
+    def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio,links,profile_pic):
         self.username = username
         self.set_password(password)
         self.firstName=firstName
@@ -36,6 +36,7 @@ class User(db.Model):
         self.links=links
         self.rating=0
         self.reportsCount=0
+        self.profile_pic=profile_pic
 
     def toJSON(self):
         return{
@@ -47,7 +48,8 @@ class User(db.Model):
             'email': self.email,
             'city': self.city,
             'Bio': self.Bio,
-            'links':self.links
+            'links':self.links,
+            'profile_pic': self.profile_pic
         }
 
     def set_password(self, password):
