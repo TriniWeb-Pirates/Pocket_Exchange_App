@@ -17,15 +17,16 @@ lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='
 def makeOfferPage():
     data=request.form
     offer=create_lendingOffer(data['lenderID'],data['item'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
-    pass
+    return jsonify(offer)
 
 @lendingOffer_views.route('/updateLendingOffer<OfferID>',methods=['POST'])
 def changeOffer(OfferID):
     data=request.form
     offer=update_Offer(OfferID,data['item'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
-    pass
+    return jsonify(offer)
 
 @lendingOffer_views.route('/removeLendingOffer<OfferID>',methods=['POST'])
 def deleteOffer(OfferID):
-    offer=remove_Offer(OfferID)
-    pass
+    data=remove_Offer(OfferID)
+    offer=get_offer_by_ID(OfferID)
+    return jsonify(offer)
