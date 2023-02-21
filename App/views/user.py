@@ -6,7 +6,8 @@ from flask_login import login_required, current_user, LoginManager
 from.index import index_views
 
 from App.controllers import (
-    create_user, 
+    create_user,
+    get_user_by_username, 
     get_all_users,
     get_all_users_json,
     login_user,
@@ -15,18 +16,37 @@ from App.controllers import (
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
+@user_views.route('/signupPage1', methods=['GET'])
+def getSignupPage1():
+    pass
+    #return render_template()
 
-@user_views.route('/add_User',methods=['POST'])
-def create_user():
-    data=request.form
+@user_views.route('/add_User_Page1',methods=['POST'])
+def create_user_page1():
+    data1=request.form
+    user=get_user_by_username(data1['username'])
+    if user:
+        flash("Username is taken please enter a new username.")
+        #return jsonify("Username is taken please enter a new username.")
+    #user=create_user(data['username'], data['password'], data['firstName'], data['lastName'], data['phoneNumber'], data['email']
+     #               , data['city'], data['Bio'], data['links'])
+    return redirect(url_for('user_views.getSignupPage2'))
+
+@user_views.route('/signupPage2<data1>', methods=['GET'])
+def getSignupPage2(data1):
+    pass
+    #return render_template(data1=data1)
+
+@user_views.route('/add_User_Page2<data1>',methods=['POST'])
+def create_user_page2(data1):
+    data2=request.form
     user=get_user_by_username(data['username'])
     if user:
         flash("Username is taken please enter a new username.")
         #return jsonify("Username is taken please enter a new username.")
-    user=create_user(data['username'], data['password'], data['firstName'], data['lastName'], data['phoneNumber'], data['email']
-                    , data['city'], data['Bio'], data['links'])
-    pass
-    #return render_template("login.html")
+    user=create_user(data1['username'], data1['password'], data1['firstName'], data1['lastName'], data2['phoneNumber'], data1['email']
+                    , data2['city'], data2['Bio'], data2['links'])
+    return jsonify(user)
 
 @user_views.route('/login',methods=['POST'])
 def loginUser():
@@ -45,10 +65,10 @@ def loginUser():
 
 
 
-@user_views.route('/users', methods=['GET'])
+@user_views.route('/getAllUsers', methods=['GET'])
 def get_user_page():
     users = get_all_users()
-    return render_template('users.html', users=users)
+    return jsonify(users)
 
 @user_views.route('/api/users', methods=['GET'])
 def get_users_action():
