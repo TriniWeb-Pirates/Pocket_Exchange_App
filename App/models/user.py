@@ -1,5 +1,6 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
+from flask_sqlalchemy import SQLAlchemy
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,6 +18,7 @@ class User(db.Model):
     #profile_pic= db.Column(db.BLOB(), nullable=True)
     #notifications = db.Column(db.Array(String),nullable=false)
     #accounts=db.relationship('AccountInfo',backref='accountInfo',lazy=True,cascade="all, delete-orphan")
+    comments=db.relationship('Comment',backref='User',lazy=True,cascade="all, delete-orphan")
     #communication=db.relationship('Message',backref='message',lazy=True,cascade="all, delete-orphan")
     #lenderOffers=db.relationship('LendingOffer',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
     #donators=db.relationship('DonationRequest',backref='donationRequest',lazy=True,cascade="all, delete-orphan")
