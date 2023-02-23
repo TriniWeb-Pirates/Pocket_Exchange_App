@@ -25,6 +25,7 @@ def testAddUser():
         flash("Username is taken please enter a new username.")
         return jsonify("Username is taken please enter a new username.")
     user=create_user(data1['username'], data1['password'], data1['firstName'], data1['lastName'], data1['phoneNumber'],data1['email'], data1['city'], data1['Bio'], data1['links'])
+    print(user.firstName)
     return jsonify(user)
 
 
