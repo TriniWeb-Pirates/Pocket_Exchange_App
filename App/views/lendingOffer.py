@@ -17,6 +17,7 @@ lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='
 def makeOfferPage():
     data=request.form
     offer=create_lendingOffer(data['lenderID'],data['item'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
+    print(offer.item)
     return jsonify(offer)
 
 @lendingOffer_views.route('/updateLendingOffer<OfferID>',methods=['POST'])
