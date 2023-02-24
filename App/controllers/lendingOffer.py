@@ -7,8 +7,8 @@ def create_lendingOffer(lenderID,item,condition,preferedLocation,Status,rulesOfU
     db.session.commit()
     return offer
 
-def get_offer_by_ID(OfferID):
-    return LendingOffer.query.filter_by(OfferID=OfferID).first()
+def get_offer_by_ID(id):
+    return LendingOffer.query.filter_by(id=id).first()
 
 def get_lender(lenderID):
     return User.query.get(lenderID)
@@ -28,7 +28,8 @@ def update_Offer(OfferID,item,condition,preferedLocation,Status,rulesOfUse):
     return offer
 
 def remove_Offer(id):
-    offer=LendingOffer.query.get(id)
+   # offer=LendingOffer.query.get(id)
+    offer=get_offer_by_ID(id)
     db.session.delete(offer)
     db.session.commit()
     return offer
