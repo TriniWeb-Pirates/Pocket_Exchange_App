@@ -27,8 +27,8 @@ def update_Offer(OfferID,item,condition,preferedLocation,Status,rulesOfUse):
     db.session.commit()
     return offer
 
-def remove_Offer(OfferID):
-    offer=LendingOffer.query.get(OfferID)
+def remove_Offer(id):
+    offer=LendingOffer.query.get(id)
     db.session.delete(offer)
     db.session.commit()
     return offer

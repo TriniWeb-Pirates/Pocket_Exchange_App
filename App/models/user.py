@@ -20,7 +20,7 @@ class User(db.Model):
     #accounts=db.relationship('AccountInfo',backref='accountInfo',lazy=True,cascade="all, delete-orphan")
     #comments=db.relationship('Comment',backref='User',lazy=True,cascade="all, delete-orphan")
     #communication=db.relationship('Message',backref='message',lazy=True,cascade="all, delete-orphan")
-    lenderOffers=db.relationship('LendingOffer',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
+    lenderOffers=db.relationship('LendingOffer',backref='user',lazy=True,cascade="all, delete-orphan")
     #donators=db.relationship('DonationRequest',backref='donationRequest',lazy=True,cascade="all, delete-orphan")
     #lendingRequests=db.relationship('LendingRequest',backref='lendingRequest',lazy=True,cascade="all, delete-orphan")
     #reports=db.relationship('Report',backref='report',lazy=True,cascade="all, delete-orphan")
