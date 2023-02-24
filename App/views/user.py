@@ -4,6 +4,8 @@ from flask_login import login_required, current_user, LoginManager
 
 #from flask_jwt import jwt_required, current_identity
 
+#testing commit
+
 from.index import index_views
 
 from App.controllers import (
