@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
 from flask import Flask, flash
 from flask_login import login_required, current_user, LoginManager
+
 #from flask_jwt import jwt_required, current_identity
 
 from.index import index_views
@@ -63,14 +64,15 @@ def create_user_page2(data1):
 
 @user_views.route('/login',methods=['POST'])
 def loginUser():
-    data=request.form
+    data=request.json
     permittedUser=authenticate(data['username'], data['password'])
     if permittedUser==None:
         flash("Wrong Credentials, Please try again")
         #return redirect(url_for(''))
     login_user(permittedUser,remember=True)
+    print("HERE")
     flash('You were successfully logged in!')
-    pass
+    return jsonify(permittedUser.username)
     #return redirect(url_for(''))
 
 

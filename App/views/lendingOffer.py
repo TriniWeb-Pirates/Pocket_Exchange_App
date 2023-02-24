@@ -14,6 +14,7 @@ from App.controllers import (
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
 
 @lendingOffer_views.route('/createLendingOfferPage',methods=['POST'])
+@login_required
 def makeOfferPage():
     data=request.json#must change json to form for web page
     offer=create_lendingOffer(data['lenderID'],data['item'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
@@ -21,6 +22,7 @@ def makeOfferPage():
     return jsonify(offer.item)
 
 @lendingOffer_views.route('/updateLendingOffer<OfferID>',methods=['POST'])
+@login_required
 def changeOffer(OfferID):
     data=request.json#must change json to form for web page
     offer=update_Offer(data['OfferID'],data['item'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
