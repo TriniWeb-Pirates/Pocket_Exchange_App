@@ -18,7 +18,7 @@ def makeOfferPage():
     data=request.form
     offer=create_lendingOffer(data['lenderID'],data['item'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
     print(offer.item)
-    return jsonify(offer)
+    return jsonify(offer.item)
 
 @lendingOffer_views.route('/updateLendingOffer<OfferID>',methods=['POST'])
 def changeOffer(OfferID):

@@ -2,7 +2,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
 
 class LendingOffer(db.Model):
-    OfferID = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     lenderID=db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
     condition= db.Column(db.String(50), nullable=False)
     item= db.Column(db.String(60), nullable=False)
@@ -24,7 +24,7 @@ class LendingOffer(db.Model):
 
     def toJSON(self):
         return{
-            'Managerid': self.Managerid,
+            'id': self.id,
             'lenderID':self.lenderID,
             'condition': self.condition,
             'item': self.item,
