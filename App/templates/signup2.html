@@ -29,20 +29,20 @@
 
                 <div class="row">
 
-                    <form class="col s12" method="POST">
+                    <form class="col s12" action="/add_User_Page2{{username}},{{password}},{{firstName}},{{lastName}},{{email}}" method="POST">
 
                         <div class="row">
 
                             <div class="input-field col s8">
-                                <input placeholder="Eg. 123-4567" id="phone_number" type="tel" class="validate"
+                                <input placeholder="Eg. 123-4567" id="phoneNumber" name="phoneNumber" type="tel" class="validate"
                                 pattern="[0-9]{3}-[0-9]{4}">
-                                 <label for="phone_number">Phone Number</label>
+                                 <label for="phoneNumber">Phone Number</label>
                             </div>
                             </div>
 
                             <div class="row">
                             <div class="input-field col s8">
-                                <select>
+                                <select name="city">
                                   <option value="" disabled selected>Choose your city</option>
                                   <option value="1">Port of Spain</option>
                                   <option value="2">Chaguanas</option>
@@ -72,7 +72,7 @@
                         <div class="row">
 
                           <div class="input-field col s8">
-                            <textarea id="biography" class="materialize-textarea"> </textarea>
+                            <textarea id="biography" name="Bio" class="materialize-textarea"> </textarea>
                             <label for="biography">Personal Biography</label>
                           </div>
                             </div>
@@ -80,7 +80,7 @@
                             <div class="row">
 
                               <div class="input-field col s8">
-                                <textarea id="social_media_links" class="materialize-textarea"> </textarea>
+                                <textarea id="social_media_links" name="links" class="materialize-textarea"> </textarea>
                                 <label for="social_media_links">Social Media Links (optional)</label>
                                </div>
                                 </div>
@@ -101,7 +101,7 @@
                                 <div class="row">
                                     
 
-                                <button  class="blue btn waves-effect waves-light" type="submit" name="action">Submit
+                                <button  class="blue btn waves-effect waves-light" type="submit" >Submit
                                     <i class="material-icons right">send</i>
                                   </button>
                                 </div>

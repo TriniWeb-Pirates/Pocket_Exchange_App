@@ -31,24 +31,14 @@
         <div class="card-action white">
 
            <div class="row">
-           <form class="col s12" method="POST">
+           <form class="col s12" action="/add_User_Page1" method="POST">
 
-            <div class="row">
-            <div class="input-field col s6">
-            <input id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label>
-          </div>
-
-          <div class="input-field col s6">
-            <input id="last_name" type="text" class="validate">
-          <label for="last_name">Last Name</label>
-          </div>
-        </div>
+            
 
             <div class="row">
             <div class="input-field col s8">
             
-                <input id="username" type="text" class="validate">
+                <input id="username" name="username" type="text" class="validate">
               <label for="username">Username</label> 
             </div>
         </div>
@@ -57,22 +47,32 @@
             <div class="row">
             <div class="input-field col s8">
             
-                <input id="password" type="text" class="validate">
+                <input id="password" name="password" type="text" class="validate">
               <label for="password">Password</label> 
             </div>
         </div>
+<div class="row">
+            <div class="input-field col s6">
+            <input id="firstName" name="firstName" type="text" class="validate">
+          <label for="firstName">First Name</label>
+          </div>
 
+          <div class="input-field col s6">
+            <input id="lastName" name="lastName" type="text" class="validate">
+          <label for="lastName">Last Name</label>
+          </div>
+        </div>
             <div class="row">
             <div class="input-field col s8">
             
-                <input id="email" type="text" class="validate">
+                <input id="email" name="email" type="text" class="validate">
               <label for="email">Email Address</label> 
             </div>
         </div>
 
             <div class="row">
 
-            <button  class="blue btn waves-effect waves-light" type="submit" name="action">Next
+            <button  class="blue btn waves-effect waves-light" type="submit">Next
                 <i class="material-icons right">navigate_next</i>
               </button>
             
