@@ -1,0 +1,151 @@
+{% extends "layout.html" %}
+{% block title %}Pocket Exchange{% endblock %}
+{% block page %}Pocket Exchange{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+<style>
+     body{
+        background-color: #0C49CF;
+    }
+
+    
+
+
+
+</style>
+   
+<div class="row">
+    <div class="col s12 m12 l12 center white" style="margin-top:15px">
+    
+        <div class="card center">
+            <div class="card-action blue" style="padding-bottom:1px; padding-top: 0px;">
+            
+            <h5 class="white-text">Contact Details</h5> </div>
+
+            <div class="card-action white">
+
+                <div class="row">
+
+                    <form class="col s12" method="POST">
+
+                        <div class="row">
+
+                            <div class="input-field col s8">
+                                <input placeholder="Eg. 123-4567" id="phone_number" type="tel" class="validate"
+                                pattern="[0-9]{3}-[0-9]{4}">
+                                 <label for="phone_number">Phone Number</label>
+                            </div>
+                            </div>
+
+                            <div class="row">
+                            <div class="input-field col s8">
+                                <select>
+                                  <option value="" disabled selected>Choose your city</option>
+                                  <option value="1">Port of Spain</option>
+                                  <option value="2">Chaguanas</option>
+                                  <option value="3">Saint Augustine</option>
+                                  <option value="4">San Fernando</option>
+                                  <option value="5">San Juan</option>
+                                  <option value="6">Arima</option>
+                                  <option value="7">Marabella</option>
+                                  <option value="8">D'abadie</option>
+                                  <option value="9">Point Fortin</option>
+                                  <option value="10">La Brea</option>
+                                  <option value="11">Tunapuna</option>
+                                  <option value="12">Gasparillo</option>
+                                  <option value="13">Sangre Grande</option>
+                                  <option value="14">Tacarigua</option>
+                                  <option value="15">Arouca</option>
+                                </select>
+                                <label>City</label>
+                              </div>
+                            </div>
+
+
+
+
+
+
+                        <div class="row">
+
+                          <div class="input-field col s8">
+                            <textarea id="biography" class="materialize-textarea"> </textarea>
+                            <label for="biography">Personal Biography</label>
+                          </div>
+                            </div>
+                        
+                            <div class="row">
+
+                              <div class="input-field col s8">
+                                <textarea id="social_media_links" class="materialize-textarea"> </textarea>
+                                <label for="social_media_links">Social Media Links (optional)</label>
+                               </div>
+                                </div>
+
+                                
+                                <div class="row">
+                                <div class="file-field input-field col s8">
+                                    <div class="btn blue"><i class="material-icons left">photo_camera</i>
+                                      <span>Photo</span>
+                                      <input type="file">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                      <input class="file-path validate" type="text" placeholder="Select a profile photo to upload (optional)">
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                    
+
+                                <button  class="blue btn waves-effect waves-light" type="submit" name="action">Submit
+                                    <i class="material-icons right">send</i>
+                                  </button>
+                                </div>
+
+                                
+                                <div class="row">
+                                  <a  class="green btn waves-effect waves-light"> Return 
+                                    <i class="material-icons left">arrow_back</i>
+                                  </a>
+                                </div>
+                                  
+
+                        
+
+
+
+
+
+
+
+
+
+                        </div>
+
+                    </form>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>document.addEventListener('DOMContentLoaded', function() {
+    var sel = document.querySelectorAll('select');
+    M.FormSelect.init(sel);
+  });
+  
+  </script>
+
+
+{% endblock %}
