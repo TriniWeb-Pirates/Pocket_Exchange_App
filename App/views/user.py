@@ -36,7 +36,7 @@ def testAddUser():
 
 @user_views.route('/', methods=['GET'])
 def getSignupPage1():
-    return render_template("signup.html")
+    return render_template("index.html")
 
 @user_views.route('/add_User_Page1',methods=['POST'])
 def create_user_page1():

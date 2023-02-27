@@ -1,10 +1,139 @@
-{% extends "layout.html" %}
-{% block title %}Pocket Exchange{% endblock %}
-{% block page %}Pocket Exchange{% endblock %}
+<!doctype html>
+<html>
+  <head>
+  
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+     <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Let browser know website is optimized for mobile-->
 
-{{ super() }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">
 
-{% block content %}
-    <h1>Flask MVC</h1>
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
-{% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Pocket Exchange</title>
+
+  </head>
+
+  <style>
+
+    @media screen and (max-width:600px) {
+      #logo{
+        font-size:20px;
+      }
+
+      #wow{
+        font-size:35px;
+      }
+
+      #cloud{
+        margin-top:20px;
+      }
+    }
+
+    @media screen and (min-width:1200px){
+        #wow{
+            margin-top:-30px;
+            
+        }
+
+        #cloud{
+            margin-top:30px;
+        }
+    }
+
+    @media screen and (min-width:601px){
+
+        #cloud{
+            margin-top:20px;
+        }
+    }
+
+    
+
+  </style>
+
+
+
+  <body>
+    <nav class="#43a047 green darken-1">
+      <div class="nav-wrapper">
+        <a href="#!" id="logo" class="brand-logo center">Pocket Exchange</a>
+        <div class="nav-wrapper">
+            <ul id="nav-mobile" class="left">
+                <li><a href="/">Home</a></li>
+                <li><a href="/users">Users Jinja</a></li>
+                <li><a href="/static/users">Users JS</a></li>
+            </ul>
+        </div>
+      </div>
+    </nav>
+    
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <nav class="white black-text" style="padding: 10px">
+        <div class="nav-wrapper">
+            <ul class="flashes">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+      </nav>
+      {% endif %}
+    {% endwith %}
+
+    <div id="content">  <!--main div-->
+
+        <div class="row" style="background-color:#0C49CF; height:55vh">  <!--blue section-->
+
+            <div class="row">
+
+            <div class="col s4 m3 l2">
+        
+            <img class="responsive-img" src="/static/images/welcome/cloud1.png">
+        
+        </div>
+
+
+        <div class="col s4 m3 l2 offset-l8 offset-m6 offset-s4">
+
+            <img id="cloud" class="responsive-img" src="/static/images/welcome/cloud2.png">
+        </div>
+
+
+
+        <div class="col s12 m8 l6 offset-l1 offset-m2 ">
+            <h2 class="center" id="wow" style="font-family:'Prata', serif; color:white;
+            text-shadow:2px 2px black;">Pocket Exchange</h2>
+        </div>
+
+    
+
+        
+
+
+    </div>
+
+
+    
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>
