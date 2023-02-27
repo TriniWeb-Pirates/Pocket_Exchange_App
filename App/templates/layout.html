@@ -12,10 +12,23 @@
     <title>{% block title %}{% endblock %}</title>
 
   </head>
+
+  <style>
+
+    @media screen and (max-width:600px) {
+      #logo{
+        font-size:20px;
+      }
+    }
+
+  </style>
+
+
+
   <body>
     <nav class="#43a047 green darken-1">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo center">{% block page %}{% endblock %}</a>
+        <a href="#!" id="logo" class="brand-logo center">{% block page %}{% endblock %}</a>
         <div class="nav-wrapper">
             <ul id="nav-mobile" class="left">
                 <li><a href="/">Home</a></li>
