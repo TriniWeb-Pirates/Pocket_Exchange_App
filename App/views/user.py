@@ -34,9 +34,9 @@ def testAddUser():
     return jsonify(user.id)
 
 
-@user_views.route('/', methods=['GET'])
+@user_views.route('/sign', methods=['GET'])
 def getSignupPage1():
-    return render_template("index.html")
+    return render_template("signup.html")
 
 @user_views.route('/add_User_Page1',methods=['POST'])
 def create_user_page1():
