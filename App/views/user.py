@@ -39,7 +39,6 @@ def getSignupPage1():
 @user_views.route('/add_User_Page1',methods=['POST'])
 def create_user_page1():
     data1=request.form
-    print(data1)
     user=get_user_by_username(data1['username'])
     username=data1['username']
     password=data1['password']
@@ -48,31 +47,38 @@ def create_user_page1():
     email=data1['email']
     if user:
         flash("Username is taken please enter a new username.")
-        #return jsonify("Username is taken please enter a new username.")
-    #user=create_user(data['username'], data['password'], data['firstName'], data['lastName'], data['phoneNumber'], data['email']
-     #               , data['city'], data['Bio'], data['links'])
-    #return redirect(url_for('user_views.getSignupPage2',data1=data1))
+        return redirect(url_for("user_views.getSignupPage1"))
     return redirect(url_for('user_views.getSignupPage2',username=username,password=password,firstName=firstName,lastName=lastName,email=email))
 
-#@user_views.route('/signupPage2<data1>', methods=['GET'])
+
 @user_views.route('/signupPage2<username>,<password>,<firstName>,<lastName>,<email>',methods=['GET'])
 def getSignupPage2(username,password,firstName,lastName,email):
     return render_template("signup2.html",username=username,password=password,firstName=firstName,lastName=lastName,email=email)
 
 @user_views.route('/add_User_Page2<username>,<password>,<firstName>,<lastName>,<email>',methods=['POST'])
 def create_user_page2(username,password,firstName,lastName,email):
-    data2=request.form
-    print(data2['links'])
-    links=data2['links']
-    #print(data1['username'])    
-    #user=create_user(data1['username'], data1['password'], data1['firstName'], data1['lastName'], data1['email'],data2["phoneNumber"],  data2['city'], data2['Bio'], data2['links'])
-    user=create_user(username,password,firstName,lastName,email,data2["phoneNumber"],  data2['city'], data2['Bio'], links)   
-    print(user.username)
-    print(user.firstName)             
-    return jsonify(user.username,user.city)
+    data2=request.form    
+    user=create_user(username,password,firstName,lastName,email,data2["phoneNumber"],  data2['city'], data2['Bio'], data2['links'])               
+    return redirect(url_for("user_views.getLoginPage"))
+
+@user_views.route('/loginPage', methods=["GET"])
+def getLoginPage():
+    return render_template("LoginPage.html")
 
 @user_views.route('/login',methods=['POST'])
 def loginUser():
+    data=request.form
+    permittedUser=authenticate(data['username'], data['password'])
+    if permittedUser==None:
+        flash("Wrong Credentials, Please try again")
+        return redirect(url_for('user_views.getLoginPage'))
+    login_user(permittedUser,remember=True)
+    flash('You were successfully logged in!')
+    return jsonify(permittedUser.username)
+
+#Testing route
+@user_views.route('/TestLogin',methods=['POST'])
+def TestloginUser():
     data=request.json
     permittedUser=authenticate(data['username'], data['password'])
     if permittedUser==None:

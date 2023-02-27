@@ -6,6 +6,20 @@
 
 {% block content %}
 
+{% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <nav class="white black-text" style="padding: 10px">
+        <div class="nav-wrapper">
+            <ul class="flashes">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+      </nav>
+      {% endif %}
+    {% endwith %}
+
 <style>
 	body {font-family: 'Times New Roman', Times, serif;}
 	form {border: 3px solid #f1f1f1;}
@@ -51,17 +65,17 @@
 	<body>
 		<h2>Pocket Exchange Login</h2>
 		
-		<form action="/userLogin" method="post">
+		<form action="/login" method="post">
 		  <div class="imgcontainer">
-		    <img class="responsive-img" id="signup" src="/static/images/Logo.png">
+		    <img class="responsive-img" id="login" src="/static/images/Logo.png">
 		  </div>
 		
 		  <div class="container">
 		    <label for="uname"><b>Username</b></label>
-		    <input type="text" placeholder="Enter Username" name="username" required>
+		    <input type="text" id="uname" placeholder="Enter Username" name="username" required>
 		
 		    <label for="psw"><b>Password</b></label>
-		    <input type="password" placeholder="Enter Password" name="password" required>
+		    <input type="password" id="psw" placeholder="Enter Password" name="password" required>
 		        
 		    <button type="submit">Login</button>
 		  </div>
