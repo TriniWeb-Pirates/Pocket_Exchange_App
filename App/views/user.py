@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
-from flask import Flask, flash
+from flask import Flask, flash,Response
 from flask_login import login_required, current_user, LoginManager
+from werkzeug.utils import secure_filename
+
 
 #from flask_jwt import jwt_required, current_identity
 
@@ -57,8 +59,11 @@ def getSignupPage2(username,password,firstName,lastName,email):
 
 @user_views.route('/add_User_Page2<username>,<password>,<firstName>,<lastName>,<email>',methods=['POST'])
 def create_user_page2(username,password,firstName,lastName,email):
-    data2=request.form    
-    user=create_user(username,password,firstName,lastName,email,data2["phoneNumber"],  data2['city'], data2['Bio'], data2['links'])               
+    data2=request.form
+    pic=request.files["profile_pic"]
+    profile_pic=secure_filename(pic.filename)
+    mimetype=pic.mimetype    
+    user=create_user(username,password,firstName,lastName,email,data2["phoneNumber"],  data2['city'], data2['Bio'], data2['links'],profile_pic=pic.read(),picName=profile_pic,mimetype=mimetype)               
     return redirect(url_for("user_views.getLoginPage"))
 
 @user_views.route('/loginPage', methods=["GET"])

@@ -18,6 +18,9 @@ class User(db.Model,UserMixin):
     rating = db.Column(db.Integer, nullable=False)
     reportsCount= db.Column(db.Integer, nullable=False)
     #profile_pic= db.Column(db.BLOB(), nullable=True)
+    profile_pic= db.Column(db.Text, nullable=True)
+    picName=db.Column(db.Text,nullable=False)
+    mimetype=db.Column(db.Text, nullable=False)
     #notifications = db.Column(db.Array(String),nullable=false)
     #accounts=db.relationship('AccountInfo',backref='accountInfo',lazy=True,cascade="all, delete-orphan")
     #comments=db.relationship('Comment',backref='User',lazy=True,cascade="all, delete-orphan")
@@ -28,7 +31,7 @@ class User(db.Model,UserMixin):
     #reports=db.relationship('Report',backref='report',lazy=True,cascade="all, delete-orphan")
     #rates=db.relationship('Rating',backref='rating',lazy=True,cascade="all, delete-orphan")
 
-    def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio,links):
+    def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio,links,profile_pic,picName,mimetype):
         self.username = username
         self.set_password(password)
         self.firstName=firstName
@@ -38,6 +41,9 @@ class User(db.Model,UserMixin):
         self.city=city
         self.Bio=Bio
         self.links=links
+        self.profile_pic=profile_pic
+        self.picName=picName
+        self.mimetype=mimetype
         self.rating=0
         self.reportsCount=0
         #self.profile_pic=profile_pic
