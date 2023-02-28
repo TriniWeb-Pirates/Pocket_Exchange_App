@@ -1,0 +1,54 @@
+{% extends "layout2.html" %}
+{% block title %}Pocket Exchange{% endblock %}
+{% block page %}Pocket Exchange{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+
+<head>
+	<title>My Simple Homepage</title>
+	<style>
+		body {
+			background-color: #f0f0f0;
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		.container {
+			max-width: 960px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+		h1 {
+			color: #333;
+			font-size: 36px;
+			margin-bottom: 20px;
+			text-align: center;
+		}
+		p {
+			color: #666;
+			font-size: 18px;
+			line-height: 1.5;
+			text-align: justify;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Donation Homepage</h1>
+	</div>
+
+	<form>
+        <div class="input-field">
+          <input id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+
+
+</body>
+
+{% endblock %}

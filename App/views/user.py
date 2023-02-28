@@ -70,6 +70,10 @@ def create_user_page2(username,password,firstName,lastName,email):
 def getLoginPage():
     return render_template("LoginPage.html")
 
+@user_views.route('/homepage', methods=['GET'])
+def gethomepage():
+    return render_template("homepage.html")
+
 @user_views.route('/login',methods=['POST'])
 def loginUser():
     data=request.form

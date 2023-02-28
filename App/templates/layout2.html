@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+  
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+     <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %}{% endblock %}</title>
+
+  </head>
+
+  <style>
+
+    @media screen and (max-width:600px) {
+      #logo{
+        font-size:20px;
+      }
+    }
+
+  </style>
+
+
+
+  <body>
+    <nav class="#43a047 green darken-1">
+      <div class="nav-wrapper">
+        <a href="#!" id="logo" class="brand-logo center">{% block page %}{% endblock %}</a>
+        <div class="nav-wrapper">
+		<a href="#" class="sidenav-trigger show-on-medium-and-up" data-target="slide_out"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="left">
+                <li><a href="/">Home</a></li>
+            <!---    <li><a href="/users">Users Jinja</a></li>
+                <li><a href="/static/users">Users JS</a></li> -->
+            </ul>
+        </div>
+      </div>
+	  
+    </nav>
+	
+	<ul class="sidenav" id="slide_out">
+	<li><a>Home</a></li>
+</ul>
+    
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <nav class="white black-text" style="padding: 10px">
+        <div class="nav-wrapper">
+            <ul class="flashes">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+      </nav>
+      {% endif %}
+    {% endwith %}
+
+    <div class="container" id="content">{% block content %}{% endblock %}</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	
+	<script>
+	const slide_menu=document.querySelectorAll(".sidenav");
+	M.Sidenav.init(slide_menu,{});
+</script>
+  </body>
+</html>
