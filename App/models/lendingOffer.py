@@ -10,7 +10,7 @@ class LendingOffer(db.Model):
     preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.String(50), nullable=False)
     RulesOfUse= db.Column(db.String(200), nullable=False)
-    
+    lenderRequests=db.relationship('LendingRequest',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
 
     def __init__(self,lenderID,condition,item,preferedLocation,Status,RulesOfUse):
         self.lenderID=lenderID
