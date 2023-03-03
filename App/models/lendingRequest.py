@@ -1,14 +1,14 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
 from datetime import date, datetime, timedelta
-#from App.models import Request
+from App.models import LendingOffer
 
 
 class LendingRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     lenderID =  db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
-    offerID= db.Column(db.Integer,db.ForeignKey('LendingOffer.id'), nullable=False)
-    item= db.Column(db.String(200),nullable=False)
+    offerID= db.Column(db.Integer,db.ForeignKey(LendingOffer.id), nullable=False)
+    preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.Boolean,nullable=False)
     quantity= db.Column(db.Integer,nullable=False)
     tempApproval=db.Column(db.Boolean,nullable=False)
@@ -18,10 +18,10 @@ class LendingRequest(db.Model):
     
     
 
-    def __init__(self,lenderID, offerID,item,Status,quantity,tempApproval ,borrowingDays, returnDate,borrowDate):
+    def __init__(self,lenderID, offerID,preferedLocation,Status,quantity,tempApproval ,borrowingDays, returnDate,borrowDate):
         self.lenderID=lenderID
         self.offerID=offerID
-        self.item=item
+        self.preferedLocation=preferedLocation
         self.Status=Status
         self.quantity=quantity
         self.tempApproval=tempApproval
@@ -35,7 +35,7 @@ class LendingRequest(db.Model):
         return{
             'lendRequestID': self.lendRequestID,
             'offerID': self.offerID,
-            'item': self.item,
+            'preferedLocation': self.preferedLocation,
             'Status': self.Status,
             'quantity': self.quantity,
             'tempApproval': self.tempApproval,
