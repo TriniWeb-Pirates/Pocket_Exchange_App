@@ -21,18 +21,6 @@ from App.controllers import (
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
-#testing route
-@user_views.route('/testAddUser',methods=['POST'])
-def testAddUser():
-    data1=request.json
-    user=get_user_by_username(data1['username'])
-    if user:
-        flash("Username is taken please enter a new username.")
-        return jsonify("Username is taken please enter a new username.")
-    user=create_user(data1['username'], data1['password'], data1['firstName'], data1['lastName'], data1['phoneNumber'],data1['email'], data1['city'], data1['Bio'], data1['links'])
-    print(user.firstName)
-    return jsonify(user.id)
-
 
 @user_views.route('/sign', methods=['GET'])
 def getSignupPage1():
@@ -70,9 +58,6 @@ def create_user_page2(username,password,firstName,lastName,email):
 def getLoginPage():
     return render_template("LoginPage.html")
 
-@user_views.route('/homepage', methods=['GET'])
-def gethomepage():
-    return render_template("homepage.html")
 
 @user_views.route('/login',methods=['POST'])
 def loginUser():
@@ -85,7 +70,24 @@ def loginUser():
     flash('You were successfully logged in!')
     return jsonify(permittedUser.username)
 
-#Testing route
+
+@user_views.route('/homepage', methods=['GET'])
+def gethomepage():
+    return render_template("homepage.html")
+
+#Testing routes
+
+@user_views.route('/testAddUser',methods=['POST'])
+def testAddUser():
+    data1=request.json
+    user=get_user_by_username(data1['username'])
+    if user:
+        flash("Username is taken please enter a new username.")
+        return jsonify("Username is taken please enter a new username.")
+    user=create_user(data1['username'], data1['password'], data1['firstName'], data1['lastName'], data1['phoneNumber'],data1['email'], data1['city'], data1['Bio'], data1['links'],data1['profile_pic'],data1['picName'],data1['mimetype'])
+    print(user.firstName)
+    return jsonify(user.id)
+
 @user_views.route('/TestLogin',methods=['POST'])
 def TestloginUser():
     data=request.json

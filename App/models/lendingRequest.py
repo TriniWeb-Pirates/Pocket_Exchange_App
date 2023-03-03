@@ -1,20 +1,20 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
-import datetime
-from App.models import Request
+from datetime import date, datetime, timedelta
+#from App.models import Request
 
 
-class LendingRequest(db.Model,Request):
-    lendRequestID = db.Column(db.Integer, primary_key=True)
+class LendingRequest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     lenderID =  db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
-    offerID= db.Column(db.Integer,db.ForeignKey('lendingOffer.id'), nullable=False)
+    offerID= db.Column(db.Integer,db.ForeignKey('LendingOffer.id'), nullable=False)
     item= db.Column(db.String(200),nullable=False)
     Status= db.Column(db.Boolean,nullable=False)
     quantity= db.Column(db.Integer,nullable=False)
     tempApproval=db.Column(db.Boolean,nullable=False)
     borrowingDays= db.Column(db.Integer, nullable=False)
-    returnDate=db.Column(db.datetime,nullable=False)
-    borrowDate=db.Column(db.datatime, nullable=False)
+    returnDate=db.Column(db.Date,nullable=False)
+    borrowDate=db.Column(db.Date, nullable=False)
     
     
 
