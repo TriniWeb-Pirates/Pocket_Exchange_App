@@ -7,7 +7,7 @@ from App.models import LendingOffer
 class LendingRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     lenderID =  db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
-    offerID= db.Column(db.Integer,db.ForeignKey(LendingOffer.id), nullable=False)
+    #offerID= db.Column(db.Integer,db.ForeignKey("lendingoffer.id"), nullable=False)
     preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.Boolean,nullable=False)
     quantity= db.Column(db.Integer,nullable=False)
