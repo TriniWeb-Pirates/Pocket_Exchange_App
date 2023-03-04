@@ -1,5 +1,6 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
+from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime, timedelta
 from App.models import LendingOffer
 
@@ -7,7 +8,7 @@ from App.models import LendingOffer
 class LendingRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     lenderID =  db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
-    #offerID= db.Column(db.Integer,db.ForeignKey("lendingoffer.id"), nullable=False)
+    #lendingoffer_ID= db.Column(db.Integer,db.ForeignKey('lendingoffer.id'), nullable=False)
     preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.Boolean,nullable=False)
     quantity= db.Column(db.Integer,nullable=False)
