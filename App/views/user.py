@@ -75,6 +75,10 @@ def loginUser():
 def gethomepage():
     return render_template("homepage.html")
 
+@user_views.route('/trending_page', methods=['GET'])
+def gettrendpage():
+    return render_template("TrendingPage.html")
+
 #Testing routes
 
 @user_views.route('/testAddUser',methods=['POST'])
