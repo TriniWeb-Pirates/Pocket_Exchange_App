@@ -1,8 +1,9 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 
-class LendingOffer(db.Model):
+class LendingOffer(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     lenderID=db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
     condition= db.Column(db.String(50), nullable=False)

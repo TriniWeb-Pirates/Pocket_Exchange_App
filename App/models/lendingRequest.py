@@ -3,9 +3,10 @@ from App.database import db
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime, timedelta
 #from App.models import LendingOffer
+from flask_login import UserMixin
 
 
-class LendingRequest(db.Model):
+class LendingRequest(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     lenderID =  db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
     #lendingoffer_ID= db.Column(db.Integer,db.ForeignKey('lendingoffer.id'), nullable=False)
