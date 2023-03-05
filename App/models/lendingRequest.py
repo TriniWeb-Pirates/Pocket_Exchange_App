@@ -2,7 +2,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime, timedelta
-from App.models import LendingOffer
+#from App.models import LendingOffer
 
 
 class LendingRequest(db.Model):
@@ -16,7 +16,7 @@ class LendingRequest(db.Model):
     borrowingDays= db.Column(db.Integer, nullable=False)
     returnDate=db.Column(db.Date,nullable=False)
     borrowDate=db.Column(db.Date, nullable=False)
-    lendingnotif=db.relationship('LendingNotification',backref='lendingRequest',lazy=True,cascade="all, delete-orphan")
+    #lendingnotif=db.relationship('LendingNotification',backref='lendingRequest',lazy=True,cascade="all, delete-orphan")
     
     
 

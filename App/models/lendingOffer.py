@@ -12,7 +12,7 @@ class LendingOffer(db.Model):
     Status= db.Column(db.String(50), nullable=False)
     RulesOfUse= db.Column(db.String(200), nullable=False)
     #lendRequests=db.relationship('LendingRequest',backref='lendingoffer',lazy=True,cascade="all, delete-orphan")
-    lendingnotif = db.relationship('LendingNotification',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
+    #lendingnotif = db.relationship('LendingNotification',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
 
     def __init__(self,lenderID,condition,item,preferedLocation,Status,RulesOfUse):
         self.lenderID=lenderID
