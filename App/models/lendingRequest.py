@@ -2,14 +2,15 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime, timedelta
-#from App.models import LendingOffer
+from App.models import LendingOffer
 from flask_login import UserMixin
 
 
 class LendingRequest(db.Model,UserMixin):
+    __tablename__="lendingrequest"
     id = db.Column(db.Integer, primary_key=True)
     lenderID =  db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
-    #lendingoffer_ID= db.Column(db.Integer,db.ForeignKey('lendingoffer.id'), nullable=False)
+    lendingoffer_ID= db.Column(db.Integer,db.ForeignKey('lendingoffer.id'), nullable=False)
     preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.Boolean,nullable=False)
     quantity= db.Column(db.Integer,nullable=False)
@@ -21,9 +22,9 @@ class LendingRequest(db.Model,UserMixin):
     
     
 
-    def __init__(self,lenderID, offerID,preferedLocation,Status,quantity,tempApproval ,borrowingDays, returnDate,borrowDate):
+    def __init__(self,lenderID, lendingoffer_ID,preferedLocation,Status,quantity,tempApproval ,borrowingDays, returnDate,borrowDate):
         self.lenderID=lenderID
-        self.offerID=offerID
+        self.lendingoffer_ID=lendingoffer_ID
         self.preferedLocation=preferedLocation
         self.Status=Status
         self.quantity=quantity
@@ -37,7 +38,7 @@ class LendingRequest(db.Model,UserMixin):
     def toJSON(self):
         return{
             'lendRequestID': self.lendRequestID,
-            'offerID': self.offerID,
+            'lendingoffer_ID': self.lendingoffer_ID,
             'preferedLocation': self.preferedLocation,
             'Status': self.Status,
             'quantity': self.quantity,
