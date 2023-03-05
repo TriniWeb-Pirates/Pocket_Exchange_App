@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 
 class LendingOffer(db.Model,UserMixin):
-    __tablename__='lendingoffer'
+    __tablename__='lendingOffer'
     id = db.Column(db.Integer, primary_key=True)
     lenderID=db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
     condition= db.Column(db.String(50), nullable=False)
@@ -14,8 +14,8 @@ class LendingOffer(db.Model,UserMixin):
     Status= db.Column(db.String(50), nullable=False)
     RulesOfUse= db.Column(db.String(200), nullable=False)
     
-    lendRequests=db.relationship('LendingRequest',backref='lendingoffer',lazy=True,cascade="all, delete-orphan")
-    lendingnotif = db.relationship('LendingNotification',backref='lendingoffer',lazy=True,cascade="all, delete-orphan")
+    lendRequests=db.relationship('LendingRequest',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
+    lendingnotif = db.relationship('LendingNotification',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
 
     def __init__(self,lenderID,condition,item,preferedLocation,Status,RulesOfUse):
         self.lenderID=lenderID

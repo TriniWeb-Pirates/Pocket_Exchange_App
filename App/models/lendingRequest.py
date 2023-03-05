@@ -7,10 +7,10 @@ from flask_login import UserMixin
 
 
 class LendingRequest(db.Model,UserMixin):
-    __tablename__='lendingrequest'
+    __tablename__='lendingRequest'
     id = db.Column(db.Integer, primary_key=True)
     lenderID =  db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
-    lendingoffer_ID= db.Column(db.Integer,db.ForeignKey('lendingoffer.id'), nullable=False)
+    lendingoffer_ID= db.Column(db.Integer,db.ForeignKey('lendingOffer.id'), nullable=False)
     preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.Boolean,nullable=False)
     quantity= db.Column(db.Integer,nullable=False)
@@ -18,7 +18,7 @@ class LendingRequest(db.Model,UserMixin):
     borrowingDays= db.Column(db.Integer, nullable=False)
     returnDate=db.Column(db.Date,nullable=False)
     borrowDate=db.Column(db.Date, nullable=False)
-    lendingnotif=db.relationship('LendingNotification',backref='lendingrequest',lazy=True,cascade="all, delete-orphan")
+    lendingnotif=db.relationship('LendingNotification',backref='lendingRequest',lazy=True,cascade="all, delete-orphan")
     
     
 
