@@ -7,9 +7,6 @@ from werkzeug.utils import secure_filename
 #from flask_jwt import jwt_required, current_identity
 
 #testing commit hello this is a user called User
-
-from.index import index_views
-
 from App.controllers import (
     create_user,
     get_user_by_username, 
@@ -19,10 +16,10 @@ from App.controllers import (
     authenticate
 )
 
-user_views = Blueprint('user_views', __name__, template_folder='../templates')
+profilepage_views = Blueprint('profilepage_views', __name__, template_folder='../templates')
 
-@user_views.route('/profilepage', methods=['GET'])
-def gethomepage():
+@profilepage_views.route('/profilepage', methods=['GET'])
+def getprofilepage():
     return render_template("ProfilePage.html")
 
 

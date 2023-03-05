@@ -8,7 +8,6 @@ from werkzeug.utils import secure_filename
 
 #testing commit hello this is a user called User
 
-from.index import index_views
 
 from App.controllers import (
     create_user,
@@ -19,10 +18,10 @@ from App.controllers import (
     authenticate
 )
 
-user_views = Blueprint('user_views', __name__, template_folder='../templates')
+leaderboard_views = Blueprint('leaderboard_views', __name__, template_folder='../templates')
 
-@user_views.route('/leaderboard', methods=['GET'])
-def gethomepage():
+@leaderboard_views.route('/leaderboard', methods=['GET'])
+def getleaderboard():
     return render_template("LeaderBoard.html")
 
 
