@@ -1,4 +1,4 @@
-from App.models import LendingRequest,User
+from App.models import LendingRequest
 from App.database import db
 
 def create_lendingRequest(lenderID,offerID,preferedLocation ,Status,quantity,tempApproval,borrowingDays,returnDate,borrowDate):
