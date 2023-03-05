@@ -8,7 +8,6 @@ from werkzeug.utils import secure_filename
 
 #testing commit hello this is a user called User
 
-from.index import index_views
 
 from App.controllers import (
     create_user,
@@ -75,9 +74,6 @@ def loginUser():
 def gethomepage():
     return render_template("homepage.html")
 
-@user_views.route('/trending_page', methods=['GET'])
-def gettrendpage():
-    return render_template("TrendingPage.html")
 
 #Testing routes
 

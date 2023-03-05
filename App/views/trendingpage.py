@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 
 #testing commit hello this is a user called User
 
-from.index import trend_views
+#from.trendingpage import trend_views
 
 from App.controllers import (
     create_user,
