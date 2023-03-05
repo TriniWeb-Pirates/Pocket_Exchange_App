@@ -2,10 +2,11 @@ from App.database import db
 from flask_sqlalchemy import SQLAlchemy
 
 class LendingNotification(db.Model):
+    __tablename__='lendingnotification'
     notificationID = db.Column(db.Integer, primary_key=True)
-   # userID = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-   # requestID = db.Column(db.Integer, db.ForeignKey('lendingRequest.id'), nullable=False)
-    #itemID = db.Column(db.Integer, db.ForeignKey('lendingOffer.id'), nullable=False)
+    userID = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    requestID = db.Column(db.Integer, db.ForeignKey('lendingrequest.id'), nullable=False)
+    itemID = db.Column(db.Integer, db.ForeignKey('lendingoffer.id'), nullable=False)
     notification = db.Column(db.String, nullable=False)
 
     def __init__(userID, requestID, itemID, notification):

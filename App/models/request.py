@@ -5,6 +5,7 @@ import datetime
 from abc import ABC, abstractmethod
 
 class Request(db.Model,ABC):
+    __tablename__='request'
     @abstractmethod
     def makeRequest(self):
         pass

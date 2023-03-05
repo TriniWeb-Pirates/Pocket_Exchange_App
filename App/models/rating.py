@@ -3,6 +3,7 @@ from App.database import db
 import datetime
 
 class Rating(db.Model):
+    __tablename__='rating'
     rateID = db.Column(db.Integer, primary_key=True)
     ratedUserID =  db.Column(db.Integer, db.Foreignkey('user.id'), nullable=False)
     rate=db.Column(db.Integer,nullable=False)

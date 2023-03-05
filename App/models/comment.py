@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import datetime
 
 class Comment(db.Model):
+    __tablename__='comment'
     id = db.Column(db.Integer, primary_key=True)
     commentedUserID =  db.Column(db.Integer,db.Foreignkey('user.id'), nullable=False)
     comment=db.Column(db.String(120),nullable=False)

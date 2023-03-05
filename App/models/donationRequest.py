@@ -4,6 +4,7 @@ import datetime
 
 
 class DonationRequest(db.Model):
+    __tablename__='donationrequest'
     donateRequestID = db.Column(db.Integer, primary_key=True)
     donatorID =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     

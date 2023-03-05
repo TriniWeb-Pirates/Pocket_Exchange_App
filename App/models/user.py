@@ -6,7 +6,7 @@ from flask_login import UserMixin
 
 
 class User(db.Model,UserMixin):
-    __tablename__="user"
+    __tablename__='user'
     id = db.Column(db.Integer, primary_key=True)
     username =  db.Column(db.String, nullable=False)
     password = db.Column(db.String(120), nullable=False)
@@ -32,7 +32,7 @@ class User(db.Model,UserMixin):
     lendingRequests=db.relationship('LendingRequest',backref='user',lazy=True,cascade="all, delete-orphan")
     #reports=db.relationship('Report',backref='report',lazy=True,cascade="all, delete-orphan")
     #rates=db.relationship('Rating',backref='rating',lazy=True,cascade="all, delete-orphan")
-    #lendingnotif=db.relationship('LendingNotification',backref='user',lazy=True,cascade="all, delete-orphan")
+    lendingnotif=db.relationship('LendingNotification',backref='user',lazy=True,cascade="all, delete-orphan")
 
     def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio,links,profile_pic,picName,mimetype):
         self.username = username
