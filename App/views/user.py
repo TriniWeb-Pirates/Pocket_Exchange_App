@@ -67,7 +67,7 @@ def loginUser():
         return redirect(url_for('user_views.getLoginPage'))
     login_user(permittedUser,remember=True)
     flash('You were successfully logged in!')
-    return jsonify(permittedUser.username)
+    return redirect(url_for("user_views.gethomepage", id=permittedUser.id))
 
 
 @user_views.route('/homepage', methods=['GET'])
