@@ -7,6 +7,13 @@ def create_lendingOffer(lenderID,item,condition,preferedLocation,Status,rulesOfU
     db.session.commit()
     return offer
 
+def getAllOffersJSON():
+    data = LendingOffer.query.all()
+    if not data:
+        return []
+    items = [offer.toJSON() for offer in data]
+    return items
+
 def get_offer_by_ID(id):
     return LendingOffer.query.filter_by(id=id).first()
 

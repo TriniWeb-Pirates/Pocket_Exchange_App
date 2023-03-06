@@ -10,6 +10,13 @@ def create_lendingRequest(lenderID,lendingoffer_ID,preferedLocation ,Status,quan
     db.session.commit()
     return request
 
+def getAllRequestsJSON():
+    data = LendingRequest.query.all()
+    if not data:
+        return []
+    items = [request.toJSON() for request in data]
+    return items
+
 def get_request_by_ID(id):
     return LendingRequest.query.filter_by(id=id).first()
     
@@ -24,6 +31,8 @@ def updateLendingRequest(id,lenderID,lendingoffer_ID,preferedLocation ,Status,qu
     request.Status=Status
     request.quantity=quantity
     request.tempApproval=tempApproval
-    request.borrowingDays=calculateBorrowingDays(borrowDate,returnDate)
+    #request.borrowingDays=calculateBorrowingDays(borrowDate,returnDate)
+    request.borrowingDays=3
     request.borrowDate=borrowDate
     request.returnDate=returnDate
+    return request

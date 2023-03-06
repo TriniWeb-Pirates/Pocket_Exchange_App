@@ -37,7 +37,7 @@ class LendingRequest(db.Model,UserMixin):
 
     def toJSON(self):
         return{
-            'lendRequestID': self.lendRequestID,
+            'lenderID': self.lenderID,
             'lendingoffer_ID': self.lendingoffer_ID,
             'preferedLocation': self.preferedLocation,
             'Status': self.Status,
