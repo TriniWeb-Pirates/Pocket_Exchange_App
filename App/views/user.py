@@ -70,8 +70,9 @@ def loginUser():
     return redirect(url_for("user_views.gethomepage", id=permittedUser.id))
 
 
-@user_views.route('/homepage', methods=['GET'])
-def gethomepage():
+@user_views.route('/homepage/<id>', methods=['GET'])
+@login_required
+def gethomepage(id):
     return render_template("homepage.html")
 
 
