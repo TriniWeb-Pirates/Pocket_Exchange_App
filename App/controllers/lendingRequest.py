@@ -12,3 +12,18 @@ def create_lendingRequest(lenderID,lendingoffer_ID,preferedLocation ,Status,quan
 
 def get_request_by_ID(id):
     return LendingRequest.query.filter_by(id=id).first()
+    
+def calculateBorrowingDays(borrowDate,returnDate):
+    #code to calculate days
+    pass
+
+
+def updateLendingRequest(id,lenderID,lendingoffer_ID,preferedLocation ,Status,quantity,tempApproval,borrowingDays, borrowDate,returnDate):
+    request=get_request_by_ID(id)
+    request.preferedLocation=preferedLocation
+    request.Status=Status
+    request.quantity=quantity
+    request.tempApproval=tempApproval
+    request.borrowingDays=calculateBorrowingDays(borrowDate,returnDate)
+    request.borrowDate=borrowDate
+    request.returnDate=returnDate

@@ -16,22 +16,22 @@ class LendingRequest(db.Model,UserMixin):
     quantity= db.Column(db.Integer,nullable=False)
     tempApproval=db.Column(db.Boolean,nullable=False)
     borrowingDays= db.Column(db.Integer, nullable=False)
-    returnDate=db.Column(db.Date,nullable=False)
     borrowDate=db.Column(db.Date, nullable=False)
+    returnDate=db.Column(db.Date,nullable=False)
     lendingnotif=db.relationship('LendingNotification',backref='lendingRequest',lazy=True,cascade="all, delete-orphan")
     
     
 
-    def __init__(self,lenderID, lendingoffer_ID,preferedLocation,Status,quantity,tempApproval ,borrowingDays, returnDate,borrowDate):
+    def __init__(self,lenderID, lendingoffer_ID,preferedLocation,Status,quantity,tempApproval ,borrowingDays, borrowDate,returnDate):
         self.lenderID=lenderID
         self.lendingoffer_ID=lendingoffer_ID
         self.preferedLocation=preferedLocation
         self.Status=Status
         self.quantity=quantity
         self.tempApproval=tempApproval
-        self.borrowingDays=borrowingDays
-        self.returnDate=returnDate
+        self.borrowingDays=0
         self.borrowDate=borrowDate
+        self.returnDate=returnDate
         
         
 
@@ -45,7 +45,7 @@ class LendingRequest(db.Model,UserMixin):
             'tempApproval': self.tempApproval,
             'lenderID': self.lenderID,
             'borrowingDays':self.borrowingDays,
-            'returnDate': self.returnDate,
-            'borrowDate': self.borrowDate
+            'borrowDate': self.borrowDate,
+            'returnDate': self.returnDate
             
         }
