@@ -24,11 +24,23 @@ def get_all_users_json():
     users = [user.toJSON() for user in users]
     return users
 
-def update_user(id, username):
+def update_user(id,username,password,firstName,lastName,email,phoneNumber,city,Bio,links,profile_pic,picName,mimetype):
     user = get_user(id)
     if user:
         user.username = username
+        user.password = password
+        user.firstName = firstName
+        user.lastName = lastName
+        user.email = email
+        user.phoneNumber = phoneNumber
+        user.city = city
+        user.Bio = Bio
+        user.links = links
+        user.profile_pic = profile_pic
+        user.picName = picName
+        user.mimetype = mimetype
         db.session.add(user)
-        return db.session.commit()
+        db.session.commit()
+        return user
     return None
     

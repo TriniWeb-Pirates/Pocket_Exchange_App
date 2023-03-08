@@ -15,7 +15,8 @@ from App.controllers import (
     get_all_users,
     get_all_users_json,
     login_user,
-    authenticate
+    authenticate,
+    update_user
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -69,6 +70,12 @@ def loginUser():
     flash('You were successfully logged in!')
     return redirect(url_for("user_views.gethomepage", id=permittedUser.id))
 
+@user_views.route('/UpdateUserProfile/<id>',methods=['PUT'])
+@login_required
+def testUpdateUser(id):
+    data=request.form
+    user=update_user(id,data['username'],data['password'],data['firstName'],data['lastName'],data['email'],data['phoneNumber'],data['city'],data['Bio'],data['links'],data['profile_pic'],data['picName'],data['mimetype'])
+    return redirect(url_for('user_views.gethomepage',id=id))
 
 @user_views.route('/homepage/<id>', methods=['GET'])
 @login_required
@@ -95,15 +102,18 @@ def TestloginUser():
     permittedUser=authenticate(data['username'], data['password'])
     if permittedUser==None:
         flash("Wrong Credentials, Please try again")
-        #return redirect(url_for(''))
+        return jsonify("Error invalid credentials")
     login_user(permittedUser,remember=True)
-    print("HERE")
     flash('You were successfully logged in!')
     return jsonify(permittedUser.username)
     #return redirect(url_for(''))
 
-
-
+@user_views.route('/testUpdateUserProfile',methods=['PUT'])
+@login_required
+def testUpdateUser():
+    data=request.json
+    user=update_user(1,data['username'],data['password'],data['firstName'],data['lastName'],data['email'],data['phoneNumber'],data['city'],data['Bio'],data['links'],data['profile_pic'],data['picName'],data['mimetype'])
+    return jsonify(user)
 
 
 
