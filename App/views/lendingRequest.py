@@ -13,7 +13,15 @@ from App.controllers import (
 
 lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_folder='../templates')
 
-
+@lendingRequests_views.route('/lendingRequestForm/<id>', methods=['GET'])
+@login_required
+def testGetLendingRequestData(id):
+    lenderID=id
+    result=countRequests(lenderID)
+    if result!=None:
+        return redirect(url_for('user_views.gethomepage',id=id))
+    return jsonify(result)
+    #return render_template()
 
 
 @lendingRequests_views.route('/CreatelendingRequest',methods=['POST'])
