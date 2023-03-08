@@ -72,7 +72,7 @@ def loginUser():
 
 @user_views.route('/UpdateUserProfile/<id>',methods=['PUT'])
 @login_required
-def testUpdateUser(id):
+def UpdateUser(id):
     data=request.form
     user=update_user(id,data['username'],data['password'],data['firstName'],data['lastName'],data['email'],data['phoneNumber'],data['city'],data['Bio'],data['links'],data['profile_pic'],data['picName'],data['mimetype'])
     return redirect(url_for('user_views.gethomepage',id=id))
