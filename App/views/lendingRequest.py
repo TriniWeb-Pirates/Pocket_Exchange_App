@@ -7,10 +7,14 @@ from App.controllers import (
     create_lendingRequest, 
     get_request_by_ID,
     updateLendingRequest,
-    getAllRequestsJSON
+    getAllRequestsJSON,
+    countRequests
 )
 
 lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_folder='../templates')
+
+
+
 
 @lendingRequests_views.route('/CreatelendingRequest',methods=['POST'])
 @login_required
@@ -23,6 +27,19 @@ def makeLendingRequestPage():
 
 
 #testing routes
+@lendingRequests_views.route('/testLendingRequestForm', methods=['GET'])
+@login_required
+def testGetLendingRequestData():
+    data=request.json
+    lenderID=data['id']
+    result=countRequests(lenderID)
+    if result!=None:
+        return jsonify(result)
+        #return redirect(url_for('user_views.gethomepage',id=id))
+    return jsonify(result)
+    #return render_template()
+
+
 @lendingRequests_views.route('/testCreatelendingRequest',methods=['POST'])
 @login_required
 def testMakeLendingRequestPage():

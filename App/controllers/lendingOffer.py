@@ -40,3 +40,5 @@ def remove_Offer(id):
     db.session.delete(offer)
     db.session.commit()
     return offer
+
+

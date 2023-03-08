@@ -14,6 +14,7 @@ from App.controllers import (
 
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
 
+
 @lendingOffer_views.route('/createLendingOfferPage',methods=['POST'])
 @login_required
 def makeOfferPage():

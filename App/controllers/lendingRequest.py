@@ -36,3 +36,13 @@ def updateLendingRequest(id,lenderID,lendingoffer_ID,preferedLocation ,Status,qu
     request.borrowDate=borrowDate
     request.returnDate=returnDate
     return request
+
+def countRequests(lenderID):
+    requests=LendingRequest.query.filter_by(lenderID=lenderID).all()
+    items = [request.toJSON() for request in requests]
+    count=0
+    for item in items:
+        count=count+1
+    if count>=3:
+        return "Maximum Lending Request Limit Reached, User Can Only Have 3 Active Lending Requests"
+    return None
