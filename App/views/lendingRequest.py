@@ -15,7 +15,7 @@ lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_fo
 
 @lendingRequests_views.route('/lendingRequestForm/<id>', methods=['GET'])
 @login_required
-def testGetLendingRequestData(id):
+def GetLendingRequestData(id):
     lenderID=id
     result=countRequests(lenderID)
     if result!=None:

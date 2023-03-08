@@ -9,7 +9,8 @@ from App.controllers import (
     get_all_offers,
     update_Offer,
     remove_Offer,
-    getAllOffersJSON
+    getAllOffersJSON,
+    getItmesByCategory
 )
 
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
@@ -18,16 +19,16 @@ lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='
 @lendingOffer_views.route('/createLendingOfferPage',methods=['POST'])
 @login_required
 def makeOfferPage():
-    data=request.form#must change json to form for web page
-    offer=create_lendingOffer(data['lenderID'],data['item'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
+    data=request.form
+    offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
     print(offer.item)
     return jsonify(offer.item)
 
 @lendingOffer_views.route('/updateLendingOffer<OfferID>',methods=['PUT'])
 @login_required
 def changeOffer(OfferID):
-    data=request.form#must change json to form for web page
-    offer=update_Offer(data['OfferID'],data['item'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
+    data=request.form
+    offer=update_Offer(data['OfferID'],data['item'], data['category'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
     return jsonify(offer.item)
 
 @lendingOffer_views.route('/removeLendingOffer<id>',methods=['POST'])
@@ -37,12 +38,27 @@ def deleteOffer(id):
     offer=get_offer_by_ID(id)
     return jsonify(offer)
 
+@lendingOffer_views.route('/GetCategoryOffers/<category>',methods=['GET'])
+@login_required
+def GetCategoryOffers(category):
+    offers=getItmesByCategory(category)
+    return jsonify(offers)
+    #return render_template()
+
+
 #TESTING ROUTES
+@lendingOffer_views.route('/testGetCategoryOffers',methods=['GET'])
+@login_required
+def testGetCategoryOffers():
+    data=request.json
+    offers=getItmesByCategory(data['category'])
+    return jsonify(offers)
+
 @lendingOffer_views.route('/testCreateLendingOfferPage',methods=['POST'])
 @login_required
 def testMakeOfferPage():
     data=request.json#must change json to form for web page
-    offer=create_lendingOffer(data['lenderID'],data['item'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
+    offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
     print(offer.item)
     return jsonify(offer.item)
 
@@ -50,7 +66,7 @@ def testMakeOfferPage():
 @login_required
 def testChangeOffer(OfferID):
     data=request.json#must change json to form for web page
-    offer=update_Offer(data['OfferID'],data['item'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
+    offer=update_Offer(data['OfferID'],data['item'],data['category'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
     return jsonify(offer.item)
 
 @lendingOffer_views.route('/testRemoveLendingOffer<id>',methods=['POST'])
