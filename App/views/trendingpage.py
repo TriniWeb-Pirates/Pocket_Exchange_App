@@ -4,10 +4,6 @@ from flask_login import login_required, current_user, LoginManager
 from werkzeug.utils import secure_filename
 
 
-#from flask_jwt import jwt_required, current_identity
-
-#testing commit hello this is a user called User
-
 #from.trendingpage import trend_views
 
 from App.controllers import (
@@ -21,17 +17,9 @@ from App.controllers import (
 
 trend_views = Blueprint('trend_views', __name__, template_folder='../templates')
 
+#Route to display trending page
 @trend_views.route('/trending_page', methods=['GET'])
 def gettrendpage():
     return render_template("TrendingPage.html")
 
 
-
-#@user_views.route('/identify', methods=['GET'])
-#@jwt_required()
-#def identify_user_action():
-#    return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
-
-#@user_views.route('/static/users', methods=['GET'])
-#def static_user_page():
-#  return send_from_directory('static', 'static-user.html')
