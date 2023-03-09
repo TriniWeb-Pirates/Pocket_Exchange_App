@@ -22,14 +22,3 @@ myitems_views = Blueprint('myitems_views', __name__, template_folder='../templat
 @myitems_views.route('/myitems', methods=['GET'])
 def getmyitems():
     return render_template("MyItems.html")
-
-
-
-#@user_views.route('/identify', methods=['GET'])
-#@jwt_required()
-#def identify_user_action():
-#    return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
-
-#@user_views.route('/static/users', methods=['GET'])
-#def static_user_page():
-#  return send_from_directory('static', 'static-user.html')
