@@ -13,6 +13,7 @@ from App.controllers import (
 
 lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_folder='../templates')
 
+#Route to retrieve lending request form page and limit number of requests made to 3 requests
 @lendingRequests_views.route('/lendingRequestForm/<id>', methods=['GET'])
 @login_required
 def GetLendingRequestData(id):
@@ -23,7 +24,7 @@ def GetLendingRequestData(id):
     return jsonify(result)
     #return render_template()
 
-
+#Route to capture lending request data to create lending request object
 @lendingRequests_views.route('/CreatelendingRequest',methods=['POST'])
 @login_required
 def makeLendingRequestPage():
@@ -35,6 +36,7 @@ def makeLendingRequestPage():
 
 
 #testing routes
+#Route to test lending request limit in Postman
 @lendingRequests_views.route('/testLendingRequestForm', methods=['GET'])
 @login_required
 def testGetLendingRequestData():
@@ -47,7 +49,7 @@ def testGetLendingRequestData():
     return jsonify(result)
     #return render_template()
 
-
+#Route to test creating a lending request 
 @lendingRequests_views.route('/testCreatelendingRequest',methods=['POST'])
 @login_required
 def testMakeLendingRequestPage():
@@ -56,6 +58,7 @@ def testMakeLendingRequestPage():
     print(lendRequest.borrowDate)
     return jsonify(lendRequest.borrowDate)
 
+#Route to test updating lending request object
 @lendingRequests_views.route('/testUpdateLendingRequest',methods=['PUT'])
 @login_required
 def testUpdateLendingRequestPage():
@@ -63,6 +66,7 @@ def testUpdateLendingRequestPage():
     lendRequest=updateLendingRequest(data['id'],data['lenderID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['borrowDate'],data['returnDate'])
     return jsonify(lendRequest.borrowDate)
 
+#Route to test retrieving all lending request objects in the database
 @lendingRequests_views.route('/testGetAllRequests', methods=['GET'])
 @login_required
 def testRetreiveAllRequests():
