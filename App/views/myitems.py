@@ -3,9 +3,6 @@ from flask import Flask, flash,Response
 from flask_login import login_required, current_user, LoginManager
 from werkzeug.utils import secure_filename
 
-
-#from flask_jwt import jwt_required, current_identity
-
 #testing commit hello this is a user called User
 
 from App.controllers import (
@@ -19,6 +16,7 @@ from App.controllers import (
 
 myitems_views = Blueprint('myitems_views', __name__, template_folder='../templates')
 
+#Route to display myItems page
 @myitems_views.route('/myitems', methods=['GET'])
 def getmyitems():
     return render_template("MyItems.html")
