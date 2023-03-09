@@ -4,11 +4,6 @@ from flask_login import login_required, current_user, LoginManager
 from werkzeug.utils import secure_filename
 
 
-#from flask_jwt import jwt_required, current_identity
-
-#testing commit hello this is a user called User
-
-
 from App.controllers import (
     create_user,
     get_user_by_username, 
@@ -21,11 +16,12 @@ from App.controllers import (
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
-
+#Route to display first signup page
 @user_views.route('/sign', methods=['GET'])
 def getSignupPage1():
     return render_template("signup.html")
 
+#Route to capture the data from the first signup page 
 @user_views.route('/add_User_Page1',methods=['POST'])
 def create_user_page1():
     data1=request.form
@@ -40,11 +36,12 @@ def create_user_page1():
         return redirect(url_for("user_views.getSignupPage1"))
     return redirect(url_for('user_views.getSignupPage2',username=username,password=password,firstName=firstName,lastName=lastName,email=email))
 
-
+#Route to display the second signup page
 @user_views.route('/signupPage2<username>,<password>,<firstName>,<lastName>,<email>',methods=['GET'])
 def getSignupPage2(username,password,firstName,lastName,email):
     return render_template("signup2.html",username=username,password=password,firstName=firstName,lastName=lastName,email=email)
 
+#Route to capture the data from the second signup page and create User object
 @user_views.route('/add_User_Page2<username>,<password>,<firstName>,<lastName>,<email>',methods=['POST'])
 def create_user_page2(username,password,firstName,lastName,email):
     data2=request.form
@@ -54,11 +51,12 @@ def create_user_page2(username,password,firstName,lastName,email):
     user=create_user(username,password,firstName,lastName,email,data2["phoneNumber"],  data2['city'], data2['Bio'], data2['links'],profile_pic=pic.read(),picName=profile_pic,mimetype=mimetype)               
     return redirect(url_for("user_views.getLoginPage"))
 
+#Route to display the login page
 @user_views.route('/loginPage', methods=["GET"])
 def getLoginPage():
     return render_template("LoginPage.html")
 
-
+#Route to capture the data from the login page and authenticate user
 @user_views.route('/login',methods=['POST'])
 def loginUser():
     data=request.form
@@ -70,6 +68,7 @@ def loginUser():
     flash('You were successfully logged in!')
     return redirect(url_for("user_views.gethomepage", id=permittedUser.id))
 
+#Route to capture new profile data to update user profile 
 @user_views.route('/UpdateUserProfile/<id>',methods=['PUT'])
 @login_required
 def UpdateUser(id):
@@ -77,6 +76,7 @@ def UpdateUser(id):
     user=update_user(id,data['username'],data['password'],data['firstName'],data['lastName'],data['email'],data['phoneNumber'],data['city'],data['Bio'],data['links'],data['profile_pic'],data['picName'],data['mimetype'])
     return redirect(url_for('user_views.gethomepage',id=id))
 
+#Route to display the homepage to the user after login in
 @user_views.route('/homepage/<id>', methods=['GET'])
 @login_required
 def gethomepage(id):
@@ -84,7 +84,7 @@ def gethomepage(id):
 
 
 #Testing routes
-
+#Route to test create user function in Postman
 @user_views.route('/testAddUser',methods=['POST'])
 def testAddUser():
     data1=request.json
@@ -96,6 +96,7 @@ def testAddUser():
     print(user.firstName)
     return jsonify(user.id)
 
+#Route to test login in Postman
 @user_views.route('/TestLogin',methods=['POST'])
 def TestloginUser():
     data=request.json
@@ -108,6 +109,7 @@ def TestloginUser():
     return jsonify(permittedUser.username)
     #return redirect(url_for(''))
 
+#Route to test update user function in Postman
 @user_views.route('/testUpdateUserProfile',methods=['PUT'])
 @login_required
 def testUpdateUser():
@@ -116,7 +118,7 @@ def testUpdateUser():
     return jsonify(user)
 
 
-
+#Route to retrieve all user objects in the database
 @user_views.route('/getAllUsers', methods=['GET'])
 def get_user_page():
     users = get_all_users()
@@ -139,14 +141,3 @@ def create_user_action():
     flash(f"User {data['username']} created!")
     create_user(data['username'], data['password'])
     return redirect(url_for('user_views.get_user_page'))
-    
-
-
-#@user_views.route('/identify', methods=['GET'])
-#@jwt_required()
-#def identify_user_action():
-#    return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
-
-#@user_views.route('/static/users', methods=['GET'])
-#def static_user_page():
-#  return send_from_directory('static', 'static-user.html')
