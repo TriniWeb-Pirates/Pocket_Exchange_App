@@ -15,7 +15,7 @@ from App.controllers import (
 
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
 
-
+#Route to capture lending offer data and create a lending offer object
 @lendingOffer_views.route('/createLendingOfferPage',methods=['POST'])
 @login_required
 def makeOfferPage():
@@ -24,6 +24,7 @@ def makeOfferPage():
     print(offer.item)
     return jsonify(offer.item)
 
+#Route to capture new lending offer data and update users lending offer
 @lendingOffer_views.route('/updateLendingOffer<OfferID>',methods=['PUT'])
 @login_required
 def changeOffer(OfferID):
@@ -31,6 +32,7 @@ def changeOffer(OfferID):
     offer=update_Offer(data['OfferID'],data['item'], data['category'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
     return jsonify(offer.item)
 
+#Route to delete a lending offer
 @lendingOffer_views.route('/removeLendingOffer<id>',methods=['POST'])
 def deleteOffer(id):
     data=request.form
@@ -38,6 +40,7 @@ def deleteOffer(id):
     offer=get_offer_by_ID(id)
     return jsonify(offer)
 
+#Route to retrieve all lending offers by category
 @lendingOffer_views.route('/GetCategoryOffers/<category>',methods=['GET'])
 @login_required
 def GetCategoryOffers(category):
@@ -47,6 +50,7 @@ def GetCategoryOffers(category):
 
 
 #TESTING ROUTES
+#Route to test retrieving offers by a category
 @lendingOffer_views.route('/testGetCategoryOffers',methods=['GET'])
 @login_required
 def testGetCategoryOffers():
@@ -54,6 +58,7 @@ def testGetCategoryOffers():
     offers=getItmesByCategory(data['category'])
     return jsonify(offers)
 
+#Route to test create lending offer 
 @lendingOffer_views.route('/testCreateLendingOfferPage',methods=['POST'])
 @login_required
 def testMakeOfferPage():
@@ -62,6 +67,7 @@ def testMakeOfferPage():
     print(offer.item)
     return jsonify(offer.item)
 
+#Route to test updating a lending offer
 @lendingOffer_views.route('/testUpdateLendingOffer<OfferID>',methods=['PUT'])
 @login_required
 def testChangeOffer(OfferID):
@@ -69,6 +75,7 @@ def testChangeOffer(OfferID):
     offer=update_Offer(data['OfferID'],data['item'],data['category'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
     return jsonify(offer.item)
 
+#Route to test deleting a lending offer
 @lendingOffer_views.route('/testRemoveLendingOffer<id>',methods=['POST'])
 def testDeleteOffer(id):
     data=request.json
@@ -76,6 +83,7 @@ def testDeleteOffer(id):
     offer=get_offer_by_ID(id)
     return jsonify(offer)
 
+#Route to test retrieving all lending offers
 @lendingOffer_views.route('/testGetAllOffers', methods=['GET'])
 @login_required
 def testRetreiveAllOffers():
