@@ -11,6 +11,16 @@
 <style>
 	body {font-family: 'Times New Roman', Times, serif;}
 	form {border: 3px solid #f1f1f1;}
+
+	.bg {
+  background-image: url("static/images/Capture.PNG");
+
+  height: 100%; 
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 	
 	input[type=text], input[type=password] {
 	  width: 100%;
@@ -51,6 +61,7 @@
 </style>
 
 	<body>
+		<div class="bg">
 		<h2 class="center">Pocket Exchange Login</h2>
 		
 		<form action="/login" method="post">
@@ -73,6 +84,7 @@
               </button>   
 		  </div>
 		</form>
+	</div>
 	</body>
 
 {% endblock %}

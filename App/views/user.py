@@ -83,7 +83,7 @@ def gethomepage(id):
     return render_template("homepage.html")
 
 #route for user profile
-@profilepage_views.route('/profilepage', methods=['GET'])
+@user_views.route('/profilepage', methods=['GET'])
 def getprofilepage():
     return render_template("ProfilePage.html")
 
