@@ -22,8 +22,10 @@ def get_all_temp_users():
     temp_users = TempUser.query.all()
     if(temp_users):
         return temp_users
-    return None
+    else:
+        return None
 
+    
 def get_all_temp_users_json():
     temp_users = TempUser.query.all()
     if not temp_users:
@@ -35,5 +37,20 @@ def delete_temp_user(id):
     temp_user = get_temp_user(id)
     db.session.delete(temp_user)
     db.session.commit()
+
+def update_temp_user(id, username, firstName, lastName, password, email):
+    temp_user = get_temp_user(id)
+    if(temp_user):
+        temp_user.username = username
+        temp_user.firstName = firstName
+        temp_user.lastName = lastName
+        temp_user.password = password
+        temp_user.email = email
+        db.session.add(temp_user)
+        db.session.commit()
+        return temp_user
+    else:
+        return None
+
 
 

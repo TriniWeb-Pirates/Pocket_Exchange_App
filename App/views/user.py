@@ -20,7 +20,8 @@ from App.controllers import (
     get_all_temp_users,
     get_temp_user_by_username,
     get_user_by_email,
-    get_user_by_phoneNumber
+    get_user_by_phoneNumber,
+    update_temp_user
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -37,11 +38,11 @@ def create_user_page1():
     user=get_user_by_username(data1['username'])
     user2 = get_user_by_email(data1['email'])
 
-    #username=data1['username']
-    #password=data1['password']
-    #firstName=data1['firstName']
-    #lastName=data1['lastName']
-    #email=data1['email']
+    username=data1['username']
+    password=data1['password']
+    firstName=data1['firstName']
+    lastName=data1['lastName']
+    email=data1['email']
     if user:
         flash("Username is taken please enter a new username.")
         return redirect(url_for("user_views.getSignupPage1"))
@@ -51,11 +52,15 @@ def create_user_page1():
         return redirect(url_for("user_views.getSignupPage1"))
     #otherwise go ahead and create new temp user 
     
-    temp_user1 = get_temp_user_by_username(data1['username'])
-    if(temp_user1==None):
-        temp_user = create_temp_user(data1['username'], data1['firstName'], data1['lastName'], data1['password'], data1['email'])
+    temp_users = get_all_temp_users()
+
+    if(temp_users==None):
+        temp_user = create_temp_user(username, firstName, lastName, password, email)
     else:
-        temp_user = temp_user1
+        intermediate = temp_users.pop()
+        id = intermediate.id
+        temp_user = update_temp_user(id, username, firstName, lastName, password, email)
+    
 
     return redirect(url_for('user_views.getSignupPage2',id=temp_user.id))
 
