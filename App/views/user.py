@@ -18,7 +18,9 @@ from App.controllers import (
     get_all_users_json,
     get_all_temp_users_json,
     get_all_temp_users,
-    get_temp_user_by_username
+    get_temp_user_by_username,
+    get_user_by_email,
+    get_user_by_phoneNumber
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -33,6 +35,8 @@ def getSignupPage1():
 def create_user_page1():
     data1=request.form
     user=get_user_by_username(data1['username'])
+    user2 = get_user_by_email(data1['email'])
+
     #username=data1['username']
     #password=data1['password']
     #firstName=data1['firstName']
@@ -40,6 +44,10 @@ def create_user_page1():
     #email=data1['email']
     if user:
         flash("Username is taken please enter a new username.")
+        return redirect(url_for("user_views.getSignupPage1"))
+    
+    if user2:
+        flash('This Email address is already taken. Please enter a new email address')
         return redirect(url_for("user_views.getSignupPage1"))
     #otherwise go ahead and create new temp user 
     
@@ -60,6 +68,12 @@ def getSignupPage2(id):
 @user_views.route('/add_User_Page2/<id>',methods=['POST'])
 def create_user_page2(id):
     data2=request.form
+
+    user = get_user_by_phoneNumber(data2['phoneNumber'])
+    if(user):
+        flash('This phone number is already taken. Please enter a different number.')
+        return redirect(url_for("user_views.getSignupPage2", id=id))
+
     pic=request.files["profile_pic"]
     profile_pic=secure_filename(pic.filename)
     mimetype=pic.mimetype    
