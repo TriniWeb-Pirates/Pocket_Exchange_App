@@ -2,6 +2,7 @@ from App.models import TempUser
 from App.database import db
 
 def create_temp_user(username, firstName, lastName, password, email):
+
     temp_user = TempUser(username=username, firstName=firstName, lastName=lastName, password=password, email=email)
     print(temp_user)
     db.session.add(temp_user)
@@ -18,7 +19,10 @@ def get_temp_user(id):
     return TempUser.query.get(id)
 
 def get_all_temp_users():
-    return TempUser.query.all()
+    temp_users = TempUser.query.all()
+    if(temp_users):
+        return temp_users
+    return None
 
 def get_all_temp_users_json():
     temp_users = TempUser.query.all()

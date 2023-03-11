@@ -11,7 +11,14 @@ from App.controllers import (
     get_all_users_json,
     login_user,
     authenticate,
-    update_user
+    update_user,
+    create_temp_user,
+    get_temp_user,
+    delete_temp_user,
+    get_all_users_json,
+    get_all_temp_users_json,
+    get_all_temp_users,
+    get_temp_user_by_username
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -26,29 +33,49 @@ def getSignupPage1():
 def create_user_page1():
     data1=request.form
     user=get_user_by_username(data1['username'])
-    username=data1['username']
-    password=data1['password']
-    firstName=data1['firstName']
-    lastName=data1['lastName']
-    email=data1['email']
+    #username=data1['username']
+    #password=data1['password']
+    #firstName=data1['firstName']
+    #lastName=data1['lastName']
+    #email=data1['email']
     if user:
         flash("Username is taken please enter a new username.")
         return redirect(url_for("user_views.getSignupPage1"))
-    return redirect(url_for('user_views.getSignupPage2',username=username,password=password,firstName=firstName,lastName=lastName,email=email))
+    #otherwise go ahead and create new temp user 
+    
+    temp_user1 = get_temp_user_by_username(data1['username'])
+    if(temp_user1==None):
+        temp_user = create_temp_user(data1['username'], data1['firstName'], data1['lastName'], data1['password'], data1['email'])
+    else:
+        temp_user = temp_user1
+
+    return redirect(url_for('user_views.getSignupPage2',id=temp_user.id))
 
 #Route to display the second signup page
-@user_views.route('/signupPage2<username>,<password>,<firstName>,<lastName>,<email>',methods=['GET'])
-def getSignupPage2(username,password,firstName,lastName,email):
-    return render_template("signup2.html",username=username,password=password,firstName=firstName,lastName=lastName,email=email)
+@user_views.route('/signupPage2/<id>',methods=['GET'])
+def getSignupPage2(id):
+    return render_template("signup2.html",id=id)
 
 #Route to capture the data from the second signup page and create User object
-@user_views.route('/add_User_Page2<username>,<password>,<firstName>,<lastName>,<email>',methods=['POST'])
-def create_user_page2(username,password,firstName,lastName,email):
+@user_views.route('/add_User_Page2/<id>',methods=['POST'])
+def create_user_page2(id):
     data2=request.form
     pic=request.files["profile_pic"]
     profile_pic=secure_filename(pic.filename)
     mimetype=pic.mimetype    
-    user=create_user(username,password,firstName,lastName,email,data2["phoneNumber"],  data2['city'], data2['Bio'], data2['links'],profile_pic=pic.read(),picName=profile_pic,mimetype=mimetype)               
+    #temp user code here now
+    temp_user = get_temp_user(id)
+    user=create_user(temp_user.username, temp_user.password, temp_user.firstName, temp_user.lastName, temp_user.email,data2["phoneNumber"],  data2['city'], data2['Bio'], data2['links'],profile_pic=pic.read(),picName=profile_pic,mimetype=mimetype)  
+    delete_temp_user(id)
+    
+    users = get_all_users_json()
+    print(users)
+
+    temp_users = get_all_temp_users_json
+    if(temp_users):
+        print(temp_users)
+    print('All temp users have been deleted')
+
     return redirect(url_for("user_views.getLoginPage"))
 
 #Route to display the login page
