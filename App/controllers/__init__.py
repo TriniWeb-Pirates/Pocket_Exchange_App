@@ -8,3 +8,4 @@ from .lendingRequest import *
 #from .message import *
 #from .rating import *
 #from .reports import *
+from .tempUser import *

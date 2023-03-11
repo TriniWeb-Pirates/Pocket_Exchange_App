@@ -20,4 +20,16 @@ def get_temp_user(id):
 def get_all_temp_users():
     return TempUser.query.all()
 
+def get_all_temp_users_json():
+    temp_users = TempUser.query.all()
+    if not temp_users:
+        return []
+    temp_users = [temp_user.toJSON() for temp_user in temp_users]
+    return temp_users
+
+def delete_temp_user(id):
+    temp_user = get_temp_user(id)
+    db.session.delete(temp_user)
+    db.session.commit()
+
 
