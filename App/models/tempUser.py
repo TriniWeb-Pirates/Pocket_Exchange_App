@@ -1,4 +1,4 @@
-From App.database import db
+from App.database import db
 
 class TempUser(db.Model):
     __tablename__='tempUser'
@@ -16,7 +16,7 @@ class TempUser(db.Model):
         self.password = password
         self.email = email
 
-     def toJSON(self):
+    def toJSON(self):
         return{
             'id':self.id,
             'username':self.username,
