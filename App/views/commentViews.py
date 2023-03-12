@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import Comment
+#from models import Comment
 
 comment_views = Blueprint('comment_views',__name__, template_folder='../templates')
 
@@ -8,14 +8,14 @@ from App.controllers import (
     getComments
 )
 
-@comment_views.route('/comments', methods=['POST'])
+@comment_views.route('/add_comments', methods=['POST'])
 def add_comment():
     name = request.json['name']
     message = request.json['message']
     comment = createComment(name, message)
     return jsonify({'message': 'Comment added successfully'})
 
-@comment_views.route('/comments', methods=['GET'])
+@comment_views.route('/get_comments', methods=['GET'])
 def get_comments():
     comments = Comment.get_all()
     result = []

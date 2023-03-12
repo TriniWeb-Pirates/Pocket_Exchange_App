@@ -7,7 +7,6 @@ def createComment(commentedUserID,comment):
     db.session.commit()
     return newComment
 
-
 def getComments(comment):
     comments = Comment.query.filter_by(comment=comment).all()
     return comments
