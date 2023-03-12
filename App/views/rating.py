@@ -4,10 +4,20 @@ from flask_login import login_required, current_user, LoginManager
 
 from App.controllers import (
     createRating,
-    retieveAllRatings
+    retieveAllRatings,
+    updateRating
 )
 
 rating_views = Blueprint('rating_views', __name__, template_folder='../templates')
+
+@rating_views.route('/AddRating/<recipientID>',methods=['POST'])
+@login_required
+def AddRatingFunc(recipientID):
+    data=request.form
+    response=createRating(recipientID,data['rate'])
+    #return redirect(url_for())
+    return jsonify(response.rate)
+
 
 
 #Testing Routes
@@ -27,3 +37,12 @@ def testGetAllRatingsFunc():
     ratings=retieveAllRatings()
     #print(response.rate)
     return jsonify(ratings)
+
+@rating_views.route('/testUpdateRating/<id>',methods=['PUT'])
+@login_required
+def testUpdateRatingFunc(id):
+    data=request.json
+    #print(id)
+    response=updateRating(data['id'],data['rate'])
+    #return redirect(url_for())
+    return jsonify(response.rate)
