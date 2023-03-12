@@ -25,7 +25,7 @@ class User(db.Model,UserMixin):
     mimetype=db.Column(db.Text, nullable=True)
     #notifications = db.Column(db.Array(String),nullable=false)
     #accounts=db.relationship('AccountInfo',backref='accountInfo',lazy=True,cascade="all, delete-orphan")
-    #comments=db.relationship('Comment',backref='User',lazy=True,cascade="all, delete-orphan")
+    comments=db.relationship('Comment',backref='user',lazy=True,cascade="all, delete-orphan")
     #communication=db.relationship('Message',backref='message',lazy=True,cascade="all, delete-orphan")
     lenderOffers=db.relationship('LendingOffer',backref='user',lazy=True,cascade="all, delete-orphan")
     #donators=db.relationship('DonationRequest',backref='donationRequest',lazy=True,cascade="all, delete-orphan")
