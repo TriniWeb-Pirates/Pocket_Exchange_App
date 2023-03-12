@@ -172,7 +172,7 @@ def testUpdateUser():
 #Route to retrieve all user objects in the database
 @user_views.route('/getAllUsers', methods=['GET'])
 def get_user_page():
-    users = get_all_users()
+    users = get_all_users_json()
     return jsonify(users)
 
 @user_views.route('/api/users', methods=['GET'])
