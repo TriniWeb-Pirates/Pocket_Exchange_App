@@ -46,3 +46,13 @@ def countRequests(lenderID):
     if count>=3:
         return "Maximum Lending Request Limit Reached, User Can Only Have 3 Active Lending Requests"
     return None
+
+def getAllOfferRequests(lendingoffer_ID):
+    requests=LendingRequest.query.filter_by(lendingoffer_ID=lendingoffer_ID).all()
+    items = [request.toJSON() for request in requests]
+    return items
+
+def grantTempApproval(id):
+    request=LendingRequest.query.get(id=id)
+    request.tempApproval=True
+    return request

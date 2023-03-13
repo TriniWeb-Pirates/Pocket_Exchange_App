@@ -8,7 +8,9 @@ from App.controllers import (
     get_request_by_ID,
     updateLendingRequest,
     getAllRequestsJSON,
-    countRequests
+    countRequests,
+    getAllOfferRequests,
+    grantTempApproval
 )
 
 lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_folder='../templates')
@@ -72,3 +74,17 @@ def testUpdateLendingRequestPage():
 def testRetreiveAllRequests():
     requests=getAllRequestsJSON()
     return requests
+
+#Route for retrieving all requests for an offer
+@lendingRequests_views.route('/testGetAllOfferRequests/<lendingoffer_ID>', methods=['GET'])
+@login_required
+def testRetreiveOfferRequests(lendingoffer_ID):
+    requests=getAllOfferRequests(lendingoffer_ID)
+    return jsonify(requests) 
+
+#Route for granting temporary approval
+@lendingRequests_views.route('/testGrantTempApproval/<id>', methods=['GET'])
+@login_required
+def testGrantTempApproval(id):
+    request=grantTempApproval(id)
+    return jsonify(request.tempApproval)
