@@ -17,6 +17,7 @@ class LendingOffer(db.Model,UserMixin):
     
     lendRequests=db.relationship('LendingRequest',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
     lendingnotif = db.relationship('LendingNotification',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
+    interestedUserList=db.relationship('Manager',backref='lendingOffer',uselist=False)
 
     def __init__(self,lenderID,condition,item,category,preferedLocation,Status,RulesOfUse):
         self.lenderID=lenderID
