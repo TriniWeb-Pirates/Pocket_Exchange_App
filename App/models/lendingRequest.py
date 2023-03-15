@@ -9,7 +9,7 @@ from flask_login import UserMixin
 class LendingRequest(db.Model,UserMixin):
     __tablename__='lendingRequest'
     id = db.Column(db.Integer, primary_key=True)
-    lenderID =  db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
+    borrowerID =  db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
     lendingoffer_ID= db.Column(db.Integer,db.ForeignKey('lendingOffer.id'), nullable=False)
     preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.Boolean,nullable=False)
@@ -22,8 +22,8 @@ class LendingRequest(db.Model,UserMixin):
     
     
 
-    def __init__(self,lenderID, lendingoffer_ID,preferedLocation,Status,quantity,tempApproval ,borrowingDays, borrowDate,returnDate):
-        self.lenderID=lenderID
+    def __init__(self,borrowerID, lendingoffer_ID,preferedLocation,Status,quantity,tempApproval ,borrowingDays, borrowDate,returnDate):
+        self.borrowerID=borrowerID
         self.lendingoffer_ID=lendingoffer_ID
         self.preferedLocation=preferedLocation
         self.Status=Status
@@ -37,7 +37,7 @@ class LendingRequest(db.Model,UserMixin):
 
     def toJSON(self):
         return{
-            'lenderID': self.lenderID,
+            'borrowerID': self.borrowerID,
             'lendingoffer_ID': self.lendingoffer_ID,
             'preferedLocation': self.preferedLocation,
             'Status': self.Status,

@@ -19,8 +19,8 @@ lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_fo
 @lendingRequests_views.route('/lendingRequestForm/<id>', methods=['GET'])
 @login_required
 def GetLendingRequestData(id):
-    lenderID=id
-    result=countRequests(lenderID)
+    borrowerID=id
+    result=countRequests(borrowerID)
     if result!=None:
         return redirect(url_for('user_views.gethomepage',id=id))
     return jsonify(result)
@@ -31,7 +31,7 @@ def GetLendingRequestData(id):
 @login_required
 def makeLendingRequestPage():
     data=request.form
-    lendRequest=create_lendingRequest(data['lenderID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['returnDate'],data['borrowDate'])
+    lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['returnDate'],data['borrowDate'])
     return jsonify(lendRequest.borrowDate)
 
 
@@ -43,8 +43,8 @@ def makeLendingRequestPage():
 @login_required
 def testGetLendingRequestData():
     data=request.json
-    lenderID=data['id']
-    result=countRequests(lenderID)
+    borrowerID=data['id']
+    result=countRequests(borrowerID)
     if result!=None:
         return jsonify(result)
         #return redirect(url_for('user_views.gethomepage',id=id))
@@ -56,7 +56,7 @@ def testGetLendingRequestData():
 @login_required
 def testMakeLendingRequestPage():
     data=request.json#must change json to form for web page
-    lendRequest=create_lendingRequest(data['lenderID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['returnDate'],data['borrowDate'])
+    lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['returnDate'],data['borrowDate'])
     print(lendRequest.borrowDate)
     return jsonify(lendRequest.borrowDate)
 
@@ -65,7 +65,7 @@ def testMakeLendingRequestPage():
 @login_required
 def testUpdateLendingRequestPage():
     data=request.json
-    lendRequest=updateLendingRequest(data['id'],data['lenderID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['borrowDate'],data['returnDate'])
+    lendRequest=updateLendingRequest(data['id'],data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['borrowDate'],data['returnDate'])
     return jsonify(lendRequest.borrowDate)
 
 #Route to test retrieving all lending request objects in the database
