@@ -19,3 +19,8 @@ def testMakeNotificationPage():
     #message="Sorry but the item you have requested is unavailable at this time, Please try again when it is made available "
     notification=createNotification(data['userID'], data['requestID'], data['itemID'])
     return jsonify(notification.itemID)
+
+@lendingNotification_views.route("/testSendNotifications/<subscriberList>", methods['GET'])
+@login_required
+def testSendNotifications(subscriberList):
+    notifyUsers(subscriberList)

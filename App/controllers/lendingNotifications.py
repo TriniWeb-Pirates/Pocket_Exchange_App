@@ -9,5 +9,8 @@ def createNotification(userID,requestID,itemID):
     db.session.commit()
     return userNotification
 
-def notifyUsers(interestedUsers):
+def notifyUsers(subscriberList):
+    for user in subscriberList:
+        if(user!=','):
+            user=int(user)
     pass
