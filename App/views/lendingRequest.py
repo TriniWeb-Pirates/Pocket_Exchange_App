@@ -85,9 +85,11 @@ def testRetreiveOfferRequests(lendingoffer_ID):
     return jsonify(requests) 
 
 #Route for granting temporary approval
-@lendingRequests_views.route('/testGrantTempApproval/<id>', methods=['GET'])
+@lendingRequests_views.route('/testGrantTempApproval', methods=['GET'])
 @login_required
-def testGrantTempApproval(id):
-    request=grantTempApproval(id)
+def testGrantTempApproval():
+    #print(id)
+    data=request.json
+    request=grantTempApproval(data['id'])
     return jsonify(request.tempApproval)
     #Code to redirect user to manager views

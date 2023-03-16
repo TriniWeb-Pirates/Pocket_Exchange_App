@@ -57,6 +57,9 @@ def getAllOfferRequests(lendingoffer_ID):
     return items
 
 def grantTempApproval(id):
-    request=LendingRequest.query.get(id=id)
+    request=LendingRequest.query.get(id)
+    print(request)
     request.tempApproval=True
+    db.session.add(request)
+    db.session.commit()
     return request

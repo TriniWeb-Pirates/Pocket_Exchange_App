@@ -37,13 +37,13 @@ class LendingRequest(db.Model,UserMixin):
 
     def toJSON(self):
         return{
+            "id":self.id,
             'borrowerID': self.borrowerID,
             'lendingoffer_ID': self.lendingoffer_ID,
             'preferedLocation': self.preferedLocation,
             'Status': self.Status,
             'quantity': self.quantity,
             'tempApproval': self.tempApproval,
-            'lenderID': self.lenderID,
             'borrowingDays':self.borrowingDays,
             'borrowDate': self.borrowDate,
             'returnDate': self.returnDate
