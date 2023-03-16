@@ -24,3 +24,5 @@ def testMakeNotificationPage():
 @login_required
 def testSendNotifications(subscriberList):
     notifyUsers(subscriberList)
+    #code to redirect user to some page
+    pass

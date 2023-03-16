@@ -15,12 +15,12 @@ manager_views = Blueprint('manager_views', __name__, template_folder='../templat
 @login_required
 def testAddUsersToList(borrowerID,lendingoffer_ID):
     interestedUsers=addToList(borrowerID, lendingoffer_ID)
-    pass
+    return jsonify(interestedUsers)
     #return redirect(url_for(""))
 
 @manager_views.route('/testSendList/<lendingoffer_ID>', methods=['GET'])
 @login_required
 def testTransmitList(lendingoffer_ID):
     subscriberList=getList(lendingoffer_ID)
-    pass
+    return jsonify(subscriberList)
     #return redirect(url_for())

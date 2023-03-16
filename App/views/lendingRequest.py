@@ -60,6 +60,7 @@ def testMakeLendingRequestPage():
     print(lendRequest.borrowDate)
     return jsonify(lendRequest.borrowDate)
     #return redirect(url_for("manager_views.testAddUsersToList"),borrowerID=data['borrowerID'],lendingoffer_ID=data['lendingoffer_ID'])
+    #Code to redirect user to manager views to add user to list
 
 #Route to test updating lending request object
 @lendingRequests_views.route('/testUpdateLendingRequest',methods=['PUT'])
@@ -89,3 +90,4 @@ def testRetreiveOfferRequests(lendingoffer_ID):
 def testGrantTempApproval(id):
     request=grantTempApproval(id)
     return jsonify(request.tempApproval)
+    #Code to redirect user to manager views

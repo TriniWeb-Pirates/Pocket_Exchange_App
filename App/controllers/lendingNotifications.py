@@ -10,7 +10,8 @@ def createNotification(userID,requestID,itemID):
     return userNotification
 
 def notifyUsers(subscriberList):
-    for user in subscriberList:
-        if(user!=','):
-            user=int(user)
-    pass
+    for value in subscriberList:
+        if(value!=','):
+            user=int(value)
+            notification=createNotification(user)
+            
