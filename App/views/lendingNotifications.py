@@ -20,7 +20,7 @@ def testMakeNotificationPage():
     notification=createNotification(data['userID'], data['requestID'], data['itemID'])
     return jsonify(notification.itemID)
 
-@lendingNotification_views.route("/testSendNotifications/<subscriberList>", methods['GET'])
+@lendingNotification_views.route("/testSendNotifications/<subscriberList>", methods=['GET'])
 @login_required
 def testSendNotifications(subscriberList):
     notifyUsers(subscriberList)

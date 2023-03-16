@@ -13,5 +13,5 @@ def notifyUsers(subscriberList):
     for value in subscriberList:
         if(value!=','):
             user=int(value)
-            notification=createNotification(user)
-            
+            pass
+            #notification=createNotification(user)
