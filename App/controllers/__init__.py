@@ -9,3 +9,4 @@ from .manager import *
 from .rating import *
 #from .reports import *
 from .tempUser import *
+from .lendingNotifications import *

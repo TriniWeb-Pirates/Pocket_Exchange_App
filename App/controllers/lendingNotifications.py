@@ -1,8 +1,13 @@
 from App.models import LendingNotification,User
 from App.database import db
 
-def notifyUsers(interestedUsers):
-    offer = LendingOffer(lenderID=lenderID,item=item,category=category,condition=condition,preferedLocation=preferedLocation,Status=Status,RulesOfUse=rulesOfUse)
-    db.session.add(offer)
+message="Sorry but the item you have requested is unavailable at this time, Please try again when it is made available "
+
+def createNotification(userID,requestID,itemID,notification):
+    userNotification=LendingNotification(userID=userID,requestID=requestID, itemID=itemID, notification=notification)
+    db.session.add(userNotification)
     db.session.commit()
-    return offer
+    return userNotification
+
+def notifyUsers(interestedUsers):
+    pass

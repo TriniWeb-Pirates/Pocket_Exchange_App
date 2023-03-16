@@ -58,7 +58,8 @@ def testMakeLendingRequestPage():
     data=request.json#must change json to form for web page
     lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['returnDate'],data['borrowDate'])
     print(lendRequest.borrowDate)
-    return redirect(url_for("manager_views.testAddUsersToList"),borrowerID=data['borrowerID'],lendingoffer_ID=data['lendingoffer_ID'])
+    return jsonify(lendRequest.borrowDate)
+    #return redirect(url_for("manager_views.testAddUsersToList"),borrowerID=data['borrowerID'],lendingoffer_ID=data['lendingoffer_ID'])
 
 #Route to test updating lending request object
 @lendingRequests_views.route('/testUpdateLendingRequest',methods=['PUT'])

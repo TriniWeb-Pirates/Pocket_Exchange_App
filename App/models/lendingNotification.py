@@ -7,9 +7,9 @@ class LendingNotification(db.Model):
     userID = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     requestID = db.Column(db.Integer, db.ForeignKey('lendingRequest.id'), nullable=False)
     itemID = db.Column(db.Integer, db.ForeignKey('lendingOffer.id'), nullable=False)
-    notification = db.Column(db.String, nullable=False)
+    notification = db.Column(db.String(200), nullable=False)
 
-    def __init__(userID, requestID, itemID, notification):
+    def __init__(self,userID, requestID, itemID, notification):
         self.userID = userID
         self.requestID = requestID
         self.itemID = itemID
