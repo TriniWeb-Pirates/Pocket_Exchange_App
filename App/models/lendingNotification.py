@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 class LendingNotification(db.Model):
     __tablename__='lendingNotification'
-    notificationID = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     userID = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     requestID = db.Column(db.Integer, db.ForeignKey('lendingRequest.id'), nullable=False)
     itemID = db.Column(db.Integer, db.ForeignKey('lendingOffer.id'), nullable=False)
@@ -17,7 +17,7 @@ class LendingNotification(db.Model):
     
     def toJSON(self):
         return{
-            'notificationID':self.notificationID,
+            'id':self.id,
             'userID':self.userID,
             'requestID':self.requestID,
             'itemID': self.itemID,
