@@ -11,7 +11,7 @@ from App.controllers import (
 manager_views = Blueprint('manager_views', __name__, template_folder='../templates')
 
 #Testing Routes
-@manager_views.route('/addToList/<borrowerID>/<lendingoffer_ID>', methods=['POST'])
+@manager_views.route('/testAddToList/<borrowerID>/<lendingoffer_ID>', methods=['POST'])
 @login_required
 def testAddUsersToList(borrowerID,lendingoffer_ID):
     interestedUsers=addToList(borrowerID, lendingoffer_ID)
