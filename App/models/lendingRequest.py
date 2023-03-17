@@ -18,7 +18,7 @@ class LendingRequest(db.Model,UserMixin):
     borrowingDays= db.Column(db.Integer, nullable=False)
     borrowDate=db.Column(db.Date, nullable=False)
     returnDate=db.Column(db.Date,nullable=False)
-    lendingnotif=db.relationship('LendingNotification',backref='lendingRequest',lazy=True,cascade="all, delete-orphan")
+    #lendingnotif=db.relationship('LendingNotification',backref='lendingRequest',lazy=True,cascade="all, delete-orphan")
     
     
 

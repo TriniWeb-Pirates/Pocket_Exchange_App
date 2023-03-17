@@ -4,7 +4,7 @@ from App.database import db
 message=" is unavailable at this time, Please try again when it is made available "
 
 #def createNotification(userID,requestID,itemID):
-def createNotification(userID,itemID):
+def createNotification(userID,itemID,message):
     #userNotification=LendingNotification(userID=userID,requestID=requestID, itemID=itemID, notification=message)
     userNotification=LendingNotification(userID=userID, itemID=itemID, notification=message)
     db.session.add(userNotification)
@@ -14,9 +14,15 @@ def createNotification(userID,itemID):
 def notifyUsers(subscriberList,lendingoffer_ID):
     offer=LendingOffer.query.get(lendingoffer_ID)
     name=str(offer.item)
-    message=name+message
+    fullMessage=name+message
     for value in subscriberList:
         if(value!=','):
             user=int(value)
-            notification=createNotification(user,lendingoffer_ID)
+            notification=createNotification(user,lendingoffer_ID,fullMessage)
             print(notification)
+    return notification
+
+def getAllNotifications():
+    items=LendingNotification.query.all()
+    data = [item.toJSON() for item in items]
+    return data

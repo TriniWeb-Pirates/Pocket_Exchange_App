@@ -9,11 +9,13 @@ class Manager(db.Model):
     lendingOfferID= db.Column(db.Integer,db.ForeignKey('lendingOffer.id'), unique=True, nullable=False)
     InterestedUserList= db.Column(db.Text, nullable=True)
    
-    def __init__(self,InterestedUserList):
+    def __init__(self,lendingOfferID,InterestedUserList):
+        self.lendingOfferID=lendingOfferID
         self.InterestedUserList=InterestedUserList
 
     def toJSON(self):
         return{
             'id': self.id,
+            'lendingOfferID':self.lendingOfferID,
             'InterestedUserList': self.InterestedUserList
         }
