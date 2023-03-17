@@ -90,6 +90,6 @@ def testRetreiveOfferRequests(lendingoffer_ID):
 def testGrantTempApproval():
     #print(id)
     data=request.json
-    request=grantTempApproval(data['id'])
-    return jsonify(request.tempApproval)
-    #Code to redirect user to manager views
+    lendingRequest=grantTempApproval(data['id'])
+    return jsonify(lendingRequest.tempApproval)
+    #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)

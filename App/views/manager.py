@@ -23,4 +23,4 @@ def testAddUsersToList(borrowerID,lendingoffer_ID):
 def testTransmitList(lendingoffer_ID):
     subscriberList=getList(lendingoffer_ID)
     return jsonify(subscriberList)
-    #return redirect(url_for())
+    #return redirect(url_for(),lendingoffer_ID=lendingoffer_ID)
