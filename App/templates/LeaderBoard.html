@@ -7,8 +7,35 @@
 {% block content %}
 
 <head>
-    <title>Trending Items</title>
-  </head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <h3>Leaderboard</h3>
+    <div class="row">
+      {% for item in items %}
+      <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-image">
+            <img src="{{ item.image_url }}" alt="{{ item.name }}">
+            <span class="card-title">{{ item.name }}</span>
+          </div>
+          <div class="card-content">
+            <p>{{ item.description }}</p>
+          </div>
+          <div class="card-action">
+            <a href="{{ url_for('item', item_id=item.id) }}" class="btn waves-effect waves-light">Check Item</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
 
 
 
