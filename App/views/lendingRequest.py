@@ -99,6 +99,6 @@ def testRetreiveOfferRequests(lendingoffer_ID):
 def testGrantTempApproval():
     
     data=request.json
-    lendingRequest=grantTempApproval(data['id'])
-    return jsonify(lendingRequest.tempApproval)
+    lendingRequest=grantTempApproval(data['id'],data['borrowerID'])
+    return jsonify(lendingRequest)
     #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)

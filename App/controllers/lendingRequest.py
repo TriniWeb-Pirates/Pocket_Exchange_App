@@ -70,10 +70,16 @@ def getAllOfferRequests(lendingoffer_ID):
     items = [request.toJSON() for request in requests]
     return items
 
-def grantTempApproval(id):
+#grantApproval must be revised
+def grantTempApproval(id,borrowerID):
     request=LendingRequest.query.get(id)
-    #print(request)
-    request.tempApproval=True
-    db.session.add(request)
-    db.session.commit()
-    return request
+    validUser=User.query.get(borrowerID)
+    if(validUser==None):
+        return "Approval denied, user does not exist"
+    if(request.borrowerID!=borrowerID):
+        request.tempApproval=True
+        db.session.add(request)
+        db.session.commit()
+        return "Approval Granted"
+    else:
+        return "Approval denied, users can not approve their own lending requests"
