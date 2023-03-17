@@ -8,6 +8,7 @@ from App.controllers import (
     get_request_by_ID,
     updateLendingRequest,
     getAllRequestsJSON,
+    getAllUserRequestsJSON,
     countRequests,
     getAllOfferRequests,
     grantTempApproval
@@ -58,7 +59,7 @@ def testMakeLendingRequestPage():
     data=request.json#must change json to form for web page
     lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['returnDate'],data['borrowDate'])
     #print(lendRequest.borrowDate)
-    return jsonify(lendRequest.preferedLocation)
+    return jsonify(lendRequest)
     #return redirect(url_for("manager_views.testAddUsersToList"),borrowerID=data['borrowerID'],lendingoffer_ID=data['lendingoffer_ID'])
     #Code to redirect user to manager views to add user to list
 
@@ -77,6 +78,14 @@ def testRetreiveAllRequests():
     requests=getAllRequestsJSON()
     return requests
 
+#Route to test retrieving all lending request objects in the database
+@lendingRequests_views.route('/testGetAllUserRequests/<borrowerID>', methods=['GET'])
+@login_required
+def testRetreiveAllUserRequests(borrowerID):
+    requests=getAllUserRequestsJSON(borrowerID)
+    return requests
+
+
 #Route for retrieving all requests for an offer
 @lendingRequests_views.route('/testGetAllOfferRequests/<lendingoffer_ID>', methods=['GET'])
 @login_required
@@ -88,7 +97,7 @@ def testRetreiveOfferRequests(lendingoffer_ID):
 @lendingRequests_views.route('/testGrantTempApproval', methods=['GET'])
 @login_required
 def testGrantTempApproval():
-    #print(id)
+    
     data=request.json
     lendingRequest=grantTempApproval(data['id'])
     return jsonify(lendingRequest.tempApproval)

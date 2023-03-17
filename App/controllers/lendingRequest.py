@@ -1,21 +1,35 @@
-from App.models import LendingRequest, LendingOffer
+from App.models import LendingRequest, LendingOffer,User
 from App.database import db
 from datetime import datetime
 
 def create_lendingRequest(borrowerID,lendingoffer_ID,preferedLocation ,Status,quantity,tempApproval,borrowingDays,returnDate,borrowDate):
     returnDate=datetime.date(datetime.strptime(returnDate, "%Y-%m-%d"))
     borrowDate=datetime.date(datetime.strptime(borrowDate, "%Y-%m-%d"))
+    validUser=User.query.get(borrowerID)
+    if(validUser==None):
+        return "Request denied, user does not exist"
+    validOffer=LendingOffer.query.get(lendingoffer_ID)
+    if(validOffer==None):
+        return "Request denied, lending offer does not exist"
     data=LendingOffer.query.filter_by(id=lendingoffer_ID,lenderID=borrowerID).first()
+    #data=LendingOffer.query.get(lendingoffer_ID)
     if(data==None):
         request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,preferedLocation=preferedLocation,Status=Status,quantity=quantity,tempApproval=tempApproval,borrowingDays=borrowingDays,returnDate=returnDate,borrowDate=borrowDate)
         db.session.add(request)
         db.session.commit()
-        return request
+        return "Lending request created"
     else:
         return "Request denied, user can not request their own lending offer"
 
 def getAllRequestsJSON():
     data = LendingRequest.query.all()
+    if not data:
+        return []
+    items = [request.toJSON() for request in data]
+    return items
+
+def getAllUserRequestsJSON(borrowerID):
+    data = LendingRequest.query.filter_by(borrowerID=borrowerID).all()
     if not data:
         return []
     items = [request.toJSON() for request in data]
@@ -58,7 +72,7 @@ def getAllOfferRequests(lendingoffer_ID):
 
 def grantTempApproval(id):
     request=LendingRequest.query.get(id)
-    print(request)
+    #print(request)
     request.tempApproval=True
     db.session.add(request)
     db.session.commit()
