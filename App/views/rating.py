@@ -22,14 +22,12 @@ def AddRatingFunc(recipientID):
 
 #Testing Routes
 #Route to capture rating data and rate an experience with another user
-@rating_views.route('/testAddRating',methods=['POST'])
+@rating_views.route('/testAddRating/<id>/<recipientID>',methods=['POST'])
 @login_required
-def testAddRatingFunc():
+def testAddRatingFunc(id,recipientID):
     data=request.json
-    #print(data['recipientID'])
-    response=createRating(data['recipientID'],data['rate'])
-    #print(response.rate)
-    return jsonify(response.rate)
+    response=createRating(data['id'],data['recipientID'],data['rate'])
+    return jsonify(response)
 
 @rating_views.route('/testDisplayAllRatings',methods=['GET'])
 @login_required
