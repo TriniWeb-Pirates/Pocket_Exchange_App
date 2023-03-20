@@ -10,3 +10,4 @@ from .rating import *
 #from .reports import *
 from .tempUser import *
 from .lendingNotifications import *
+from .leaderboard import *

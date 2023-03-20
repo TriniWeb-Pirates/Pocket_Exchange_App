@@ -5,14 +5,10 @@ from App.controllers import (
     get_all_users_json
 )
 size=10
+def leaderboardCriteria(users):
+    return users['rating']
 
 def createLeaderboard():
     users=get_all_users_json()
-    info=users.sort(reverse=True,key=leaderboardCriteria())
-    print(info)
-    return info
-
-def leaderboardCriteria(data):
-    return data['rating']
-
-
+    users.sort(reverse=True,key=leaderboardCriteria)
+    return users
