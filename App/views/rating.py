@@ -26,7 +26,7 @@ def AddRatingFunc(recipientID):
 @login_required
 def testAddRatingFunc():
     data=request.json
-    print(data['recipientID'])
+    #print(data['recipientID'])
     response=createRating(data['recipientID'],data['rate'])
     #print(response.rate)
     return jsonify(response.rate)
