@@ -123,9 +123,9 @@ def UpdateUser(id):
     return redirect(url_for('user_views.gethomepage',id=id))
 
 #Route to display the homepage to the user after login in
-@user_views.route('/homepage/<id>', methods=['GET'])
+@user_views.route('/homepage', methods=['GET'])
 @login_required
-def gethomepage(id):
+def gethomepage():
     return render_template("homepage.html")
 
 #route for user profile
