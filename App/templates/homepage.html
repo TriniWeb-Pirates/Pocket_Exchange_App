@@ -10,39 +10,18 @@
 <head>
 	<title>My Homepage</title>
 	<style>
-		body {
-			background-color: #0040c1;
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-		}
-		.container {
-			max-width: 960px;
-			margin: 0 auto;
-			padding: 20px;
-		}
-		h1 {
-			color: #333;
-			font-size: 36px;
-			margin-bottom: 20px;
-			text-align: center;
-		}
-		p {
-			color: #666;
-			font-size: 18px;
-			line-height: 1.5;
-			text-align: justify;
-		}
+		
+		@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500;600&family=Frank+Ruhl+Libre:wght@400;500&family=Prata&display=swap');
+		
+		
 
 		/* all other page style elements will go here */ 
 
-		@import url("https://fonts.googleapis.com/css?family=Montserrat:700");
 .hero {
   background-color: #0040C1;
   position: relative;
   height: 100vh;
   overflow: hidden;
-  font-family: "Montserrat", sans-serif;
 }
 
 .hero__title {
@@ -124,6 +103,52 @@
 }
 
 
+/*Dealing with carousel stuff now */
+
+
+
+
+body{
+  background-color:#b71c1c;
+  color:white;
+}
+
+
+
+
+h4, h5{
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight:500;
+}
+
+
+
+
+
+
+.carousel{
+  perspective:250px;
+  margin-top:-110px;
+}
+
+
+.carousel .carousel-item{
+  width:250px;
+  height:auto;
+  background-color:#66bb6a; 
+  
+}
+
+.carousel .carousel-item img{
+  height:100%;
+  padding:5px;
+  
+}
+
+
+
+
+
 
 
 	</style>
@@ -131,8 +156,8 @@
 <body>
 
 	<div class="hero"> 
-		<div class="hero__title">Squares Animation</div>
-		<div class="cube"></div>
+		
+		
 		<div class="cube"></div>
 		<div class="cube"></div>
 		<div class="cube"></div>
@@ -143,21 +168,57 @@
 
     <div class="container">
 	
-		<h1>Donation Homepage</h1>
+      <h4 class="center">All Items </h4>
+      <br>
+      
 
-	<form>
-        <div class="input-field">
-          <input id="search" type="search" required>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
+    <nav>
+      <div class="nav-wrapper white">
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" required>
+            <label class="label-icon" for="search"><i class="material-icons black-text">search</i></label>
+            <i class="material-icons">close</i>
+          </div>
+        </form>
+      </div>
+    </nav>
 
+  <br>
+    <div class="row">
+    <h5 class='center'>Please select your desired category:</h5>
+
+    <!--carousel starts here-->
+
+
+  <div class="carousel">
+    <a class="carousel-item card" href="#one!"><img src="furniture.jpg">
+    <h5 class="black-text center">Furniture</h5>
+      <div class="card-action white center">
+        <button class="waves-effect waves-light btn">Select</button>
+      </div>
+    </a>
+
+    
+    <a class="carousel-item" href="#two!"><img src="stationery.png"><h5 class="black-text center">Stationery</h5></a>
+    <a class="carousel-item" href="#three!"><img src="tools.jpg"><h5 class="black-text center">Tools</h5></a>
+    
+  </div>
+
+</div>
 	  
 	</div>
 
 </div>
 
 </body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.carousel');
+  M.Carousel.init(elems);
+});
+
+</script>
 
 {% endblock %}
