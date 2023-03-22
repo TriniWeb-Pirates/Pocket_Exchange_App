@@ -24,6 +24,12 @@ def makeOfferPage():
     print(offer.item)
     return jsonify(offer.item)
 
+
+@lendingOffer_views.route('/addItem', methods=['GET'])
+@login_required
+def getLendingOfferPage():
+    return render_template('addNewItem.html')
+
 #Route to capture new lending offer data and update users lending offer
 @lendingOffer_views.route('/updateLendingOffer<OfferID>',methods=['PUT'])
 @login_required
