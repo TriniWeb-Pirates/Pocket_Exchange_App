@@ -11,7 +11,8 @@ from App.controllers import (
     getAllUserRequestsJSON,
     countRequests,
     getAllOfferRequests,
-    grantTempApproval
+    grantTempApproval,
+    changeStatus
 )
 
 lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_folder='../templates')
@@ -94,11 +95,19 @@ def testRetreiveOfferRequests(lendingoffer_ID):
     return jsonify(requests) 
 
 #Route for granting temporary approval
-@lendingRequests_views.route('/testGrantTempApproval', methods=['GET'])
+@lendingRequests_views.route('/testGrantTempApproval', methods=['PUT'])
 @login_required
 def testGrantTempApproval():
-    
     data=request.json
-    lendingRequest=grantTempApproval(data['id'],data['borrowerID'])
+    lendingRequest=grantTempApproval(data['id'],current_user.id,data['status'])
+    return jsonify(lendingRequest)
+    #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
+
+#Route for changing request status
+@lendingRequests_views.route('/testChangeStatus', methods=['PUT'])
+@login_required
+def testStatusChange():
+    data=request.json
+    lendingRequest=changeStatus(data['id'],current_user.id,data['status'])
     return jsonify(lendingRequest)
     #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)

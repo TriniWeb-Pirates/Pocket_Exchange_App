@@ -71,15 +71,23 @@ def getAllOfferRequests(lendingoffer_ID):
     return items
 
 #grantApproval must be revised
-def grantTempApproval(id,borrowerID):
+def grantTempApproval(id,userID,status):
     request=LendingRequest.query.get(id)
-    validUser=User.query.get(borrowerID)
-    if(validUser==None):
-        return "Approval denied, user does not exist"
-    if(request.borrowerID!=borrowerID):
-        request.tempApproval=True
+    if(request.borrowerID!=userID):
+        request.tempApproval=status
         db.session.add(request)
         db.session.commit()
-        return "Approval Granted"
+        #return "Approval Granted"
+        return request.toJSON()
     else:
         return "Approval denied, users can not approve their own lending requests"
+
+def changeStatus(id,userID,status):
+    lendingRequest=LendingRequest.query.get(id)
+    print(lendingRequest.tempApproval==True)
+    if(lendingRequest.tempApproval==True and lendingRequest.borrowerID!=userID):
+        lendingRequest.Status=status
+        offer=LendingOffer.query.get(lendingRequest.lendingoffer_ID)
+        offer.Status=status
+        return lendingRequest.toJSON()
+    return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"
