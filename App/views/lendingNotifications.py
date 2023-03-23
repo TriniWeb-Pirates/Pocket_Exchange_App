@@ -36,3 +36,9 @@ def testGetData():
     notifications=getAllNotifications()
     #code to redirect user to some page
     return jsonify(notifications)
+
+
+@lendingNotification_views.route('/notifications', methods=['GET'])
+@login_required
+def getNotificationPage():
+    return render_template('notificationsPage.html')
