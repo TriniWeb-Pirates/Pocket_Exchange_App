@@ -52,7 +52,7 @@ body{
 <form>  <!--inside the form-->
  
     <div class="row">
-    <div class="col s8 offset-s2">
+    <div class="col l8 offset-l2 s12">
     <div class="input-field">
         <input required id="name" type="text" class="validate" name="name">
         <label for="name">Item Name</label>
@@ -63,7 +63,7 @@ body{
 
 
 <div class="row">
-    <div class="input-field col s8 offset-s2">
+    <div class="input-field col l8 offset-l2 s12">
       <select name="category" required>
         <option value="" disabled selected>Choose your Category</option>
         <option value="Books">Books</option>
@@ -84,7 +84,7 @@ body{
 
 
     <div class="row">
-    <div class="input-field col s8 offset-s2">
+    <div class="input-field col l8 offset-l2 s12">
         <textarea name="description" required id="description" class="materialize-textarea"></textarea>
         <label for="description">Description</label>
       </div>
@@ -93,20 +93,20 @@ body{
       
 
       <div class="row">
-      <div class="file-field input-field col s8 offset-s2">
+      <div class="file-field input-field col l8 offset-l2 s12">
         <div class="btn red accent-4">
           <span>File</span>
           <input name="image" required type="file" multiple>
         </div>
         <div class="file-path-wrapper">
-          <input class="file-path validate" type="text" placeholder="Upload your item image here">
+          <input class="file-path validate" type="text" placeholder="Upload your item image">
         </div>
       </div>
     </div>
 
 
       <div class="row">
-      <div class="input-field col s8 offset-s2" style="margin-bottom:30px;">
+      <div class="input-field col l8 offset-l2 s12" style="margin-bottom:30px;">
         <textarea name="rules_of_use" required id="rules_of_use" class="materialize-textarea"></textarea>
         <label for="rules_of_use">Rules of Use</label>
       </div>
@@ -118,13 +118,13 @@ body{
 
      
         <div class="row">
-            <div class="col s4 offset-s2">
+            <div class="col l4 offset-l2 s12">
         <label for="time">Borrow Time Period for Item (between 1 and 200):</label>
         <input style="margin-top:3px" name="time_number" required type="number"  min="1" max="200">
         
         </div>
 
-        <div class="col s4">
+        <div class="col l4 s12">
             <p>
                 <label> Units
                   <input class="with-gap" value="days" name="time_units" type="radio" checked />
@@ -151,7 +151,7 @@ body{
 
 
     <div class="row">
-        <div class="input-field col s8 offset-s2" style="margin-top:25px;">
+        <div class="input-field col l8 offset-l2 s12" style="margin-top:25px;">
           <select required name="condition" required>
             <option value="" disabled selected>Select your item's condition</option>
             <option value="Poor">Poor</option>
@@ -168,7 +168,7 @@ body{
 
       <div class="row">
        
-        <div class="col s8 offset-s2 input-field">
+        <div class="col l8 offset-l2 s12 input-field">
             
                 <input id="meetup_location" type="text" class="validate">
                 <label for="meetup_location">Preferred Meetup Location</label>
@@ -178,7 +178,15 @@ body{
 
       </div>
 
+
+      <button style="width:150px;" class="btn waves-effect waves-light red accent-4" name="action" type="submit">
+        Submit</button>
+       
 </form>
+
+<br>
+<a style="width:150px" class="green darken-1 waves-effect waves-light btn"><i class="material-icons left">arrow_back</i>Return</a>
+
 
 
 
