@@ -8,9 +8,13 @@
 
 <style>
 
+body{
+    background-color: #0040c1;
 
-    body{
-        background-color: #0040c1;
+}
+
+    h5{
+        
         font-family: 'Frank Ruhl Libre', serif;
   font-weight:500;
     }
@@ -43,19 +47,164 @@
 </div>
 
 
+<div class="row">  <!--make a next row-->
 
-
-
+<form>  <!--inside the form-->
+ 
+    <div class="row">
+    <div class="col s8 offset-s2">
+    <div class="input-field">
+        <input required id="name" type="text" class="validate" name="name">
+        <label for="name">Item Name</label>
+      </div>
     </div>
 </div>
 
 
 
+<div class="row">
+    <div class="input-field col s8 offset-s2">
+      <select name="category" required>
+        <option value="" disabled selected>Choose your Category</option>
+        <option value="Books">Books</option>
+        <option value="Stationery">Stationery</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Home Appliances">Home Appliances</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Tools">Tools</option>
+        <option value="Cosmetics">Cosmetics</option>
+        <option value="Furniture">Furniture</option>
+        <option value="Miscellaneous">Miscellaneous</option>
+      </select>
+      <label>Category</label>
+    </div>
+  </div>
+
+
+
+
+    <div class="row">
+    <div class="input-field col s8 offset-s2">
+        <textarea name="description" required id="description" class="materialize-textarea"></textarea>
+        <label for="description">Description</label>
+      </div>
+      </div>
+      
+      
+
+      <div class="row">
+      <div class="file-field input-field col s8 offset-s2">
+        <div class="btn red accent-4">
+          <span>File</span>
+          <input name="image" required type="file" multiple>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" placeholder="Upload your item image here">
+        </div>
+      </div>
+    </div>
+
+
+      <div class="row">
+      <div class="input-field col s8 offset-s2">
+        <textarea name="rules_of_use" required id="rules_of_use" class="materialize-textarea"></textarea>
+        <label for="rules_of_use">Rules of Use</label>
+      </div>
+    </div>
+      
+
+
+
+
+     
+        <div class="row">
+            <div class="col s4 offset-s2">
+        <label for="time">Borrow Time Period for Item (between 1 and 200):</label>
+        <input name="time_number" required type="number"  min="1" max="200">
+        
+        </div>
+
+        <div class="col s4">
+            <p>
+                <label> Units
+                  <input class="with-gap" value="days" name="time_units" type="radio" checked />
+                  <span>Days</span>
+                </label>
+              
+
+              
+                <label>
+                  <input class="with-gap" value="months" name="time_units" type="radio"  />
+                  <span>Months</span>
+                </label>
+              
+
+              
+                <label>
+                  <input class="with-gap" value="years" name="time_units" type="radio"  />
+                  <span>Years</span>
+                </label>
+              </p>
+        </div>
+      
+    </div>
+
+
+    <div class="row">
+        <div class="input-field col s8 offset-s2">
+          <select required name="condition" required>
+            <option value="" disabled selected>Select your item's condition</option>
+            <option value="Poor">Poor</option>
+            <option value="Fair">Fair</option>
+            <option value="Good">Good</option>
+            <option value="Very Good">Very Good</option>
+            <option value="Excellent">Excellent</option>
+          </select>
+          <label>Condition</label>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+       
+        <div class="col s8 offset-s2 input-field">
+            
+                <input id="meetup_location" type="text" class="validate">
+                <label for="meetup_location">Preferred Meetup Location</label>
+              
+        </div>
+
+
+      </div>
+
+</form>
 
 
 
 
 </div>
+
+
+
+
+    </div>  <!--for white card content-->
+</div>      <!--for container-->
+
+
+
+
+
+
+
+</div>
+
+<script>document.addEventListener('DOMContentLoaded', function() {
+    var sel = document.querySelectorAll('select');
+    M.FormSelect.init(sel);
+  });
+  
+  </script>
 
 
 {% endblock %}
