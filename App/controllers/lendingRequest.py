@@ -84,10 +84,19 @@ def grantTempApproval(id,userID,status):
 
 def changeStatus(id,userID,status):
     lendingRequest=LendingRequest.query.get(id)
-    print(lendingRequest.tempApproval==True)
+    
     if(lendingRequest.tempApproval==True and lendingRequest.borrowerID!=userID):
         lendingRequest.Status=status
         offer=LendingOffer.query.get(lendingRequest.lendingoffer_ID)
         offer.Status=status
+        return lendingRequest.toJSON()
+    return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"
+
+def changeIsReturned(id,userID,isReturned):
+    lendingRequest=LendingRequest.query.get(id)
+    if(lendingRequest.tempApproval==True and lendingRequest.Status==True and lendingRequest.borrowerID!=userID):
+        lendingRequest.isReturned=isReturned
+        offer=LendingOffer.query.get(lendingRequest.lendingoffer_ID)
+        offer.Status=False
         return lendingRequest.toJSON()
     return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"
