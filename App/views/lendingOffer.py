@@ -20,7 +20,10 @@ lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='
 @login_required
 def makeOfferPage():
     data=request.form
-    offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
+    pic=request.files["itemPic"]
+    itemPic=secure_filename(pic.filename)
+    mimetype=pic.mimetype
+    #offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],itemPic=pic.read(),itemPicName=itemPic,mimetype=mimetype,data['condition'],data['preferedLocation'],data['rulesOfUse'])
     print(offer.item)
     return jsonify(offer.item)
 
@@ -69,7 +72,7 @@ def testGetCategoryOffers():
 @login_required
 def testMakeOfferPage():
     data=request.json#must change json to form for web page
-    offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
+    offer=create_lendingOffer(data['lenderID'],data['item'],data['itemDescription'],data['category'],data['itemPic'],data['itemPicName'],data['mimetype'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
     print(offer.item)
     return jsonify(offer.item)
 

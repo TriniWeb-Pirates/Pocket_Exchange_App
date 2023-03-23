@@ -19,20 +19,20 @@ class User(db.Model,UserMixin):
     links = db.Column(db.String(120), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     reportsCount= db.Column(db.Integer, nullable=False)
-    #profile_pic= db.Column(db.BLOB(), nullable=True)
     profile_pic= db.Column(db.Text, nullable=True)
     picName=db.Column(db.Text,nullable=True)
     mimetype=db.Column(db.Text, nullable=True)
-    #notifications = db.Column(db.Array(String),nullable=false)
-    #accounts=db.relationship('AccountInfo',backref='accountInfo',lazy=True,cascade="all, delete-orphan")
+    
     comments=db.relationship('Comment',backref='user',lazy=True,cascade="all, delete-orphan")
-    #communication=db.relationship('Message',backref='message',lazy=True,cascade="all, delete-orphan")
     lenderOffers=db.relationship('LendingOffer',backref='user',lazy=True,cascade="all, delete-orphan")
-    #donators=db.relationship('DonationRequest',backref='donationRequest',lazy=True,cascade="all, delete-orphan")
     lendingRequests=db.relationship('LendingRequest',backref='user',lazy=True,cascade="all, delete-orphan")
-    #reports=db.relationship('Report',backref='report',lazy=True,cascade="all, delete-orphan")
     rates=db.relationship('Rating',backref='user',lazy=True,cascade="all, delete-orphan")
     lendingnotif=db.relationship('LendingNotification',backref='user',lazy=True,cascade="all, delete-orphan")
+    
+    #accounts=db.relationship('AccountInfo',backref='accountInfo',lazy=True,cascade="all, delete-orphan")
+    #communication=db.relationship('Message',backref='message',lazy=True,cascade="all, delete-orphan")
+    #donators=db.relationship('DonationRequest',backref='donationRequest',lazy=True,cascade="all, delete-orphan")
+    #reports=db.relationship('Report',backref='report',lazy=True,cascade="all, delete-orphan")
 
     def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio,links,profile_pic,picName,mimetype):
         self.username = username

@@ -112,7 +112,7 @@ def testStatusChange():
     return jsonify(lendingRequest)
     #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
 
-@lendingRequests_views('/testCheckisReturned')
+@lendingRequests_views.route('/testCheckisReturned')
 @login_required
 def testCheckisReturned():
     data=request.json
