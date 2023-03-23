@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
 from flask import Flask, flash
 from flask_login import login_required, current_user, LoginManager
+from werkzeug.utils import secure_filename
 
 from App.controllers import (
     create_lendingOffer, 
@@ -20,10 +21,10 @@ lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='
 @login_required
 def makeOfferPage():
     data=request.form
-    pic=request.files["itemPic"]
+    pic=request.files["image"]
     itemPic=secure_filename(pic.filename)
     mimetype=pic.mimetype
-    #offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],itemPic=pic.read(),itemPicName=itemPic,mimetype=mimetype,data['condition'],data['preferedLocation'],data['rulesOfUse'])
+    offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],itemPic=pic.read(),itemPicName=itemPic,mimetype=mimetype,data['condition'],data['preferedLocation'],data['rulesOfUse'])
     print(offer.item)
     return jsonify(offer.item)
 
