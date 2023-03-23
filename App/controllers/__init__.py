@@ -11,3 +11,4 @@ from .rating import *
 from .tempUser import *
 from .lendingNotifications import *
 from .leaderboard import *
+from .trendingPage import *

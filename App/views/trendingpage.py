@@ -7,12 +7,7 @@ from werkzeug.utils import secure_filename
 #from.trendingpage import trend_views
 
 from App.controllers import (
-    create_user,
-    get_user_by_username, 
-    get_all_users,
-    get_all_users_json,
-    login_user,
-    authenticate
+    buildTredingList
 )
 
 trend_views = Blueprint('trend_views', __name__, template_folder='../templates')
@@ -20,6 +15,8 @@ trend_views = Blueprint('trend_views', __name__, template_folder='../templates')
 #Route to display trending page
 @trend_views.route('/trending_page', methods=['GET'])
 def gettrendpage():
-    return render_template("TrendingPage.html")
+    trendingList=buildTredingList()
+    return render_template("TrendingPage.html",trendingList=trendingList)
+    
 
 
