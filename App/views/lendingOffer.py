@@ -11,7 +11,8 @@ from App.controllers import (
     update_Offer,
     remove_Offer,
     getAllOffersJSON,
-    getItmesByCategory
+    getItmesByCategory,
+    setDates
 )
 
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
@@ -24,7 +25,7 @@ def makeOfferPage():
     pic=request.files["image"]
     itemPic=secure_filename(pic.filename)
     mimetype=pic.mimetype
-    offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],itemPic=pic.read(),itemPicName=itemPic,mimetype=mimetype,data['condition'],data['preferedLocation'],data['rulesOfUse'])
+    offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],data['condition'],data['preferedLocation'],data['rulesOfUse'],itemPic=pic.read(),itemPicName=itemPic,mimetype=mimetype)
     print(offer.item)
     return jsonify(offer.item)
 
@@ -76,6 +77,13 @@ def testMakeOfferPage():
     offer=create_lendingOffer(data['lenderID'],data['item'],data['itemDescription'],data['category'],data['itemPic'],data['itemPicName'],data['mimetype'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
     print(offer.item)
     return jsonify(offer.item)
+
+@lendingOffer_views.route('/testAddDates/<lendingRequestID>',methods=['PUT'])
+@login_required
+def testInputDates(lendingRequestID):
+    data=request.json
+    offer=setDates(data['id'],data['lendingRequestID'],data['returnDate'],data['borrowDate'])
+    return jsonify(offer.returnDate)
 
 #Route to test updating a lending offer
 @lendingOffer_views.route('/testUpdateLendingOffer<OfferID>',methods=['PUT'])

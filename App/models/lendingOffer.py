@@ -2,6 +2,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from datetime import date, datetime, timedelta
 
 class LendingOffer(db.Model,UserMixin):
     __tablename__='lendingOffer'
@@ -17,12 +18,14 @@ class LendingOffer(db.Model,UserMixin):
     preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.String(50), nullable=False)
     RulesOfUse= db.Column(db.String(200), nullable=False)
+    borrowDate=db.Column(db.Date, nullable=True)
+    returnDate=db.Column(db.Date,nullable=True)
     
     lendRequests=db.relationship('LendingRequest',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
     lendingnotif = db.relationship('LendingNotification',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
     interestedUserList=db.relationship('Manager',backref='lendingOffer',uselist=False)
 
-    def __init__(self,lenderID,itemDescription,condition,item,category,itemPic,itemPicName,mimetype,preferedLocation,Status,RulesOfUse):
+    def __init__(self,lenderID,itemDescription,condition,item,category,itemPic,itemPicName,mimetype,preferedLocation,Status,RulesOfUse,borrowDate,returnDate):
         self.lenderID=lenderID
         self.itemDescription=itemDescription
         self.item=item
@@ -34,6 +37,8 @@ class LendingOffer(db.Model,UserMixin):
         self.preferedLocation=preferedLocation
         self.Status=Status
         self.RulesOfUse=RulesOfUse
+        self.borrowDate=borrowDate
+        self.returnDate=returnDate
         
 
     def toJSON(self):
@@ -48,5 +53,7 @@ class LendingOffer(db.Model,UserMixin):
             'itemPicName':self.itemPicName,
             'preferedLocation':self.preferedLocation,
             'Status':self.Status,
-            'RulesOfUse':self.RulesOfUse
+            'RulesOfUse':self.RulesOfUse,
+            'borrowDate':self.borrowDate,
+            'returnDate':self.returnDate
         }

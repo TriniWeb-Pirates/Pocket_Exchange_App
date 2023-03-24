@@ -1,11 +1,23 @@
-from App.models import LendingOffer,User
+from App.models import LendingOffer,LendingRequest,User
 from App.database import db
+from datetime import datetime
 
 def create_lendingOffer(lenderID,item,itemDescription,category,itemPic,itemPicName,mimetype,condition,preferedLocation,Status,rulesOfUse):
-    offer = LendingOffer(lenderID=lenderID,item=item,itemDescription=itemDescription,category=category,itemPic=itemPic,itemPicName=itemPicName,mimetype=mimetype,condition=condition,preferedLocation=preferedLocation,Status=Status,RulesOfUse=rulesOfUse)
+    offer = LendingOffer(lenderID=lenderID,item=item,itemDescription=itemDescription,category=category,itemPic=itemPic,itemPicName=itemPicName,mimetype=mimetype,condition=condition,preferedLocation=preferedLocation,Status=Status,RulesOfUse=rulesOfUse,returnDate=None,borrowDate=None)
     db.session.add(offer)
     db.session.commit()
     return offer
+
+def setDates(id,lendingRequestID,returnDate,borrowDate):
+    offer=LendingOffer.query.get(id)
+    request=LendingRequest.query.get(lendingRequestID)
+    if(request.tempApproval==True):
+        offer.returnDate=datetime.date(datetime.strptime(returnDate, "%Y-%m-%d"))
+        offer.borrowDate=datetime.date(datetime.strptime(borrowDate, "%Y-%m-%d"))
+        return offer
+    else:
+        return "Action Denied, this lending request must be temporarily approved first"
+
 
 def getAllOffersJSON():
     data = LendingOffer.query.all()

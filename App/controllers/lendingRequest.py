@@ -2,9 +2,9 @@ from App.models import LendingRequest, LendingOffer,User
 from App.database import db
 from datetime import datetime
 
-def create_lendingRequest(borrowerID,lendingoffer_ID,preferedLocation ,Status,quantity,tempApproval,borrowingDays,returnDate,borrowDate):
-    returnDate=datetime.date(datetime.strptime(returnDate, "%Y-%m-%d"))
-    borrowDate=datetime.date(datetime.strptime(borrowDate, "%Y-%m-%d"))
+def create_lendingRequest(borrowerID,lendingoffer_ID,preferedLocation ,Status,quantity,tempApproval,borrowingDays):
+    #returnDate=datetime.date(datetime.strptime(returnDate, "%Y-%m-%d"))
+    #borrowDate=datetime.date(datetime.strptime(borrowDate, "%Y-%m-%d"))
     validUser=User.query.get(borrowerID)
     if(validUser==None):
         return "Request denied, user does not exist"
@@ -14,7 +14,7 @@ def create_lendingRequest(borrowerID,lendingoffer_ID,preferedLocation ,Status,qu
     data=LendingOffer.query.filter_by(id=lendingoffer_ID,lenderID=borrowerID).first()
     #data=LendingOffer.query.get(lendingoffer_ID)
     if(data==None):
-        request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,preferedLocation=preferedLocation,Status=Status,quantity=quantity,tempApproval=tempApproval,borrowingDays=borrowingDays,returnDate=returnDate,borrowDate=borrowDate)
+        request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,preferedLocation=preferedLocation,Status=Status,quantity=quantity,tempApproval=tempApproval,borrowingDays=borrowingDays,isReturned=False)
         db.session.add(request)
         db.session.commit()
         return "Lending request created"
@@ -43,7 +43,7 @@ def calculateBorrowingDays(borrowDate,returnDate):
     pass
 
 
-def updateLendingRequest(id,borrowerID,lendingoffer_ID,preferedLocation ,Status,quantity,tempApproval,borrowingDays, borrowDate,returnDate):
+def updateLendingRequest(id,borrowerID,lendingoffer_ID,preferedLocation ,Status,quantity,tempApproval,borrowingDays):
     request=get_request_by_ID(id)
     request.preferedLocation=preferedLocation
     request.Status=Status
@@ -51,8 +51,8 @@ def updateLendingRequest(id,borrowerID,lendingoffer_ID,preferedLocation ,Status,
     request.tempApproval=tempApproval
     #request.borrowingDays=calculateBorrowingDays(borrowDate,returnDate)
     request.borrowingDays=3
-    request.borrowDate=borrowDate
-    request.returnDate=returnDate
+    #request.borrowDate=borrowDate
+    #request.returnDate=returnDate
     return request
 
 def countRequests(borrowerID):

@@ -33,7 +33,7 @@ def GetLendingRequestData(id):
 @login_required
 def makeLendingRequestPage():
     data=request.form
-    lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['returnDate'],data['borrowDate'])
+    lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'])
     return jsonify(lendRequest.borrowDate)
 
 
@@ -58,7 +58,7 @@ def testGetLendingRequestData():
 @login_required
 def testMakeLendingRequestPage():
     data=request.json#must change json to form for web page
-    lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['returnDate'],data['borrowDate'])
+    lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'])
     #print(lendRequest.borrowDate)
     return jsonify(lendRequest)
     #return redirect(url_for("manager_views.testAddUsersToList"),borrowerID=data['borrowerID'],lendingoffer_ID=data['lendingoffer_ID'])
@@ -69,7 +69,7 @@ def testMakeLendingRequestPage():
 @login_required
 def testUpdateLendingRequestPage():
     data=request.json
-    lendRequest=updateLendingRequest(data['id'],data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'],data['borrowDate'],data['returnDate'])
+    lendRequest=updateLendingRequest(data['id'],data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'])
     return jsonify(lendRequest.borrowDate)
 
 #Route to test retrieving all lending request objects in the database
@@ -100,7 +100,7 @@ def testRetreiveOfferRequests(lendingoffer_ID):
 def testGrantTempApproval():
     data=request.json
     lendingRequest=grantTempApproval(data['id'],current_user.id,data['status'])
-    return jsonify(lendingRequest)
+    return jsonify(lendingRequest)#redirect user to setDates route with ID of approved lending request
     #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
 
 #Route for changing request status
