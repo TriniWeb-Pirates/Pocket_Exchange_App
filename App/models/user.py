@@ -28,11 +28,11 @@ class User(db.Model,UserMixin):
     lendingRequests=db.relationship('LendingRequest',backref='user',lazy=True,cascade="all, delete-orphan")
     rates=db.relationship('Rating',backref='user',lazy=True,cascade="all, delete-orphan")
     lendingnotif=db.relationship('LendingNotification',backref='user',lazy=True,cascade="all, delete-orphan")
+    reports=db.relationship('Report',backref='user',lazy=True,cascade="all, delete-orphan")
     
     #accounts=db.relationship('AccountInfo',backref='accountInfo',lazy=True,cascade="all, delete-orphan")
     #communication=db.relationship('Message',backref='message',lazy=True,cascade="all, delete-orphan")
     #donators=db.relationship('DonationRequest',backref='donationRequest',lazy=True,cascade="all, delete-orphan")
-    #reports=db.relationship('Report',backref='report',lazy=True,cascade="all, delete-orphan")
 
     def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio,links,profile_pic,picName,mimetype):
         self.username = username
@@ -63,6 +63,7 @@ class User(db.Model,UserMixin):
             'city': self.city,
             'Bio': self.Bio,
             'links':self.links,
+            'reportsCount':self.reportsCount
             #'profile_pic': self.profile_pic
         }
 

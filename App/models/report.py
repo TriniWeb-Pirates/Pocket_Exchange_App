@@ -4,8 +4,8 @@ import datetime
 
 class Report(db.Model):
     __tablename__='report'
-    reportID = db.Column(db.Integer, primary_key=True)
-    offenderID =  db.Column(db.Integer,db.Foreignkey('user.id'), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    offenderID=db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
     description=db.Column(db.String(120),nullable=False)
     
 
@@ -17,7 +17,7 @@ class Report(db.Model):
 
     def toJSON(self):
         return{
-            'reportID': self.reportID,
+            'id': self.id,
             'offenderID': self.offenderID,
             'description': self.description
         }

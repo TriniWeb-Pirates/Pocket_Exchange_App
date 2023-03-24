@@ -10,3 +10,5 @@ from .rating import *
 from .lendingNotification import *
 from .tempUser import *
 from .reportNotification import *
+from .report import *
+from .blackList import *

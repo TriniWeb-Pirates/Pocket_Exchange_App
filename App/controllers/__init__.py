@@ -7,8 +7,9 @@ from .lendingRequest import *
 from .manager import *
 #from .message import *
 from .rating import *
-#from .reports import *
+from .reports import *
 from .tempUser import *
 from .lendingNotifications import *
 from .leaderboard import *
 from .trendingPage import *
+from .blackList import *
