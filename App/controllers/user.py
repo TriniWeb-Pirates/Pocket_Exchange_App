@@ -8,7 +8,7 @@ def create_user(username, password,firstName,lastName,email,phone,city,biography
     for person in blockedList:
         if(person['email']==email or person['phoneNumber']==phone):
             found=True
-    if(found==True):
+    if(found==False):
         newuser = User(username=username, password=password,firstName=firstName,lastName=lastName,email=email,phoneNumber=phone,city=city,Bio=biography,links=links,profile_pic=profile_pic,picName=picName,mimetype=mimetype)
         db.session.add(newuser)
         db.session.commit()

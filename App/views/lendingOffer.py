@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
-from flask import Flask, flash
+from flask import Flask, flash,Response
 from flask_login import login_required, current_user, LoginManager
 from werkzeug.utils import secure_filename
 
@@ -25,7 +25,9 @@ def makeOfferPage():
     pic=request.files["image"]
     itemPic=secure_filename(pic.filename)
     mimetype=pic.mimetype
-    offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],data['condition'],data['preferedLocation'],data['rulesOfUse'],itemPic=pic.read(),itemPicName=itemPic,mimetype=mimetype)
+    itemPic=pic.read()
+    itemPicName=itemPic
+    offer=create_lendingOffer(current_user.id,data['item'],data['category'],data['itemDescription'],itemPic,itemPicName,mimetype,data['rulesOfUse'],data['condition'],data['preferedLocation'])
     print(offer.item)
     return jsonify(offer.item)
 
