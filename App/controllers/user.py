@@ -1,12 +1,20 @@
-from App.models import User
+from App.models import User,BlockedUser
 from App.database import db
 
 def create_user(username, password,firstName,lastName,email,phone,city,biography,links,profile_pic,picName,mimetype):
-    newuser = User(username=username, password=password,firstName=firstName,lastName=lastName,email=email,phoneNumber=phone,city=city,Bio=biography,links=links,profile_pic=profile_pic,picName=picName,mimetype=mimetype)
-    
-    db.session.add(newuser)
-    db.session.commit()
-    return newuser
+    blockedUsers=BlockedUser.query.all()
+    found=False
+    blockedList = [blockedUser.toJSON() for blockedUser in blockedUsers]
+    for person in blockedList:
+        if(person['email']==email or person['phoneNumber']==phone):
+            found=True
+    if(found==True):
+        newuser = User(username=username, password=password,firstName=firstName,lastName=lastName,email=email,phoneNumber=phone,city=city,Bio=biography,links=links,profile_pic=profile_pic,picName=picName,mimetype=mimetype)
+        db.session.add(newuser)
+        db.session.commit()
+        return newuser
+    else:
+        return "You are a blocked user"
 
 def get_user_by_username(username):
     return User.query.filter_by(username=username).first()
