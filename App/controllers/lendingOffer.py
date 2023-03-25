@@ -63,3 +63,8 @@ def getItmesByCategory(category):
     items = [offer.toJSON() for offer in data]
     return items
 
+def getAllUserOffers(userID):
+    offers=LendingOffer.query.filter_by(lenderID=userID).all()
+    items = [offer.toJSON() for offer in offers]
+    return items
+

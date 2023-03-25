@@ -12,7 +12,8 @@ from App.controllers import (
     remove_Offer,
     getAllOffersJSON,
     getItmesByCategory,
-    setDates
+    setDates,
+    getAllUserOffers
 )
 
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
@@ -37,19 +38,25 @@ def makeOfferPage():
 def getLendingOfferPage():
     return render_template('addNewItem.html')
 
+@lendingOffer_views.route('/updateLendingOfferPage<OfferID>',methods=['GET'])
+@login_required
+def changeOfferPage(OfferID):
+    offer=get_offer_by_ID(OfferID)
+    return render_template('addNewItem.hmtl',offer=offer)
+
 #Route to capture new lending offer data and update users lending offer
 @lendingOffer_views.route('/updateLendingOffer<OfferID>',methods=['PUT'])
 @login_required
 def changeOffer(OfferID):
     data=request.form
-    offer=update_Offer(data['OfferID'],data['item'], data['category'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
+    offer=update_Offer(data['OfferID'],data['item'], data['category'],data['condition'],data['preferedLocation'],data['rulesOfUse'])
     return jsonify(offer.item)
 
 #Route to delete a lending offer
 @lendingOffer_views.route('/removeLendingOffer<id>',methods=['POST'])
 def deleteOffer(id):
-    data=request.form
-    data=remove_Offer(data['id'])
+    #data=request.form
+    data=remove_Offer(id)
     offer=get_offer_by_ID(id)
     return jsonify(offer)
 
@@ -59,14 +66,35 @@ def deleteOffer(id):
 def GetCategoryOffers(category):
     offers=getItmesByCategory(category)
     return jsonify(offers)
-    
+
+@lendingOffer_views.route('/AddDatesPage/<lendingRequestID>/<lendingoffer_ID>',methods=['GET'])
+@login_required
+def InputDatesPage(lendingRequestID,lendingoffer_ID):
+    return render_template('',lendingRequestID=lendingRequestID,lendingoffer_ID=lendingoffer_ID)
 
 @lendingOffer_views.route('/AddDates/<lendingRequestID>/<lendingoffer_ID>',methods=['PUT'])
 @login_required
-def testInputDates(lendingRequestID,lendingoffer_ID):
+def InputDates(lendingRequestID,lendingoffer_ID):
     data=request.form
     offer=setDates(lendingoffer_ID,lendingRequestID,data['returnDate'],data['borrowDate'])
     return jsonify(offer.returnDate)
+
+@lendingOffer_views.route('/RemoveLendingOffer<id>',methods=['POST'])
+def DeleteOffer(id):
+    data=remove_Offer(id)
+    return jsonify(data)
+
+@lendingOffer_views.route('/GetAllOffers', methods=['GET'])
+@login_required
+def RetreiveAllOffers():
+    offers=getAllOffersJSON()
+    return offers
+
+@lendingOffer_views.route('/GetAllUserOffers', methods=['GET'])
+@login_required
+def RetreiveAllUserOffers():
+    offers=getAllUserOffers(current_user.id)
+    return offers
 
 #TESTING ROUTES
 #Route to test retrieving offers by a category
