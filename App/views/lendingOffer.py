@@ -61,6 +61,12 @@ def GetCategoryOffers(category):
     return jsonify(offers)
     #return render_template()
 
+@lendingOffer_views.route('/AddDates/<lendingRequestID>/<lendingoffer_ID>',methods=['PUT'])
+@login_required
+def testInputDates(lendingRequestID,lendingoffer_ID):
+    data=request.form
+    offer=setDates(lendingoffer_ID,lendingRequestID,data['returnDate'],data['borrowDate'])
+    return jsonify(offer.returnDate)
 
 #TESTING ROUTES
 #Route to test retrieving offers by a category

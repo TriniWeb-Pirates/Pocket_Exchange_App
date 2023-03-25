@@ -12,32 +12,78 @@ from App.controllers import (
     countRequests,
     getAllOfferRequests,
     grantTempApproval,
-    changeStatus
+    changeStatus,
+    getRequest
 )
 
 lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_folder='../templates')
 
-#Route to retrieve lending request form page and limit number of requests made to 3 requests
+
 @lendingRequests_views.route('/lendingRequestForm/<id>', methods=['GET'])
 @login_required
 def GetLendingRequestData(id):
-    borrowerID=id
-    result=countRequests(borrowerID)
+    result=countRequests(current_user.id)
     if result!=None:
-        return redirect(url_for('user_views.gethomepage',id=id))
-    return jsonify(result)
-    #return render_template()
+        flash(result)
+        return redirect(url_for('user_views.gethomepage',id=current_user.id))
+    return render_template('homepage.html',id=id)
 
 #Route to capture lending request data to create lending request object
-@lendingRequests_views.route('/CreatelendingRequest',methods=['POST'])
+@lendingRequests_views.route('/CreatelendingRequest/<lendingoffer_ID>',methods=['POST'])
 @login_required
-def makeLendingRequestPage():
+def makeLendingRequestPage(lendingoffer_ID):
     data=request.form
-    lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'])
+    lendRequest=create_lendingRequest(current_user.id,lendingoffer_ID,data['preferedLocation'],data['quantity'],data['borrowingDays'])
     return jsonify(lendRequest.borrowDate)
 
+@lendingRequests_views.route('/updateLendingRequestForm/<id>', methods=['GET'])
+@login_required
+def GetLendingRequest(id):
+    request=getRequest(id)
+    return render_template('homepage.html',request=request,id=id)
 
+@lendingRequests_views.route('/UpdateLendingRequest/<id>/<lendingoffer_ID>',methods=['PUT'])
+@login_required
+def UpdateLendingRequestPage(id,lendingoffer_ID):
+    data=request.form
+    lendRequest=updateLendingRequest(id,current_user.id,lendingoffer_ID,data['preferedLocation'],data['quantity'],data['borrowingDays'])
+    return redirect(url_for(''))
 
+@lendingRequests_views.route('/GetAllRequests', methods=['GET'])
+@login_required
+def RetreiveAllRequests():
+    requests=getAllRequestsJSON()
+    return jsonify(requests)
+
+@lendingRequests_views.route('/GetAllOfferRequests/<lendingoffer_ID>', methods=['GET'])
+@login_required
+def RetreiveOfferRequests(lendingoffer_ID):
+    requests=getAllOfferRequests(lendingoffer_ID)
+    return jsonify(requests)
+
+@lendingRequests_views.route('/GrantTempApproval/<lendingRequestID>', methods=['PUT'])
+@login_required
+def GrantTempApproval(lendingRequestID):
+    data=request.form
+    lendingRequest=grantTempApproval(lendingRequestID,current_user.id,data['status'])
+    #return jsonify(lendingRequest)#redirect user to setDates route with ID of approved lending request
+    return redirect(url_for(),id=lendingRequest.id,borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID)
+
+#Route for changing request status
+@lendingRequests_views.route('/ChangeStatus/<lendingRequestID>', methods=['PUT'])
+@login_required
+def StatusChange(lendingRequestID):
+    data=request.form
+    lendingRequest=changeStatus(lendingRequestID,current_user.id,data['status'])
+    return jsonify(lendingRequest)
+    #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
+
+@lendingRequests_views.route('/CheckisReturned/<lendingRequestID>')
+@login_required
+def CheckisReturned(lendingRequestID):
+    data=request.form
+    lendingRequest=changeIsReturned(lendingRequestID,current_user.id,data['isReturned'])
+    return jsonify(lendingRequest)
 
 #testing routes
 #Route to test lending request limit in Postman

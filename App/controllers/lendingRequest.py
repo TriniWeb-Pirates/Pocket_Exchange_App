@@ -2,7 +2,7 @@ from App.models import LendingRequest, LendingOffer,User
 from App.database import db
 from datetime import datetime
 
-def create_lendingRequest(borrowerID,lendingoffer_ID,preferedLocation ,Status,quantity,tempApproval,borrowingDays):
+def create_lendingRequest(borrowerID,lendingoffer_ID,preferedLocation,quantity,borrowingDays):
     #returnDate=datetime.date(datetime.strptime(returnDate, "%Y-%m-%d"))
     #borrowDate=datetime.date(datetime.strptime(borrowDate, "%Y-%m-%d"))
     validUser=User.query.get(borrowerID)
@@ -14,7 +14,7 @@ def create_lendingRequest(borrowerID,lendingoffer_ID,preferedLocation ,Status,qu
     data=LendingOffer.query.filter_by(id=lendingoffer_ID,lenderID=borrowerID).first()
     #data=LendingOffer.query.get(lendingoffer_ID)
     if(data==None):
-        request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,preferedLocation=preferedLocation,Status=Status,quantity=quantity,tempApproval=tempApproval,borrowingDays=borrowingDays,isReturned=False)
+        request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,preferedLocation=preferedLocation,Status=False,quantity=quantity,tempApproval=False,borrowingDays=borrowingDays,isReturned=False)
         db.session.add(request)
         db.session.commit()
         return "Lending request created"
@@ -27,6 +27,10 @@ def getAllRequestsJSON():
         return []
     items = [request.toJSON() for request in data]
     return items
+
+def getRequest(id):
+    request=LendingRequest.query.get(id)
+    return request.toJSON()
 
 def getAllUserRequestsJSON(borrowerID):
     data = LendingRequest.query.filter_by(borrowerID=borrowerID).all()
@@ -43,12 +47,10 @@ def calculateBorrowingDays(borrowDate,returnDate):
     pass
 
 
-def updateLendingRequest(id,borrowerID,lendingoffer_ID,preferedLocation ,Status,quantity,tempApproval,borrowingDays):
+def updateLendingRequest(id,borrowerID,lendingoffer_ID,preferedLocation ,quantity,borrowingDays):
     request=get_request_by_ID(id)
     request.preferedLocation=preferedLocation
-    request.Status=Status
     request.quantity=quantity
-    request.tempApproval=tempApproval
     #request.borrowingDays=calculateBorrowingDays(borrowDate,returnDate)
     request.borrowingDays=3
     #request.borrowDate=borrowDate
@@ -61,7 +63,7 @@ def countRequests(borrowerID):
     count=0
     for item in items:
         count=count+1
-    if count>3:
+    if count>=3:
         return "Maximum Lending Request Limit Reached, User Can Only Have 3 Active Lending Requests"
     return None
 
