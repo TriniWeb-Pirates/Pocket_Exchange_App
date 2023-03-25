@@ -34,7 +34,8 @@ def GetLendingRequestData(id):
 def makeLendingRequestPage(lendingoffer_ID):
     data=request.form
     lendRequest=create_lendingRequest(current_user.id,lendingoffer_ID,data['preferedLocation'],data['quantity'],data['borrowingDays'])
-    return jsonify(lendRequest.borrowDate)
+    #return jsonify(lendRequest.borrowDate)
+    return redirect(url_for('manager_views.AddUsersToList',borrowerID=current_user.id,lendingoffer_ID=lendingoffer_ID))
 
 @lendingRequests_views.route('/updateLendingRequestForm/<id>', methods=['GET'])
 @login_required
@@ -67,7 +68,7 @@ def GrantTempApproval(lendingRequestID):
     data=request.form
     lendingRequest=grantTempApproval(lendingRequestID,current_user.id,data['status'])
     #return jsonify(lendingRequest)#redirect user to setDates route with ID of approved lending request
-    return redirect(url_for(),id=lendingRequest.id,borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID)
+    return redirect(url_for('lendingOffer_views.InputDates'),id=lendingRequest.id,borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID)
 
 #Route for changing request status
 @lendingRequests_views.route('/ChangeStatus/<lendingRequestID>', methods=['PUT'])

@@ -72,12 +72,13 @@ def GetCategoryOffers(category):
 def InputDatesPage(lendingRequestID,lendingoffer_ID):
     return render_template('',lendingRequestID=lendingRequestID,lendingoffer_ID=lendingoffer_ID)
 
-@lendingOffer_views.route('/AddDates/<lendingRequestID>/<lendingoffer_ID>',methods=['PUT'])
+@lendingOffer_views.route('/AddDates/<lendingRequestID>/<borrowerID>/<lendingoffer_ID>',methods=['PUT'])
 @login_required
-def InputDates(lendingRequestID,lendingoffer_ID):
+def InputDates(lendingRequestID,borrowerID,lendingoffer_ID):
     data=request.form
     offer=setDates(lendingoffer_ID,lendingRequestID,data['returnDate'],data['borrowDate'])
-    return jsonify(offer.returnDate)
+    #return jsonify(offer.returnDate)
+    return redirect(url_for('manager_views.TransmitList',lendingoffer_ID=lendingoffer_ID))
 
 @lendingOffer_views.route('/RemoveLendingOffer<id>',methods=['POST'])
 def DeleteOffer(id):
