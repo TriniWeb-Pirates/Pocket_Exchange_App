@@ -9,5 +9,3 @@ def index_page():
 #@index_views.route('/', methods=['GET'])
 #def health_check():
 #    return jsonify({'status':'healthy'})
-
-#testi
