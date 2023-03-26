@@ -271,6 +271,101 @@ h4, h5{
 
 
 
+<div class="row">
+  <div class="col l12 s12">
+    <div class="card">
+    <div class="card-action" style="background-color:#66bb6a">
+    </div>
+
+    <div class="card-content white">
+      <!--main content will go in here-->
+      <div class="row">
+      <div class="col l4 s12">
+        <div class="card-image">
+        <img src="/static/images/categories/books.png" class="responsive-img">
+      </div>
+      </div>
+
+      <div class="col l8 s12" style="color:black">
+        <h6><b>Name:</b> Books</h6>
+        <h6><b>Offered by:</b> Bob23</h6>
+        <h6><b>Description:</b> A Percy Jackson Book</h6>
+        <h6><b>Category:</b> Books</h6>
+        <h6><b>Rules of Use:</b> Do not use while drinking beverages</h6>
+        <h6><b>Condition:</b> Good</h6>
+        <h6><b>Contact Number:</b> 239-3232</h6>
+        <h6><b>City Address:</b> Trincity</h6>
+        <h6><b>Preferred Meetup Location:</b> Trincity Mall</h6>
+
+
+      </div>
+    </div>  <!--end of first row-->
+
+    <!-- collapsible items will go here now. The request list first, then the make a request
+    section after-->
+
+    <ul class="collapsible black-text">
+      <li>
+        <div class="collapsible-header white-text" style="background-color: #0040c1;"><i class="material-icons">search</i>View Request List</div>
+        <div class="collapsible-body">
+    
+
+          <div class="card">
+
+          <div class="row">
+            <div class="col l3">
+              <h6><b>Request ID: </b> #1</h6>
+            </div>
+
+            <div class="col l3">
+              <h6><b>Username:</b> Cassandra</h6>
+            </div>
+
+            <div class="col l5">
+              <h6><b>Contact Numer:</b> 232-2323</h6>
+            </div>
+          
+
+          <div class="col l6">
+            <h6><b>City Address:</b> Port of Spain</h6>
+          </div>
+        
+
+        <div class="col l6">
+          <h6><b>Preferred Meetup Location:</b> Trincity Mall</h6>
+        </div>
+
+        <div class="col l12">
+          <h6><b>Reason for use:</b> I enjoy reading.</h6>
+        </div>
+      </div>
+
+      <a class="waves-effect waves-light btn green darken-2"><i class="material-icons right">person</i>Visit Profile</a>
+      <a class="waves-effect waves-light btn" style="background-color:#0040c1"><i class="material-icons right">check</i>Approve Request</a>
+
+
+    </div> <!--end of card-->
+        </div>
+
+      </li>
+      <li>
+        <div class="collapsible-header white-text red accent-4"><i class="material-icons">play_arrow</i>Make a Request</div>
+        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+      </li>
+      
+    </ul>
+          
+
+
+
+
+
+
+    
+    </div>
+  </div> <!--end of card-->
+</div>
+
 
 
 	  
@@ -289,6 +384,13 @@ h4, h5{
   var elems = document.querySelectorAll('.carousel');
   M.Carousel.init(elems);
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.collapsible');
+    M.Collapsible.init(elems);
+  });
 
 </script>
 
