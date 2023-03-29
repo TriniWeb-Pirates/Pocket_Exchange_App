@@ -108,15 +108,14 @@ def RetreiveAllUserOffers():
 def testGetCategoryOffers():
     data=request.json
     offers=getItmesByCategory(data['category'])
-    return jsonify(offers)
+    return offers
 
 #Route to test create lending offer 
 @lendingOffer_views.route('/testCreateLendingOfferPage',methods=['POST'])
 @login_required
 def testMakeOfferPage():
     data=request.json#must change json to form for web page
-    offer=create_lendingOffer(data['lenderID'],data['item'],data['itemDescription'],data['category'],data['itemPic'],data['itemPicName'],data['mimetype'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
-    print(offer.item)
+    offer=create_lendingOffer(data['lenderID'],data['item'],data['itemDescription'],data['category'],data['itemPic'],data['itemPicName'],data['mimetype'],data['condition'],data['preferedLocation'],data['rulesOfUse'])
     return jsonify(offer.item)
 
 @lendingOffer_views.route('/testAddDates/<lendingRequestID>',methods=['PUT'])
@@ -131,7 +130,7 @@ def testInputDates(lendingRequestID):
 @login_required
 def testChangeOffer(OfferID):
     data=request.json#must change json to form for web page
-    offer=update_Offer(data['OfferID'],data['item'],data['category'],data['condition'],data['preferedLocation'],data['Status'],data['rulesOfUse'])
+    offer=update_Offer(data['OfferID'],data['item'],data['itemDescription'],data['category'],data['itemPic'],data['itemPicName'],data['mimetype'],data['condition'],data['preferedLocation'],data['rulesOfUse'])
     return jsonify(offer.item)
 
 #Route to test deleting a lending offer

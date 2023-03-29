@@ -35,7 +35,7 @@ def get_lender(lenderID):
 def get_all_offers():
     return LendingOffer.query.all()
 
-def update_Offer(OfferID,item,itemDescription,category,itemPic,itemPicName,mimetype,condition,preferedLocation,Status,rulesOfUse):
+def update_Offer(OfferID,item,itemDescription,category,itemPic,itemPicName,mimetype,condition,preferedLocation,rulesOfUse):
     offer=LendingOffer.query.get(OfferID)
     offer.item=item
     offer.itemDescription=itemDescription
@@ -45,7 +45,6 @@ def update_Offer(OfferID,item,itemDescription,category,itemPic,itemPicName,mimet
     offer.itemPicName=itemPicName
     offer.mimetype=mimetype
     offer.preferedLocation=preferedLocation
-    offer.Status=Status
     offer.RulesOfUse=rulesOfUse
     db.session.add(offer)
     db.session.commit()
