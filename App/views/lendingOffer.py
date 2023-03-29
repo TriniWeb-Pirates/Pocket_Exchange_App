@@ -68,7 +68,8 @@ def GetCategoryOffers(category):
     offers=getItmesByCategory(category)
     print(offers)
     print(category)
-    return render_template('homepage.html', category=category)
+    selection=category
+    return render_template('homepage.html', selection=selection, offers=offers)
 
 @lendingOffer_views.route('/AddDatesPage/<lendingRequestID>/<lendingoffer_ID>',methods=['GET'])
 @login_required

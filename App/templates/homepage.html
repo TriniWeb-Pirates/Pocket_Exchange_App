@@ -295,17 +295,23 @@ h4, h5{
 
 <!-- add new item card-->
 
-{% if category is defined %}
-<h5 class="center">List of items under the category: {{category}} </h5> <br>
+<!--start of jinja syntax-->
 
-{% endif %}
+{% if selection !=None %}
+<h5 class="center">List of items under the category: {{ selection }} </h5> <br>
+
+
 
 
 <div class="row">
   <div class="col l12 s12">
-    <div class="card">
+
+    {% if offers %}
+
+    {% for offer in offers %}
+    <div class="card" style="margin-bottom:90px;">
     <div class="card-action" style="background-color:#66bb6a">
-      1.
+      {{offer.id}}.
     </div>
 
     <div class="card-content white">
@@ -318,15 +324,15 @@ h4, h5{
       </div>
 
       <div class="col l8 s12" style="color:black">
-        <h6><b>Name:</b> Books</h6>
-        <h6><b>Offered by:</b> Bob23</h6>
-        <h6><b>Description:</b> A Percy Jackson Book</h6>
-        <h6><b>Category:</b> Books</h6>
-        <h6><b>Rules of Use:</b> Do not use while drinking beverages</h6>
-        <h6><b>Condition:</b> Good</h6>
-        <h6><b>Contact Number:</b> 239-3232</h6>
-        <h6><b>City Address:</b> Trincity</h6>
-        <h6><b>Preferred Meetup Location:</b> Trincity Mall</h6>
+        <h6><b>Name:</b> {{offer.item}}</h6>
+        <h6><b>Offered by:</b> {{offer.user.username}}</h6>
+        <h6><b>Description:</b> {{offer.itemDescription}}</h6>
+        <h6><b>Category:</b> {{offer.category}}</h6>
+        <h6><b>Rules of Use:</b> {{offer.RulesOfUse}}</h6>
+        <h6><b>Condition:</b> {{offer.condition}}</h6>
+        <h6><b>Contact Number:</b> {{offer.user.phoneNumber}}</h6>
+        <h6><b>City Address:</b> {{offer.user.city}}</h6>
+        <h6><b>Preferred Meetup Location:</b> {{offer.preferedLocation}}</h6>
 
 
       </div>
@@ -433,6 +439,14 @@ h4, h5{
     
     </div>
   </div> <!--end of card-->
+
+
+  {% endfor %}
+  {% endif %}
+  {% endif %}
+
+
+
 </div>
 
 

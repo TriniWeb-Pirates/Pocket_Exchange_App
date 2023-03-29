@@ -46,6 +46,7 @@ class LendingOffer(db.Model,UserMixin):
             'id': self.id,
             'lenderID':self.lenderID,
             'item': self.item,
+            'user': self.user,
             'itemDescription':self.itemDescription,
             'category':self.category,
             'condition': self.condition,
