@@ -194,68 +194,95 @@ h4, h5{
 
   <div class="carousel">
 
+    <!--{% set category=Books %} -->
+
+
     <a class="carousel-item card"><img src="/static/images/categories/books.png">
     <h5 id="title" class="black-text center">Books</h5>
-      <div class="card-action white center">
-        <button type="submit" name="category" value="books" class="waves-effect waves-light btn">Select</button>
+    <form action="/GetCategoryOffers/Books" methods="GET">
+      <div class="card-action white center"> 
+        <button id="1" name="category" value="Books" type="submit" class="waves-effect waves-light btn">Select</button>
       </div>
+    </form>
     </a>
 
+   
+
+    
+    
     <a class="carousel-item card"><img src="/static/images/categories/stationery.png">
       <h5 id="title" class="black-text center">Stationery</h5>
+      <form action="/GetCategoryOffers/Stationery" methods="GET">
         <div class="card-action white center">
           <button type="submit" name="category" value="stationery"class="waves-effect waves-light btn">Select</button>
         </div>
+      </form>
       </a>
 
       <a class="carousel-item card"><img class="responsive-img" src="/static/images/categories/clothing.jpg">
         <h5 id="title" class="black-text center">Clothing</h5>
+        <form action="/GetCategoryOffers/Clothing" methods="GET">
           <div class="card-action white center">
             <button type="submit" name="category" value="clothing"class="waves-effect waves-light btn">Select</button>
           </div>
+        </form>
         </a>
 
         <a class="carousel-item card"><img class="responsive-img" src="/static/images/categories/appliances.jpg">
           <h5 id="title" class="black-text center">Home Appliances</h5>
+          <form action="/GetCategoryOffers/Home Appliances" methods="GET">
             <div class="card-action white center">
               <button type="submit" name="category" value="appliances"class="waves-effect waves-light btn">Select</button>
             </div>
+            </form>
           </a>
 
           <a class="carousel-item card"><img class="responsive-img" src="/static/images/categories/electronics.png">
             <h5 id="title" class="black-text center">Electronics</h5>
+            <form action="/GetCategoryOffers/Electronics" methods="GET">
               <div class="card-action white center">
                 <button type="submit" name="category" value="electronics"class="waves-effect waves-light btn">Select</button>
               </div>
+            </form>
             </a>
 
             <a class="carousel-item card"><img class="responsive-img" src="/static/images/categories/tools.jpg">
               <h5 id="title" class="black-text center">Tools</h5>
+              <form action="/GetCategoryOffers/Tools" methods="GET">
                 <div class="card-action white center">
                   <button type="submit" name="category" value="tools" class="waves-effect waves-light btn">Select</button>
                 </div>
+                </form>
               </a>
 
               <a class="carousel-item card"><img class="responsive-img" src="/static/images/categories/cosmetics.jpg">
                 <h5 id="title" class="black-text center">Cosmetics</h5>
+                <form action="/GetCategoryOffers/Cosmetics" methods="GET">
                   <div class="card-action white center">
                     <button type="submit" name="category" value="cosmetics" class="waves-effect waves-light btn">Select</button>
                   </div>
+                  </form>
                 </a>
 
                 <a class="carousel-item card"><img class="responsive-img" src="/static/images/categories/furniture.jpg">
                   <h5 id="title" class="black-text center">Furniture</h5>
+                  <form action="/GetCategoryOffers/Furniture" methods="GET">
                     <div class="card-action white center">
                       <button type="submit" name="category" value="furniture "class="waves-effect waves-light btn">Select</button>
                     </div>
+                    </form>
                   </a>
 
                   <a class="carousel-item card"><img class="responsive-img" src="/static/images/categories/misc.png">
                     <h5 id="title" class="black-text center">Miscellaneous</h5>
+                    <form action="/GetCategoryOffers/Miscellaneous" methods="GET">
                       <div class="card-action white center">
                         <button type="submit" name="category" value="miscellaneous" class="waves-effect waves-light btn">Select</button>
                       </div>
+                      </form>
                     </a>
+
+                  
     
 
 
@@ -267,6 +294,7 @@ h4, h5{
 
 
 <!-- add new item card-->
+
 <h5 class="center">List of items under the category:</h5> <br>
 
 

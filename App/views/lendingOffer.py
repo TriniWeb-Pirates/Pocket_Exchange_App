@@ -64,7 +64,9 @@ def deleteOffer(id):
 @lendingOffer_views.route('/GetCategoryOffers/<category>',methods=['GET'])
 @login_required
 def GetCategoryOffers(category):
+   
     offers=getItmesByCategory(category)
+    print(offers)
     return jsonify(offers)
 
 @lendingOffer_views.route('/AddDatesPage/<lendingRequestID>/<lendingoffer_ID>',methods=['GET'])
