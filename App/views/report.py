@@ -10,6 +10,12 @@ from App.controllers import (
 
 report_views = Blueprint('report_views', __name__, template_folder='../templates')
 
+@report_views.route('/AddReport/<offenderID>',methods=['POST'])
+@login_required
+def Reporting(offenderID):
+    data=request.form
+    report=create_report(offenderID,data['description'])
+    return redirect(url_for('user.views.gethomepage'))
 
 #Test Routes
 @report_views.route('/testAddReport',methods=['POST'])
