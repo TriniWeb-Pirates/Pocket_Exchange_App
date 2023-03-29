@@ -11,11 +11,12 @@ class LendingRequest(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     borrowerID =  db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
     lendingoffer_ID= db.Column(db.Integer,db.ForeignKey('lendingOffer.id'), nullable=False)
+    reasonForUse=db.Column(db.String(300), nullable=False)
     preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.Boolean,nullable=False)
-    quantity= db.Column(db.Integer,nullable=False)
+    #quantity= db.Column(db.Integer,nullable=False)
     tempApproval=db.Column(db.Boolean,nullable=False)
-    borrowingDays= db.Column(db.Integer, nullable=False)
+    #borrowingDays= db.Column(db.Integer, nullable=False)
     #borrowDate=db.Column(db.Date, nullable=False)
     #returnDate=db.Column(db.Date,nullable=False)
     isReturned=db.Column(db.Boolean,nullable=False)
@@ -23,14 +24,15 @@ class LendingRequest(db.Model,UserMixin):
     
     
 
-    def __init__(self,borrowerID, lendingoffer_ID,preferedLocation,Status,quantity,tempApproval ,borrowingDays, isReturned):
+    def __init__(self,borrowerID, lendingoffer_ID,reasonForUse,preferedLocation,Status,tempApproval,isReturned):
         self.borrowerID=borrowerID
         self.lendingoffer_ID=lendingoffer_ID
+        self.reasonForUse=reasonForUse
         self.preferedLocation=preferedLocation
         self.Status=Status
-        self.quantity=quantity
+        #self.quantity=quantity
         self.tempApproval=tempApproval
-        self.borrowingDays=0
+        #self.borrowingDays=0
         self.isReturned=False
         
         
@@ -40,10 +42,11 @@ class LendingRequest(db.Model,UserMixin):
             "id":self.id,
             'borrowerID': self.borrowerID,
             'lendingoffer_ID': self.lendingoffer_ID,
+            'reasonForUse':self.reasonForUse,
             'preferedLocation': self.preferedLocation,
             'Status': self.Status,
-            'quantity': self.quantity,
+            #'quantity': self.quantity,
             'tempApproval': self.tempApproval,
-            'borrowingDays':self.borrowingDays,
+            #'borrowingDays':self.borrowingDays,
             "isReturned": self.isReturned
         }

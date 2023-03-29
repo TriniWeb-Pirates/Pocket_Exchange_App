@@ -400,24 +400,24 @@ h4, h5{
 
         <h6><b>Please enter the required information to submit a borrow request for this item.</b></h6>
 
-        <form>
+        <form action="/CreatelendingRequest/{{offer.id}}" method="POST">
 
           <div class="row">
 
           <div class="input-field col l12">
-              <textarea required id="textarea1" class="materialize-textarea"></textarea>
+              <textarea required id="textarea1" name="reasonForUse" class="materialize-textarea"></textarea>
               <label for="textarea1">Reason for use</label>
            
           </div>
 
           <div class="input-field col l12">
-            <input required id="last_name" type="text" class="validate">
-            <label for="last_name">Preferred Meetup Location</label>
+            <input required id="preferedLocation" name="preferedLocation" type="text" class="validate">
+            <label for="preferedLocation">Preferred Meetup Location</label>
           </div>
 
         </div>
 
-        <button class="btn waves-effect waves-light red accent-4" type="submit" name="action">Submit
+        <button class="btn waves-effect waves-light red accent-4" type="submit">Submit
         </button>
 
 

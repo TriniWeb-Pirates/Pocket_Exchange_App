@@ -2,7 +2,7 @@ from App.models import LendingRequest, LendingOffer,User
 from App.database import db
 from datetime import datetime
 
-def create_lendingRequest(borrowerID,lendingoffer_ID,preferedLocation,quantity,borrowingDays):
+def create_lendingRequest(borrowerID,lendingoffer_ID,reasonForUse,preferedLocation):
     #returnDate=datetime.date(datetime.strptime(returnDate, "%Y-%m-%d"))
     #borrowDate=datetime.date(datetime.strptime(borrowDate, "%Y-%m-%d"))
     validUser=User.query.get(borrowerID)
@@ -14,7 +14,7 @@ def create_lendingRequest(borrowerID,lendingoffer_ID,preferedLocation,quantity,b
     data=LendingOffer.query.filter_by(id=lendingoffer_ID,lenderID=borrowerID).first()
     #data=LendingOffer.query.get(lendingoffer_ID)
     if(data==None):
-        request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,preferedLocation=preferedLocation,Status=False,quantity=quantity,tempApproval=False,borrowingDays=borrowingDays,isReturned=False)
+        request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,reasonForUse=reasonForUse,preferedLocation=preferedLocation,Status=False,tempApproval=False,isReturned=False)
         db.session.add(request)
         db.session.commit()
         return "Lending request created"
@@ -47,14 +47,10 @@ def calculateBorrowingDays(borrowDate,returnDate):
     pass
 
 
-def updateLendingRequest(id,borrowerID,lendingoffer_ID,preferedLocation ,quantity,borrowingDays):
+def updateLendingRequest(id,borrowerID,lendingoffer_ID,reasonForUse,preferedLocation):
     request=get_request_by_ID(id)
+    request.reasonForUse=reasonForUse
     request.preferedLocation=preferedLocation
-    request.quantity=quantity
-    #request.borrowingDays=calculateBorrowingDays(borrowDate,returnDate)
-    request.borrowingDays=3
-    #request.borrowDate=borrowDate
-    #request.returnDate=returnDate
     return request
 
 def countRequests(borrowerID):
