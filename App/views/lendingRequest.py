@@ -39,8 +39,8 @@ def makeLendingRequestPage(lendingoffer_ID):
         return redirect(url_for('user_views.gethomepage',id=current_user.id))
     lendRequest=create_lendingRequest(current_user.id,lendingoffer_ID,data['reasonForUse'],data['preferedLocation'])
     flash(lendRequest)
-    return jsonify(lendRequest)
-    #return redirect(url_for('manager_views.AddUsersToList',borrowerID=current_user.id,lendingoffer_ID=lendingoffer_ID))
+    #return jsonify(lendRequest)
+    return redirect(url_for('manager_views.AddUsersToList',borrowerID=current_user.id,lendingoffer_ID=lendingoffer_ID))
 
 @lendingRequests_views.route('/updateLendingRequestForm/<id>', methods=['GET'])
 @login_required
