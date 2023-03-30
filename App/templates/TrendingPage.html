@@ -16,18 +16,18 @@
   <div class="container">
     <h3>Trending Items</h3>
     <div class="row">
-      {% for item in items %}
+      {% for item in trendingList %}
       <div class="col s12 m6 l4">
         <div class="card">
           <div class="card-image">
-            <img src="{{ item.image_url }}" alt="{{ item.name }}">
-            <span class="card-title">{{ item.name }}</span>
+            <img src="{{item.itemPic}}" alt="{{ item.itemPic}}" enctype="multipart/form-data">
+            <span class="card-title">{{ item.Item_Name }}</span>
           </div>
           <div class="card-content">
-            <p>{{ item.description }}</p>
+            <p>{{item.requestCount}}</p>
           </div>
-          <div class="card-action">
-            <a href="{{ url_for('item', item_id=item.id) }}" class="btn waves-effect waves-light">Check Item</a>
+         <div class="card-action">
+            <a href="/homepage" class="btn waves-effect waves-light">Check Item</a>
           </div>
         </div>
       </div>

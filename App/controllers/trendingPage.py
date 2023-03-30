@@ -4,7 +4,10 @@ from App.database import db
 TrendingDict={
     "username":"",
     "Item_Name":"",
-    "requestCount":0
+    "requestCount":0,
+    'itemPic':"itemPic",
+    'itemPicName':"itemPicName",
+    'mimetype':"mimetype"
 }
 
 def trendingItemsCriteria(data):
@@ -14,19 +17,29 @@ def buildTredingList():
     itemList=[]
     trendingList=[]
     offers=LendingOffer.query.all()
-    items = [offer.toJSON() for offer in offers]
+    items = [offer.toJSON2() for offer in offers]
     for item in items:
         user=User.query.get(item['lenderID'])
         username=user.username
         count=0
+        itemPic=item['itemPic']
+        itemPicName=item['itemPicName']
+        mimetype=item['mimetype']
         requests=LendingRequest.query.filter_by(lendingoffer_ID=item['id']).all()
         info = [request.toJSON() for request in requests]
         for data in info:
             count=count+1
-        obj=dict(username=username,Item_Name=item['item'],requestCount=count)
+        obj=dict(username=username,Item_Name=item['item'],requestCount=count,itemPic=itemPic,itemPicName=itemPicName,mimetype=mimetype)
         trendingList.append(obj)
 
     trendingList.sort(reverse=True,key=trendingItemsCriteria)
-    for i in range(10):
-        itemList.append(trendingList[i])
+    num=0
+    for item in trendingList:
+        num=num+1
+    if(num<10):
+        for i in range(num):
+            itemList.append(trendingList[i])
+    else:
+        for i in range(10):
+            itemList.append(trendingList[i])
     return itemList
