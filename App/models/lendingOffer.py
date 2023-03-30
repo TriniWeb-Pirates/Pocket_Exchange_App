@@ -59,7 +59,7 @@ class LendingOffer(db.Model,UserMixin):
             'returnDate':self.returnDate
         }
     def toJSON2(self):
-    return{
+        return{
         'id': self.id,
         'lenderID':self.lenderID,
         'item': self.item,

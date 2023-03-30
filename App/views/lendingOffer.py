@@ -122,7 +122,7 @@ def testGetCategoryOffers():
 @login_required
 def testMakeOfferPage():
     data=request.json#must change json to form for web page
-    offer=create_lendingOffer(data['lenderID'],data['item'],data['itemDescription'],data['category'],data['itemPic'],data['itemPicName'],data['mimetype'],data['condition'],data['preferedLocation'],data['rulesOfUse'])
+    offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],data['itemDescription'],data['itemPic'],data['itemPicName'],data['mimetype'],data['rulesOfUse'],data['condition'],data['preferedLocation'])
     return jsonify(offer.item)
 
 @lendingOffer_views.route('/testAddDates/<lendingRequestID>',methods=['PUT'])
