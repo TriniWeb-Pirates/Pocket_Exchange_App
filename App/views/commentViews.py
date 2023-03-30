@@ -10,9 +10,10 @@ from App.controllers import (
 
 @comment_views.route('/add_comments', methods=['POST'])
 def add_comment():
-    name = request.json['name']
-    message = request.json['message']
-    comment = createComment(name, message)
+    commentedUserID = request.json['commentedUserID']
+    message = request.json['comment']
+    comment = createComment(commentedUserID, message)
+    print(comment.commentedUserID)
     return jsonify({'message': 'Comment added successfully'})
 
 @comment_views.route('/get_comments', methods=['GET'])

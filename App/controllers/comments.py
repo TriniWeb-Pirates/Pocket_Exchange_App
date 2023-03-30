@@ -7,6 +7,8 @@ def createComment(commentedUserID,comment):
     db.session.commit()
     return newComment
 
-def getComments(comment):
-    comments = Comment.query.filter_by(comment=comment).all()
-    return comments
+def getComments(commentedUserID):
+    comments = Comment.query.filter_by(commentedUserID=commentedUserID).all()
+    results = [comment.toJSON() for comment in comments]
+    print(results)
+    return results

@@ -22,7 +22,8 @@ from App.controllers import (
     get_temp_user_by_username,
     get_user_by_email,
     get_user_by_phoneNumber,
-    update_temp_user
+    update_temp_user,
+    getComments
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -134,7 +135,9 @@ def gethomepage():
 @user_views.route('/myprofilepage', methods=['GET'])
 def getprofilepage():
     userData=get_user_TOJSON(current_user.id)
-    return render_template("ProfilePage.html",user=userData,myID=current_user.id)
+    comments=getComments(current_user.id)
+    print(comments)
+    return render_template("ProfilePage.html",user=userData,myID=current_user.id,comments=comments)
 
 @user_views.route('/UserProfilePage/<id>', methods=['GET'])
 def getUserProfilepage(id):

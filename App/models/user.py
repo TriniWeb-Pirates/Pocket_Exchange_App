@@ -64,7 +64,8 @@ class User(db.Model,UserMixin):
             'Bio': self.Bio,
             'links':self.links,
             'reportsCount':self.reportsCount,
-            'profile_pic': self.profile_pic#testing for rendering
+            'profile_pic': self.profile_pic,#testing for rendering
+            'picName':self.picName
         }
 
     def set_password(self, password):
