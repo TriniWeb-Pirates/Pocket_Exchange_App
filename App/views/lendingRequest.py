@@ -52,7 +52,7 @@ def GetLendingRequest(id):
 @login_required
 def UpdateLendingRequestPage(id,lendingoffer_ID):
     data=request.form
-    lendRequest=updateLendingRequest(id,current_user.id,lendingoffer_ID,data['preferedLocation'],data['quantity'],data['borrowingDays'])
+    lendRequest=updateLendingRequest(id,current_user.id,lendingoffer_ID,data['reasonForUse'],data['preferedLocation'])
     return redirect(url_for(''))
 
 @lendingRequests_views.route('/GetAllRequests', methods=['GET'])

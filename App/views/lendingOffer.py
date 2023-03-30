@@ -137,7 +137,7 @@ def testInputDates(lendingRequestID):
 @login_required
 def testChangeOffer(OfferID):
     data=request.json#must change json to form for web page
-    offer=update_Offer(data['OfferID'],data['item'],data['itemDescription'],data['category'],data['itemPic'],data['itemPicName'],data['mimetype'],data['condition'],data['preferedLocation'],data['rulesOfUse'])
+    offer=update_Offer(data['OfferID'],data['item'],data['category'],data['itemDescription'],data['itemPic'],data['itemPicName'],data['mimetype'],data['rulesOfUse'],data['condition'],data['preferedLocation'])
     return jsonify(offer.item)
 
 #Route to test deleting a lending offer
