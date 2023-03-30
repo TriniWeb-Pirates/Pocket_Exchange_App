@@ -25,8 +25,9 @@ def get_user_by_email(email):
 def get_user_by_phoneNumber(phoneNumber):
     return User.query.filter_by(phoneNumber=phoneNumber).first()
 
-def get_user(id):
-    return User.query.get(id)
+def get_user_TOJSON(id):
+    data=User.query.get(id)
+    return data.toJSON()
 
 def get_all_users():
     return User.query.all()

@@ -8,6 +8,7 @@ from App.controllers import (
     create_user,
     get_user_by_username, 
     get_all_users,
+    get_user_TOJSON,
     get_all_users_json,
     login_user,
     authenticate,
@@ -130,10 +131,15 @@ def gethomepage():
     return render_template("homepage.html", selection=None, offers=None)
 
 #route for user profile
-@user_views.route('/profilepage', methods=['GET'])
+@user_views.route('/myprofilepage', methods=['GET'])
 def getprofilepage():
-    return render_template("ProfilePage.html")
+    userData=get_user_TOJSON(current_user.id)
+    return render_template("ProfilePage.html",user=userData,myID=current_user.id)
 
+@user_views.route('/profilepage<id>', methods=['GET'])
+def getprofilepage(id):
+    userData=get_user_TOJSON(id)
+    return render_template("ProfilePage.html",user=userData,myID=current_user.id)
 
 #Testing routes
 #Route to test create user function in Postman

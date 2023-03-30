@@ -29,8 +29,7 @@
                 <div class="col s12 m8">
                   <p>Total number of reports: {{ user.reports.count }}</p>
                   <p>User rating: {{ user.rating }}</p>
-                  <p>Current average rating: {{ user.average_rating }}</p>
-                  {% if not is_own_profile %}
+                  {% if user.id!=myID %}
                   <div class="row">
                     <form class="col s12">
                       <div class="row">
