@@ -13,7 +13,8 @@ from App.controllers import (
     getAllOffersJSON,
     getItmesByCategory,
     setDates,
-    getAllUserOffers
+    getAllUserOffers,
+    findItems
 )
 
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
@@ -32,6 +33,12 @@ def makeOfferPage():
     print(offer.item)
     return jsonify(offer.item)
 
+@lendingOffer_views.route('/searchItem',methods=['GET'])
+@login_required
+def lookup():
+    data=request.values
+    results=findItems(data['userInput'])
+    return results
 
 @lendingOffer_views.route('/addItem', methods=['GET'])
 @login_required

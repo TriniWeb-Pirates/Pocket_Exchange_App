@@ -3,7 +3,7 @@ from App.database import db
 from datetime import datetime
 
 def create_lendingOffer(lenderID,item,category,itemDescription,itemPic,itemPicName,mimetype,rulesOfUse,condition,preferedLocation):
-    offer = LendingOffer(lenderID=lenderID,item=item,itemDescription=itemDescription,category=category,itemPic=itemPic,itemPicName=itemPicName,mimetype=mimetype,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status=False,returnDate=None,borrowDate=None)
+    offer = LendingOffer(lenderID=lenderID,item=item.lower(),itemDescription=itemDescription,category=category,itemPic=itemPic,itemPicName=itemPicName,mimetype=mimetype,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status=False,returnDate=None,borrowDate=None)
     db.session.add(offer)
     db.session.commit()
     return offer
@@ -17,6 +17,13 @@ def setDates(id,lendingRequestID,returnDate,borrowDate):
         return offer
     else:
         return "Action Denied, this lending request must be temporarily approved first"
+
+def findItems(userInput):
+    data=userInput.lower()
+    results=LendingOffer.query.filter_by(item=data).all()
+    findings = [result.toJSON() for result in results]
+    print(findings)
+    return findings
 
 
 def getAllOffersJSON():
