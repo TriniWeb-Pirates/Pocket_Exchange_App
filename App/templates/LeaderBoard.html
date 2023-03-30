@@ -18,15 +18,18 @@
   <div class="container">
     <h2>Top Users</h2>
     <div class="row">
-      {% for user in users %}
+      {% for user in items %}
       <div class="col s12 m6 l4">
-        <div class="card">
+      <div class="card">
           <div class="card-content">
             <span class="card-title">{{ user.name }}</span>
             <p>Rating: {{ user.rating }}</p>
           </div>
           <div class="card-action">
-            <a href="/profile/{{ user.id }}" class="waves-effect waves-light btn">Check User</a>
+            <form action="/UserProfilePage/{{user.id}}" method="get">
+              <!--<button a href=""  class="waves-effect waves-light btn">Check User</a>-->
+              <button type="submit"  class="waves-effect waves-light btn">Check User</button>
+            </form>
           </div>
         </div>
       </div>

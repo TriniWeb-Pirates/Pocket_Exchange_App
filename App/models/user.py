@@ -63,7 +63,7 @@ class User(db.Model,UserMixin):
             'city': self.city,
             'Bio': self.Bio,
             'links':self.links,
-            'reportsCount':self.reportsCount
+            'reportsCount':self.reportsCount,
             'profile_pic': self.profile_pic#testing for rendering
         }
 

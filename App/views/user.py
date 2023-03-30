@@ -136,8 +136,8 @@ def getprofilepage():
     userData=get_user_TOJSON(current_user.id)
     return render_template("ProfilePage.html",user=userData,myID=current_user.id)
 
-@user_views.route('/profilepage<id>', methods=['GET'])
-def getprofilepage(id):
+@user_views.route('/UserProfilePage/<id>', methods=['GET'])
+def getUserProfilepage(id):
     userData=get_user_TOJSON(id)
     return render_template("ProfilePage.html",user=userData,myID=current_user.id)
 
