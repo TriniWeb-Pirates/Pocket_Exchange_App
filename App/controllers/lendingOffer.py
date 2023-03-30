@@ -21,7 +21,7 @@ def setDates(id,lendingRequestID,returnDate,borrowDate):
 def findItems(userInput):
     data=userInput.lower()
     results=LendingOffer.query.filter_by(item=data).all()
-    findings = [result.toJSON() for result in results]
+    findings = [result.toJSON2() for result in results]
     print(findings)
     return findings
 
@@ -30,7 +30,7 @@ def getAllOffersJSON():
     data = LendingOffer.query.all()
     if not data:
         return []
-    items = [offer.toJSON() for offer in data]
+    items = [offer.toJSON2() for offer in data]
     return items
 
 def get_offer_by_ID(id):
@@ -66,11 +66,11 @@ def remove_Offer(id):
 
 def getItmesByCategory(category):
     data=LendingOffer.query.filter_by(category=category).all()
-    items = [offer.toJSON() for offer in data]
+    items = [offer.toJSON2() for offer in data]
     return items
 
 def getAllUserOffers(userID):
     offers=LendingOffer.query.filter_by(lenderID=userID).all()
-    items = [offer.toJSON() for offer in offers]
+    items = [offer.toJSON2() for offer in offers]
     return items
 

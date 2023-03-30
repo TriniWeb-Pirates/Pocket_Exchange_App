@@ -31,7 +31,7 @@ def makeOfferPage():
     itemPicName=itemPic
     offer=create_lendingOffer(current_user.id,data['item'],data['category'],data['itemDescription'],itemPic,itemPicName,mimetype,data['rulesOfUse'],data['condition'],data['preferedLocation'])
     print(offer.item)
-    return jsonify(offer.item)
+    return redirect(url_for('user_views.gethomepage'))
 
 @lendingOffer_views.route('/searchItem',methods=['GET'])
 @login_required

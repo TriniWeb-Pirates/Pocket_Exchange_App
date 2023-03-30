@@ -2,7 +2,7 @@ from App.models import ReportNotification,User
 from App.database import db
 
 message="Warning someone has filed a report against you, if you are reported "
-message2=" times your account will be deleted!"
+message2=" time/s your account will be deleted!"
 
 
 def createReportNotification(userID):
