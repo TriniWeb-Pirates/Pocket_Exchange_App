@@ -13,3 +13,4 @@ from .lendingNotifications import *
 from .leaderboard import *
 from .trendingPage import *
 from .blackList import *
+from .reportNotification import *

@@ -9,11 +9,10 @@ from App.controllers import (
 
 reportingNotification_views = Blueprint('reportingNotification_views', __name__, template_folder='../templates')
 
-@reportingNotification_views.route('/CreateReportNotificationPage',methods=['POST'])
+@reportingNotification_views.route('/CreateReportNotificationPage/<offenderID>',methods=['POST'])
 @login_required
-def MakeReportNotificationPage():
-    data=request.json
-    notification=createNotification(data['userID'])
+def MakeReportNotificationPage(offenderID):
+    notification=createReportNotification(offenderID)
     return jsonify(notification)
 
 #Test Routes
@@ -21,5 +20,5 @@ def MakeReportNotificationPage():
 @login_required
 def testMakeReportNotificationPage():
     data=request.json
-    notification=createNotification(data['userID'])
+    notification=createReportNotification(data['userID'])
     return jsonify(notification)

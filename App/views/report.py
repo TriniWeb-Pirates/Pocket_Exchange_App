@@ -14,7 +14,7 @@ report_views = Blueprint('report_views', __name__, template_folder='../templates
 @login_required
 def Reporting(offenderID):
     data=request.form
-    report=create_report(offenderID,data['description'])
+    report=create_report(current_user.id,offenderID,data['description'])
     return redirect(url_for('user.views.gethomepage'))
 
 #Test Routes
@@ -22,7 +22,7 @@ def Reporting(offenderID):
 @login_required
 def testReporting():
     data=request.json
-    report=create_report(data['offenderID'],data['description'])
+    report=create_report(current_user.id,data['offenderID'],data['description'])
     return jsonify(report)
 
 @report_views.route('/testGetAllBlocked',methods=['Get'])

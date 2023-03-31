@@ -9,7 +9,7 @@ def createReportNotification(userID):
     user=User.query.get(userID)
     num=5-user.reportsCount
     remainder=str(num)
-    reportNotification=LendingNotification(userID=userID, notification=message+remainder+message2)
+    reportNotification=ReportNotification(userID=userID, notification=message+remainder+message2)
     db.session.add(reportNotification)
     db.session.commit()
     return reportNotification.toJSON()
