@@ -22,7 +22,7 @@ class LendingOffer(db.Model,UserMixin):
     borrowDate=db.Column(db.Date, nullable=True)
     returnDate=db.Column(db.Date,nullable=True)
     
-    lendRequests=db.relationship('LendingRequest',backref='lendingOffer',lazy=joined,cascade="all, delete-orphan")
+    lendRequests=db.relationship('LendingRequest',backref='lendingOffer',lazy="joined",cascade="all, delete-orphan")
     lendingnotif = db.relationship('LendingNotification',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
     interestedUserList=db.relationship('Manager',backref='lendingOffer',uselist=False)
 
