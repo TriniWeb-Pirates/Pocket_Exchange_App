@@ -12,17 +12,17 @@ class LendingOffer(db.Model,UserMixin):
     condition= db.Column(db.String(50), nullable=False)
     item= db.Column(db.String(200), nullable=False)
     category=db.Column(db.String(60), nullable=False)
-    #itemPic= db.Column(db.Text, nullable=True)
-    #itemPicName=db.Column(db.Text,nullable=True)
-    imageURL = db.Column(db.String(200))
-    #mimetype=db.Column(db.Text, nullable=True)
+    itemPic= db.Column(db.Text, nullable=True)
+    itemPicName=db.Column(db.Text,nullable=True)
+    #imageURL = db.Column(db.String(200))
+    mimetype=db.Column(db.Text, nullable=True)
     preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.String(50), nullable=False)
     RulesOfUse= db.Column(db.String(200), nullable=False)
     borrowDate=db.Column(db.Date, nullable=True)
     returnDate=db.Column(db.Date,nullable=True)
     
-    lendRequests=db.relationship('LendingRequest',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
+    lendRequests=db.relationship('LendingRequest',backref='lendingOffer',lazy=joined,cascade="all, delete-orphan")
     lendingnotif = db.relationship('LendingNotification',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
     interestedUserList=db.relationship('Manager',backref='lendingOffer',uselist=False)
 
@@ -47,6 +47,7 @@ class LendingOffer(db.Model,UserMixin):
             'id': self.id,
             'lenderID':self.lenderID,
             'item': self.item,
+            'lendingRequests':[lendRequest.toJSON() for lendRequest in self.lendRequests],
             'user': self.user,
             'itemDescription':self.itemDescription,
             'category':self.category,

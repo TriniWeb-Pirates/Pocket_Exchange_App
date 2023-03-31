@@ -13,3 +13,6 @@ def create_db(app):
     
 def init_db(app):
     db.init_app(app)
+
+def drop_db():
+    db.drop_all()
