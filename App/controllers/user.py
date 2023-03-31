@@ -1,7 +1,7 @@
 from App.models import User,BlockedUser
 from App.database import db
 
-def create_user(username, password,firstName,lastName,email,phone,city,biography,links,profile_pic,picName,mimetype):
+def create_user(username, password,firstName,lastName,email,phone,city,biography,links,imageURL):
     blockedUsers=BlockedUser.query.all()
     found=False
     blockedList = [blockedUser.toJSON() for blockedUser in blockedUsers]
@@ -9,7 +9,7 @@ def create_user(username, password,firstName,lastName,email,phone,city,biography
         if(person['email']==email or person['phoneNumber']==phone):
             found=True
     if(found==False):
-        newuser = User(username=username, password=password,firstName=firstName,lastName=lastName,email=email,phoneNumber=phone,city=city,Bio=biography,links=links,profile_pic=profile_pic,picName=picName,mimetype=mimetype)
+        newuser = User(username=username, password=password,firstName=firstName,lastName=lastName,email=email,phoneNumber=phone,city=city,Bio=biography,links=links,imageURL=imageURL)
         db.session.add(newuser)
         db.session.commit()
         return newuser
@@ -42,7 +42,7 @@ def get_all_users_json():
 def get_user(id):
     return User.query.get(id)
 
-def update_user(id,username,password,firstName,lastName,email,phoneNumber,city,Bio,links,profile_pic,picName,mimetype):
+def update_user(id,username,password,firstName,lastName,email,phoneNumber,city,Bio,links,imageURL):
     user = get_user(id)
     if user:
         user.username = username
@@ -54,9 +54,7 @@ def update_user(id,username,password,firstName,lastName,email,phoneNumber,city,B
         user.city = city
         user.Bio = Bio
         user.links = links
-        user.profile_pic = profile_pic
-        user.picName = picName
-        user.mimetype = mimetype
+        user.imageURL = imageURL
         db.session.add(user)
         db.session.commit()
         return user

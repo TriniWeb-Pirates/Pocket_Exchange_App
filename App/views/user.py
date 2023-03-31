@@ -23,7 +23,9 @@ from App.controllers import (
     get_user_by_email,
     get_user_by_phoneNumber,
     update_temp_user,
-    getComments
+    getComments,
+    uploadItem,
+    uploadProfile
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -81,12 +83,16 @@ def create_user_page2(id):
         flash('This phone number is already taken. Please enter a different number.')
         return redirect(url_for("user_views.getSignupPage2", id=id))
 
-    pic=request.files["profile_pic"]
-    profile_pic=secure_filename(pic.filename)
-    mimetype=pic.mimetype    
+    pic=request.files["profile_pic"] #actual picture 
+    profile_pic=secure_filename(pic.filename) #actual filename 
+  
+    #storing our images here 
+    imageURL = uploadProfile(pic, profile_pic)
+
+
     #temp user code here now
     temp_user = get_temp_user(id)
-    user=create_user(temp_user.username, temp_user.password, temp_user.firstName, temp_user.lastName, temp_user.email,data2["phoneNumber"],  data2['city'], data2['Bio'], data2['links'],profile_pic=pic.read(),picName=profile_pic,mimetype=mimetype)  
+    user=create_user(temp_user.username, temp_user.password, temp_user.firstName, temp_user.lastName, temp_user.email,data2["phoneNumber"],  data2['city'], data2['Bio'], data2['links'], imageURL)  
     delete_temp_user(id)
     
     users = get_all_users_json()

@@ -19,9 +19,10 @@ class User(db.Model,UserMixin):
     links = db.Column(db.String(120), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     reportsCount= db.Column(db.Integer, nullable=False)
-    profile_pic= db.Column(db.Text, nullable=True)
-    picName=db.Column(db.Text,nullable=True)
-    mimetype=db.Column(db.Text, nullable=True)
+    #profile_pic= db.Column(db.Text, nullable=True)
+    #picName=db.Column(db.Text,nullable=True)
+    #mimetype=db.Column(db.Text, nullable=True)
+    imageURL = db.Column(db.String(200))
     
     comments=db.relationship('Comment',backref='user',lazy=True,cascade="all, delete-orphan")
     lenderOffers=db.relationship('LendingOffer',backref='user',lazy=True,cascade="all, delete-orphan")
@@ -34,7 +35,7 @@ class User(db.Model,UserMixin):
     #communication=db.relationship('Message',backref='message',lazy=True,cascade="all, delete-orphan")
     #donators=db.relationship('DonationRequest',backref='donationRequest',lazy=True,cascade="all, delete-orphan")
 
-    def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio,links,profile_pic,picName,mimetype):
+    def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio,links,imageURL):
         self.username = username
         self.set_password(password)
         self.firstName=firstName
@@ -44,9 +45,10 @@ class User(db.Model,UserMixin):
         self.city=city
         self.Bio=Bio
         self.links=links
-        self.profile_pic=profile_pic
-        self.picName=picName
-        self.mimetype=mimetype
+       # self.profile_pic=profile_pic
+       # self.picName=picName
+       # self.mimetype=mimetype
+        self.imageURL = imageURL
         self.rating=0
         self.reportsCount=0
         #self.profile_pic=profile_pic
@@ -65,9 +67,7 @@ class User(db.Model,UserMixin):
             'links':self.links,
             'rating':self.rating,
             'reportsCount':self.reportsCount,
-            'profile_pic': self.profile_pic,#testing for rendering
-            'picName':self.picName,
-            'mimetype':self.mimetype
+            'imageURL':self.imageURL
         }
 
     def set_password(self, password):
