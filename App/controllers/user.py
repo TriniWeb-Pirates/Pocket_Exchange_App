@@ -38,6 +38,9 @@ def get_all_users_json():
         return []
     users = [user.toJSON() for user in users]
     return users
+    
+def get_user(id):
+    return User.query.get(id)
 
 def update_user(id,username,password,firstName,lastName,email,phoneNumber,city,Bio,links,profile_pic,picName,mimetype):
     user = get_user(id)
