@@ -38,7 +38,8 @@ def makeOfferPage():
 def lookup():
     data=request.values
     results=findItems(data['userInput'])
-    return render_template('homepage.html', selection=None, offers=results)
+    search = data['userInput']
+    return render_template('homepage.html', selection=None, offers=results, search=search)
 
 @lendingOffer_views.route('/addItem', methods=['GET'])
 @login_required
@@ -76,7 +77,7 @@ def GetCategoryOffers(category):
     print(offers)
     print(category)
     selection=category
-    return render_template('homepage.html', selection=selection, offers=offers)
+    return render_template('homepage.html', selection=selection, offers=offers, search=None)
 
 @lendingOffer_views.route('/AddDatesPage/<lendingRequestID>/<lendingoffer_ID>',methods=['GET'])
 @login_required

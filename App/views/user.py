@@ -140,7 +140,7 @@ def UpdateUser(id):
 @login_required
 def gethomepage():
     
-    return render_template("homepage.html", selection=None, offers=None)
+    return render_template("homepage.html", selection=None, offers=None, search=None)
 
 #route for user profile
 @user_views.route('/myprofilepage', methods=['GET'])
