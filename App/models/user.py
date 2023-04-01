@@ -22,7 +22,7 @@ class User(db.Model,UserMixin):
     #profile_pic= db.Column(db.Text, nullable=True)
     #picName=db.Column(db.Text,nullable=True)
     #mimetype=db.Column(db.Text, nullable=True)
-    imageURL = db.Column(db.String(200))
+    imageURL = db.Column(db.String(200), nullable=True)
     
     comments=db.relationship('Comment',backref='user',lazy=True,cascade="all, delete-orphan")
     lenderOffers=db.relationship('LendingOffer',backref='user',lazy=True,cascade="all, delete-orphan")

@@ -84,10 +84,15 @@ def create_user_page2(id):
         return redirect(url_for("user_views.getSignupPage2", id=id))
 
     pic=request.files["profile_pic"] #actual picture 
-    profile_pic=secure_filename(pic.filename) #actual filename 
+    if(pic):
+        profile_pic=secure_filename(pic.filename) #actual filename 
+
   
     #storing our images here 
-    imageURL = uploadProfile(pic, profile_pic)
+    if pic:
+        imageURL = uploadProfile(pic, profile_pic) #once a picture has been uploaded, send to firebase and get URL
+    else:
+        imageURL = None
 
 
     #temp user code here now

@@ -34,7 +34,11 @@
 						</div>
 					</div>
 					<div class="card-action">
-						<img src="{{ user.imageURL }}" alt="Profile Picture">
+						{% if user.imageURL !=None %}
+						<img src="{{ user.imageURL }}" class="responsive-img" alt="Profile Picture">
+						{% else %}
+						<img src="/static/images/avatar.png" class="responsive-img" alt="Profile Picture">
+						{% endif %}
 					</div>
 				</div>
 			</div>
