@@ -38,7 +38,7 @@ def makeOfferPage():
 def lookup():
     data=request.values
     results=findItems(data['userInput'])
-    return results
+    return render_template('homepage.html', selection=None, offers=results)
 
 @lendingOffer_views.route('/addItem', methods=['GET'])
 @login_required

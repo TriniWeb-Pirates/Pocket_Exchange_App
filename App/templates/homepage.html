@@ -177,7 +177,7 @@ h4, h5{
       <div class="nav-wrapper white">
         <form action="/searchItem" methods="GET">
           <div class="input-field">
-            <input id="search" name="userInput" type="search" required>
+            <input id="search" name="userInput" type="search">
             <label class="label-icon" for="search"><i class="material-icons black-text">search</i></label>
             <i class="material-icons">close</i>
           </div>
@@ -300,7 +300,7 @@ h4, h5{
 {% if selection !=None %}
 <h5 class="center">List of items under the category: {{ selection }} </h5> <br>
 
-
+{% endif %}
 
 
 <div class="row">
@@ -443,7 +443,7 @@ h4, h5{
 
   {% endfor %}
   {% endif %}
-  {% endif %}
+  
 
 
 
