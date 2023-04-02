@@ -388,8 +388,13 @@ h4, h5{
       </div>
 
       <div class="row" style="padding:10px;">
+
         <div class="col l3">
-      <a class="waves-effect waves-light btn green darken-2" style="margin-bottom:30px;"><i class="material-icons right">person</i>Visit Profile</a></div>
+          <form action="/UserProfilePage/{{ value.borrowerID }}" methods="GET">
+      <button type="submit" class="waves-effect waves-light btn green darken-2" style="margin-bottom:30px;"><i class="material-icons right">person</i>Visit Profile</button>
+    </form>
+    </div>
+
       <div class="col l3">
       <a class="waves-effect waves-light btn" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Approve Request</a></div>
     </div>

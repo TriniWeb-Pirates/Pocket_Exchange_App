@@ -25,7 +25,7 @@ from App.controllers import (
     update_temp_user,
     getComments,
     uploadItem,
-    uploadProfile
+    uploadProfile,
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -153,7 +153,12 @@ def getprofilepage():
 @user_views.route('/UserProfilePage/<id>', methods=['GET'])
 def getUserProfilepage(id):
     userData=get_user_TOJSON(id)
-    return render_template("ProfilePage.html",user=userData,myID=current_user.id)
+    comments=getComments(id)
+    return render_template("ProfilePage.html",user=userData,myID=current_user.id, comments=comments)
+
+
+
+
 
 #Testing routes
 #Route to test create user function in Postman

@@ -4,6 +4,7 @@ from App.database import db
 def createComment(commentedUserID,comment):
     newComment = Comment(commentedUserID=commentedUserID,comment=comment)
     db.session.add(newComment)
+    print(newComment)
     db.session.commit()
     return newComment
 

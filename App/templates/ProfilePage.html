@@ -1,3 +1,10 @@
+{% extends "layout2.html" %}
+{% block title %}Pocket Exchange{% endblock %}
+{% block page %}Pocket Exchange{% endblock %}
+
+{{ super() }}
+
+{% block content %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,17 +52,18 @@
 			<div class="col s12 m6">
 				{% if user.id!=myID %}
                   <div class="row">
-                    <form class="col s12">
+                    <form action="/add_comments/{{ user.id }}" method="POST" class="col s12">
                       <div class="row">
                         <div class="input-field col s12">
-                          <textarea id="comment" class="materialize-textarea"></textarea>
+                          <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
                           <label for="comment">Add a comment</label>
                         </div>
                       </div>
-                      <button class="btn waves-effect waves-light" type="submit">Submit</button>
+                      <button type="submit" class="btn waves-effect waves-light">Submit</button>
                     </form>
                   </div>
                   {% endif %}
+
 				<h5>Comments</h5>
 				{% for message in comments %}
 				<div class="card">
@@ -72,3 +80,5 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
+
+{% endblock %}
