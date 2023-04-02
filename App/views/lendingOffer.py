@@ -14,7 +14,8 @@ from App.controllers import (
     getItmesByCategory,
     setDates,
     getAllUserOffers,
-    findItems
+    findItems,
+    uploadItem
 )
 
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
@@ -26,10 +27,16 @@ def makeOfferPage():
     data=request.form
     pic=request.files["image"]
     itemPic=secure_filename(pic.filename)
-    mimetype=pic.mimetype
-    itemPic=pic.read()
-    itemPicName=itemPic
-    offer=create_lendingOffer(current_user.id,data['item'],data['category'],data['itemDescription'],itemPic,itemPicName,mimetype,data['rulesOfUse'],data['condition'],data['preferedLocation'])
+    
+    #itemPic=pic.read()
+    #itemPicName=itemPic
+    #Uploading image to firebase code 
+    if(pic):
+        imageURL = uploadItem(pic, itemPic)
+    else:
+        imageURL = None
+
+    offer=create_lendingOffer(current_user.id,data['item'],data['category'],data['itemDescription'],imageURL,data['rulesOfUse'],data['condition'],data['preferedLocation'])
     print(offer.item)
     return redirect(url_for('user_views.gethomepage'))
 

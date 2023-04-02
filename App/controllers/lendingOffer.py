@@ -2,8 +2,8 @@ from App.models import LendingOffer,LendingRequest,User
 from App.database import db
 from datetime import datetime
 
-def create_lendingOffer(lenderID,item,category,itemDescription,itemPic,itemPicName,mimetype,rulesOfUse,condition,preferedLocation):
-    offer = LendingOffer(lenderID=lenderID,item=item.lower(),category=category,itemDescription=itemDescription,itemPic=itemPic,itemPicName=itemPicName,mimetype=mimetype,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status=False,returnDate=None,borrowDate=None)
+def create_lendingOffer(lenderID,item,category,itemDescription,imageURL,rulesOfUse,condition,preferedLocation):
+    offer = LendingOffer(lenderID=lenderID,item=item.lower(),category=category,itemDescription=itemDescription,imageURL=imageURL,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status=False,returnDate=None,borrowDate=None)
     db.session.add(offer)
     db.session.commit()
     return offer
@@ -43,15 +43,13 @@ def get_all_offers():
     return LendingOffer.query.all()
 
 
-def update_Offer(OfferID,item,itemDescription,category,itemPic,itemPicName,mimetype,condition,preferedLocation,rulesOfUse):
+def update_Offer(OfferID,item,itemDescription,category,imageURL,condition,preferedLocation,rulesOfUse):
     offer=LendingOffer.query.get(OfferID)
     offer.item=item
     offer.itemDescription=itemDescription
     offer.category=category
     offer.condition=condition
-    offer.itemPic=itemPic
-    offer.itemPicName=itemPicName
-    offer.mimetype=mimetype
+    offer.imageURL = imageURL
     offer.preferedLocation=preferedLocation
     offer.RulesOfUse=rulesOfUse
     db.session.add(offer)

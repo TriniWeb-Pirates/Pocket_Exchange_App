@@ -12,10 +12,7 @@ class LendingOffer(db.Model,UserMixin):
     condition= db.Column(db.String(50), nullable=False)
     item= db.Column(db.String(200), nullable=False)
     category=db.Column(db.String(60), nullable=False)
-    itemPic= db.Column(db.Text, nullable=True)
-    itemPicName=db.Column(db.Text,nullable=True)
-    #imageURL = db.Column(db.String(200))
-    mimetype=db.Column(db.Text, nullable=True)
+    imageURL = db.Column(db.String(200))
     preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.String(50), nullable=False)
     RulesOfUse= db.Column(db.String(200), nullable=False)
@@ -26,14 +23,12 @@ class LendingOffer(db.Model,UserMixin):
     lendingnotif = db.relationship('LendingNotification',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
     interestedUserList=db.relationship('Manager',backref='lendingOffer',uselist=False)
 
-    def __init__(self,lenderID,itemDescription,condition,item,category,itemPic,itemPicName,mimetype,preferedLocation,Status,RulesOfUse,borrowDate,returnDate):
+    def __init__(self,lenderID,itemDescription,condition,item,category,imageURL,preferedLocation,Status,RulesOfUse,borrowDate,returnDate):
         self.lenderID=lenderID
         self.itemDescription=itemDescription
         self.item=item
         self.category=category
-        self.itemPic=itemPic
-        self.itemPicName=itemPicName
-        self.mimetype=mimetype
+        self.imageURL = imageURL
         self.condition=condition
         self.preferedLocation=preferedLocation
         self.Status=Status
@@ -52,8 +47,7 @@ class LendingOffer(db.Model,UserMixin):
             'itemDescription':self.itemDescription,
             'category':self.category,
             'condition': self.condition,
-            #'itemPic':self.itemPic,
-            #'itemPicName':self.itemPicName,
+            'imageURL':self.imageURL,
             'preferedLocation':self.preferedLocation,
             'Status':self.Status,
             'RulesOfUse':self.RulesOfUse,
@@ -71,9 +65,7 @@ class LendingOffer(db.Model,UserMixin):
         'itemDescription':self.itemDescription,
         'category':self.category,
         'condition': self.condition,
-        'itemPic':self.itemPic,
-        'itemPicName':self.itemPicName,
-        'mimetype':self.mimetype,
+        'imageURL':self.imageURL,
         'preferedLocation':self.preferedLocation,
         'Status':self.Status,
         'RulesOfUse':self.RulesOfUse,
