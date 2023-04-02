@@ -60,11 +60,13 @@ class LendingOffer(db.Model,UserMixin):
             'borrowDate':self.borrowDate,
             'returnDate':self.returnDate
         }
+        
     def toJSON2(self):
         return{
         'id': self.id,
         'lenderID':self.lenderID,
         'item': self.item,
+        'lendingRequests':[lendRequest.toJSON() for lendRequest in self.lendRequests],
         'user': self.user,
         'itemDescription':self.itemDescription,
         'category':self.category,

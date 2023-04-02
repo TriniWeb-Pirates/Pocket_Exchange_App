@@ -354,35 +354,36 @@ h4, h5{
         <div class="collapsible-body blue lighten-3">
     
 
+          {% for value in offer.lendingRequests %}
           <!--start of card item-->
           <div class="card" style="margin-bottom:50px;">
             
 
           <div class="row" style="padding:10px;">
             <div class="col l3">
-              <h6><b>Request ID: </b> #1</h6>
+              <h6><b>Request ID: </b> {{ value.id }}</h6>
             </div>
 
             <div class="col l3">
-              <h6><b>Username:</b> Cassandra</h6>
+              <h6><b>Username:</b> {{ value.user.username }}</h6>
             </div>
 
             <div class="col l5">
-              <h6><b>Contact Numer:</b> 232-2323</h6>
+              <h6><b>Contact Numer:</b> {{ value.user.phoneNumber }}</h6>
             </div>
           
 
           <div class="col l6">
-            <h6><b>City Address:</b> Port of Spain</h6>
+            <h6><b>City Address:</b> {{ value.user.city }}</h6>
           </div>
         
 
         <div class="col l6">
-          <h6><b>Preferred Meetup Location:</b> Trincity Mall</h6>
+          <h6><b>Preferred Meetup Location:</b> {{ value.preferedLocation }}</h6>
         </div>
 
         <div class="col l12">
-          <h6><b>Reason for use:</b> I enjoy reading.</h6>
+          <h6><b>Reason for use:</b> {{ value.reasonForUse }}</h6>
         </div>
       </div>
 
@@ -394,6 +395,7 @@ h4, h5{
     </div>
 
     </div> <!--end of card-->
+    {% endfor %}
 
 
     

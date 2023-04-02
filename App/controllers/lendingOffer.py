@@ -42,6 +42,7 @@ def get_lender(lenderID):
 def get_all_offers():
     return LendingOffer.query.all()
 
+
 def update_Offer(OfferID,item,itemDescription,category,itemPic,itemPicName,mimetype,condition,preferedLocation,rulesOfUse):
     offer=LendingOffer.query.get(OfferID)
     offer.item=item

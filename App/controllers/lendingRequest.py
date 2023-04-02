@@ -12,6 +12,10 @@ def create_lendingRequest(borrowerID,lendingoffer_ID,reasonForUse,preferedLocati
     if(validOffer==None):
         return "Request denied, lending offer does not exist"
     data=LendingOffer.query.filter_by(id=lendingoffer_ID,lenderID=borrowerID).first()
+    duplicate = LendingRequest.query.filter_by(lendingoffer_ID=lendingoffer_ID, borrowerID=borrowerID).first()
+    if(duplicate):
+        return "Request denied, you cannot make more than one request per item. "
+
     #data=LendingOffer.query.get(lendingoffer_ID)
     if(data==None):
         request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,reasonForUse=reasonForUse,preferedLocation=preferedLocation,Status=False,tempApproval=False,isReturned=False)

@@ -41,6 +41,7 @@ class LendingRequest(db.Model,UserMixin):
         return{
             "id":self.id,
             'borrowerID': self.borrowerID,
+            'user': self.user,
             'lendingoffer_ID': self.lendingoffer_ID,
             'reasonForUse':self.reasonForUse,
             'preferedLocation': self.preferedLocation,
