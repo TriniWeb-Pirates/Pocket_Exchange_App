@@ -5,9 +5,7 @@ TrendingDict={
     "username":"",
     "Item_Name":"",
     "requestCount":0,
-    'itemPic':"itemPic",
-    'itemPicName':"itemPicName",
-    'mimetype':"mimetype"
+    'imageURL':"imageURL"
 }
 
 def trendingItemsCriteria(data):
@@ -22,14 +20,13 @@ def buildTredingList():
         user=User.query.get(item['lenderID'])
         username=user.username
         count=0
-        itemPic=item['itemPic']
-        itemPicName=item['itemPicName']
-        mimetype=item['mimetype']
+        imageURL=item['imageURL']
+        
         requests=LendingRequest.query.filter_by(lendingoffer_ID=item['id']).all()
         info = [request.toJSON() for request in requests]
         for data in info:
             count=count+1
-        obj=dict(username=username,Item_Name=item['item'],requestCount=count,itemPic=itemPic,itemPicName=itemPicName,mimetype=mimetype)
+        obj=dict(username=username,Item_Name=item['item'],requestCount=count,imageURL=imageURL)
         trendingList.append(obj)
 
     trendingList.sort(reverse=True,key=trendingItemsCriteria)

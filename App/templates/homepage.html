@@ -326,7 +326,11 @@ h4, h5{
       <div class="row">
       <div class="col l4 s12">
         <div class="card-image">
+          {% if offer.imageURL==None %}
+          <img src="/static/images/no-image.svg" class="responsive-img">
+          {% else %}
         <img src="{{ offer.imageURL }}" class="responsive-img">
+          {% endif %}
       </div>
       </div>
 
@@ -395,9 +399,11 @@ h4, h5{
     </form>
     </div>
 
+    {% if user.id==offer.lenderID %}
       <div class="col l3">
       <a class="waves-effect waves-light btn" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Approve Request</a></div>
     </div>
+    {% endif %}
 
     </div> <!--end of card-->
     {% endfor %}
@@ -407,6 +413,8 @@ h4, h5{
         </div>  <!--end of collapsible body section-->
 
       </li>
+
+      
       <li>
         <div class="collapsible-header white-text red accent-4"><i class="material-icons">play_arrow</i>Make a Request</div>
         <div class="collapsible-body">  <!--start of second collapsible-->
@@ -441,6 +449,8 @@ h4, h5{
 
         </div>
       </li>
+
+      
       
     </ul>
           
