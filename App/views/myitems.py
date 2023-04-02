@@ -20,3 +20,11 @@ myitems_views = Blueprint('myitems_views', __name__, template_folder='../templat
 @myitems_views.route('/myitems', methods=['GET'])
 def getmyitems():
     return render_template("MyItems.html")
+
+@myitems_views.route('/myLendingOffers', methods=['GET'])
+def getmylendingoffers():
+    return render_template("myLendingOffers.html")
+
+@myitems_views.route('/myBorrowRequests', methods=['GET'])
+def getmyborrowrequests():
+    return render_template("myBorrowRequests.html")
