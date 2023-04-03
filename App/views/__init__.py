@@ -11,5 +11,6 @@ from .manager import manager_views
 from .lendingNotifications import lendingNotification_views
 from .report import report_views
 from .reportNotification import reportingNotification_views
+from .myLendingOffers import myLendingOffers_views
 
-views = [user_views, index_views, trend_views, leaderboard_views, myitems_views,report_views, comment_views, lendingOffer_views,lendingRequests_views,rating_views,manager_views,lendingNotification_views,reportingNotification_views]
+views = [user_views, index_views, trend_views, leaderboard_views, myitems_views,report_views, comment_views, lendingOffer_views,lendingRequests_views,rating_views,manager_views,lendingNotification_views,reportingNotification_views, myLendingOffers_views]
