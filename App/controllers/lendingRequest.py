@@ -88,6 +88,16 @@ def grantTempApproval(id,lendingoffer_ID,userID,status):
     else:
         return "Approval denied, users can not approve their own lending requests"
 
+def UnapproveTemp(id,userID):
+    request=LendingRequest.query.get(id)
+    offer=LendingOffer.query.filter_by(id=request.lendingoffer_ID,lenderID=userID).first()
+    if(userID!=request.borrowerID and offer.lenderID==userID):
+        request.tempApproval=False
+        offer.Status=None
+        print(offer.toJSON())
+        return request 
+
+
 def changeStatus(id,userID,status):
     lendingRequest=LendingRequest.query.get(id)
     

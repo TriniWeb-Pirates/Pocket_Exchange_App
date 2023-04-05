@@ -124,6 +124,12 @@ def testUpdateLendingRequestPage():
     lendRequest=updateLendingRequest(data['id'],data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['tempApproval'])
     return jsonify(lendRequest.borrowDate)
 
+@lendingRequests_views.route('/testUnApproveTempApproval',methods=['PUT'])
+@login_required
+def testUnApproval():
+    data=request.json
+    return "hello"
+
 #Route to test retrieving all lending request objects in the database
 @lendingRequests_views.route('/testGetAllRequests', methods=['GET'])
 @login_required

@@ -161,5 +161,5 @@ def testDeleteOffer(id):
 @login_required
 def testRetreiveAllOffers():
     offers=getAllOffersJSON()
-    return offers
+    return jsonify(offers)
 
