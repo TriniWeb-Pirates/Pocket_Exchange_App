@@ -80,8 +80,11 @@ def grantTempApproval(id,lendingoffer_ID,userID,status):
         request.tempApproval=status
         db.session.add(request)
         db.session.commit()
-        offer.borrowRequestID=int(id)
+        offer.borrowRequestID=id
         offer.Status="Unavailable"
+        print(offer.borrowRequestID)
+        db.session.add(offer)
+        db.session.commit()
         #print(offer.toJSON())
         #return "Approval Granted"
         return request.toJSON()
@@ -93,9 +96,10 @@ def UnapproveTemp(id,userID):
     offer=LendingOffer.query.filter_by(id=request.lendingoffer_ID,lenderID=userID).first()
     if(userID!=request.borrowerID and offer.lenderID==userID):
         request.tempApproval=False
-        offer.Status=None
+        offer.borrowRequestID=None
+        offer.Status="Available"
         print(offer.toJSON())
-        return request 
+        return request.toJSON() 
 
 
 def changeStatus(id,userID,status):

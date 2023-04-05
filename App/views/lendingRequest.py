@@ -13,7 +13,8 @@ from App.controllers import (
     getAllOfferRequests,
     grantTempApproval,
     changeStatus,
-    getRequest
+    getRequest,
+    UnapproveTemp
 )
 
 lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_folder='../templates')
@@ -128,7 +129,8 @@ def testUpdateLendingRequestPage():
 @login_required
 def testUnApproval():
     data=request.json
-    return "hello"
+    lendRequest=UnapproveTemp(data['id'],current_user.id)
+    return lendRequest
 
 #Route to test retrieving all lending request objects in the database
 @lendingRequests_views.route('/testGetAllRequests', methods=['GET'])

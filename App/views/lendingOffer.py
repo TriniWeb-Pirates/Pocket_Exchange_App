@@ -108,7 +108,7 @@ def DeleteOffer(id):
 @login_required
 def RetreiveAllOffers():
     offers=getAllOffersJSON()
-    return offers
+    return jsonify(offers)
 
 @lendingOffer_views.route('/GetAllUserOffers', methods=['GET'])
 @login_required

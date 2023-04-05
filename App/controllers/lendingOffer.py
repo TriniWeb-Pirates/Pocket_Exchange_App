@@ -31,6 +31,7 @@ def getAllOffersJSON():
     if not data:
         return []
     items = [offer.toJSON() for offer in data]
+    print(items)
     return items
 
 def get_offer_by_ID(id):
