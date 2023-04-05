@@ -67,11 +67,11 @@ def RetreiveOfferRequests(lendingoffer_ID):
     requests=getAllOfferRequests(lendingoffer_ID)
     return jsonify(requests)
 
-@lendingRequests_views.route('/GrantTempApproval/<lendingRequestID>', methods=['PUT'])
+@lendingRequests_views.route('/GrantTempApproval/<lendingRequestID>/<lendingoffer_ID>', methods=['PUT'])
 @login_required
-def GrantTempApproval(lendingRequestID):
+def GrantTempApproval(lendingRequestID,lendingoffer_ID):
     data=request.form
-    lendingRequest=grantTempApproval(lendingRequestID,current_user.id,data['status'])
+    lendingRequest=grantTempApproval(lendingRequestID,lendingoffer_ID,current_user.id,data['status'])
     #return jsonify(lendingRequest)#redirect user to setDates route with ID of approved lending request
     return redirect(url_for('lendingOffer_views.InputDates'),id=lendingRequest.id,borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID)
 
@@ -110,7 +110,7 @@ def testGetLendingRequestData():
 @login_required
 def testMakeLendingRequestPage():
     data=request.json#must change json to form for web page
-    lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'])
+    lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['tempApproval'])
     #print(lendRequest.borrowDate)
     return jsonify(lendRequest)
     #return redirect(url_for("manager_views.testAddUsersToList"),borrowerID=data['borrowerID'],lendingoffer_ID=data['lendingoffer_ID'])
@@ -121,7 +121,7 @@ def testMakeLendingRequestPage():
 @login_required
 def testUpdateLendingRequestPage():
     data=request.json
-    lendRequest=updateLendingRequest(data['id'],data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['quantity'],data['tempApproval'],data['borrowingDays'])
+    lendRequest=updateLendingRequest(data['id'],data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['Status'],data['tempApproval'])
     return jsonify(lendRequest.borrowDate)
 
 #Route to test retrieving all lending request objects in the database
@@ -151,7 +151,7 @@ def testRetreiveOfferRequests(lendingoffer_ID):
 @login_required
 def testGrantTempApproval():
     data=request.json
-    lendingRequest=grantTempApproval(data['id'],current_user.id,data['status'])
+    lendingRequest=grantTempApproval(data['id'],data['lendingoffer_ID'],current_user.id,data['status'])
     return jsonify(lendingRequest)#redirect user to setDates route with ID of approved lending request
     #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
 

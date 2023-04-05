@@ -3,7 +3,7 @@ from App.database import db
 from datetime import datetime
 
 def create_lendingOffer(lenderID,item,category,itemDescription,imageURL,rulesOfUse,condition,preferedLocation):
-    offer = LendingOffer(lenderID=lenderID,item=item.lower(),category=category,itemDescription=itemDescription,imageURL=imageURL,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status=False,returnDate=None,borrowDate=None)
+    offer = LendingOffer(lenderID=lenderID,borrowRequestID=None,item=item.lower(),category=category,itemDescription=itemDescription,imageURL=imageURL,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status="Available",returnDate=None,borrowDate=None)
     db.session.add(offer)
     db.session.commit()
     return offer

@@ -169,7 +169,7 @@ def testAddUser():
     if user:
         flash("Username is taken please enter a new username.")
         return jsonify("Username is taken please enter a new username.")
-    user=create_user(data1['username'], data1['password'], data1['firstName'], data1['lastName'], data1['phoneNumber'],data1['email'], data1['city'], data1['Bio'], data1['links'],data1['profile_pic'],data1['picName'],data1['mimetype'])
+    user=create_user(data1['username'], data1['password'], data1['firstName'], data1['lastName'], data1['phoneNumber'],data1['email'], data1['city'], data1['Bio'], data1['links'],data1['imageURL'])
     print(user.firstName)
     return jsonify(user.id)
 
@@ -191,7 +191,7 @@ def TestloginUser():
 @login_required
 def testUpdateUser():
     data=request.json
-    user=update_user(1,data['username'],data['password'],data['firstName'],data['lastName'],data['email'],data['phoneNumber'],data['city'],data['Bio'],data['links'],data['profile_pic'],data['picName'],data['mimetype'])
+    user=update_user(1,data['username'],data['password'],data['firstName'],data['lastName'],data['email'],data['phoneNumber'],data['city'],data['Bio'],data['links'],data['imageURL'])
     return jsonify(user)
 
 

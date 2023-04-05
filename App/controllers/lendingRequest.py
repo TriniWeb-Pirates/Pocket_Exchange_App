@@ -73,12 +73,16 @@ def getAllOfferRequests(lendingoffer_ID):
     return items
 
 #grantApproval must be revised
-def grantTempApproval(id,userID,status):
+def grantTempApproval(id,lendingoffer_ID,userID,status):
     request=LendingRequest.query.get(id)
+    offer=LendingOffer.query.get(lendingoffer_ID)
     if(request.borrowerID!=userID):
         request.tempApproval=status
         db.session.add(request)
         db.session.commit()
+        offer.borrowRequestID=int(id)
+        offer.Status="Unavailable"
+        #print(offer.toJSON())
         #return "Approval Granted"
         return request.toJSON()
     else:

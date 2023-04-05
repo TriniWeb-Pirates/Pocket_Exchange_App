@@ -8,6 +8,7 @@ class LendingOffer(db.Model,UserMixin):
     __tablename__='lendingOffer'
     id = db.Column(db.Integer, primary_key=True)
     lenderID=db.Column(db.Integer,db.ForeignKey('user.id'), nullable=False)
+    borrowRequestID=db.Column(db.Integer, nullable=True)
     itemDescription=db.Column(db.String(200), nullable=False)
     condition= db.Column(db.String(50), nullable=False)
     item= db.Column(db.String(200), nullable=False)
@@ -23,8 +24,9 @@ class LendingOffer(db.Model,UserMixin):
     lendingnotif = db.relationship('LendingNotification',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
     interestedUserList=db.relationship('Manager',backref='lendingOffer',uselist=False)
 
-    def __init__(self,lenderID,itemDescription,condition,item,category,imageURL,preferedLocation,Status,RulesOfUse,borrowDate,returnDate):
+    def __init__(self,lenderID,borrowRequestID,itemDescription,condition,item,category,imageURL,preferedLocation,Status,RulesOfUse,borrowDate,returnDate):
         self.lenderID=lenderID
+        self.borrowRequestID=None
         self.itemDescription=itemDescription
         self.item=item
         self.category=category
@@ -41,6 +43,7 @@ class LendingOffer(db.Model,UserMixin):
         return{
             'id': self.id,
             'lenderID':self.lenderID,
+            'borrowRequestID':self.borrowRequestID,
             'item': self.item,
             'lendingRequests':[lendRequest.toJSON() for lendRequest in self.lendRequests],
             'user': self.user,
@@ -59,6 +62,7 @@ class LendingOffer(db.Model,UserMixin):
         return{
         'id': self.id,
         'lenderID':self.lenderID,
+        'borrowRequestID':self.borrowRequestID,
         'item': self.item,
         'lendingRequests':[lendRequest.toJSON() for lendRequest in self.lendRequests],
         'user': self.user,
