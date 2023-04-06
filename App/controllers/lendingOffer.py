@@ -1,6 +1,6 @@
 from App.models import LendingOffer,LendingRequest,User
 from App.database import db
-from datetime import datetime
+from datetime import date, datetime, timedelta
 
 def create_lendingOffer(lenderID,item,category,itemDescription,imageURL,rulesOfUse,condition,preferedLocation):
     offer = LendingOffer(lenderID=lenderID,borrowRequestID=None,item=item.lower(),category=category,itemDescription=itemDescription,imageURL=imageURL,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status="Available",returnDate=None,borrowDate=None)
@@ -42,6 +42,26 @@ def get_lender(lenderID):
 
 def get_all_offers():
     return LendingOffer.query.all()
+
+def findBorrowingDays(offerID):
+    offer=LendingOffer.query.get(offerID)
+    today=datetime.date.today()
+    if(today>=offer.borrowDate):
+        borrowingDays=offer.returnDate-today
+        return borrowingDays
+    else:
+        borrowingDays=offer.returnDate-offer.borrowDate
+        return borrowingDays
+
+def checkDate(offerID):
+    offer=LendingOffer.query.get(offerID)
+    today=datetime.date.today()
+    if(offer.returnDate<today):
+        return "The user who borrowed this item is late"
+    else:
+        days=findBorrowingDays(offerID)
+        return "The borrower has "+ str(days)+ "to return this item"
+
 
 
 def update_Offer(OfferID,item,itemDescription,category,imageURL,condition,preferedLocation,rulesOfUse):
