@@ -14,6 +14,8 @@ def setDates(id,lendingRequestID,returnDate,borrowDate):
     if(request.tempApproval==True):
         offer.returnDate=datetime.date(datetime.strptime(returnDate, "%Y-%m-%d"))
         offer.borrowDate=datetime.date(datetime.strptime(borrowDate, "%Y-%m-%d"))
+        db.session.add(offer)
+        db.session.commit()
         return offer
     else:
         return "Action Denied, this lending request must be temporarily approved first"

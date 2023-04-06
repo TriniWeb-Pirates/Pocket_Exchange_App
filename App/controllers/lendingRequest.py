@@ -78,6 +78,7 @@ def grantTempApproval(id,lendingoffer_ID,userID,status):
     offer=LendingOffer.query.get(lendingoffer_ID)
     if(request.borrowerID!=userID):
         request.tempApproval=status
+
         db.session.add(request)
         db.session.commit()
         offer.borrowRequestID=id
@@ -86,20 +87,28 @@ def grantTempApproval(id,lendingoffer_ID,userID,status):
         db.session.add(offer)
         db.session.commit()
         #print(offer.toJSON())
-        #return "Approval Granted"
-        return request.toJSON()
+        return "Approval Granted"
+        #return request.toJSON()
     else:
         return "Approval denied, users can not approve their own lending requests"
 
 def UnapproveTemp(id,userID):
     request=LendingRequest.query.get(id)
+    print(request)
     offer=LendingOffer.query.filter_by(id=request.lendingoffer_ID,lenderID=userID).first()
     if(userID!=request.borrowerID and offer.lenderID==userID):
         request.tempApproval=False
         offer.borrowRequestID=None
         offer.Status="Available"
+        db.session.add(request)
+        db.session.commit()
+        db.session.add(offer)
+        db.session.commit()
         #print(offer.toJSON())
-        return request.toJSON() 
+        #print(request.toJSON())
+        return request.toJSON()
+    else:
+        return "Action Denied"
 
 
 def changeStatus(id,userID,status):
@@ -109,6 +118,10 @@ def changeStatus(id,userID,status):
         lendingRequest.Status=status
         offer=LendingOffer.query.get(lendingRequest.lendingoffer_ID)
         offer.Status=status
+        db.session.add(lendingRequest)
+        db.session.commit()
+        db.session.add(offer)
+        db.session.commit()
         print(lendingRequest.toJSON())
         return lendingRequest.toJSON()
     return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"
@@ -119,5 +132,9 @@ def changeIsReturned(id,userID,isReturned):
         lendingRequest.isReturned=isReturned
         offer=LendingOffer.query.get(lendingRequest.lendingoffer_ID)
         offer.Status=False
+        db.session.add(lendingRequest)
+        db.session.commit()
+        db.session.add(offer)
+        db.session.commit()
         return lendingRequest.toJSON()
     return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"

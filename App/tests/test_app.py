@@ -1,6 +1,6 @@
 import os, tempfile, pytest, logging, unittest
 from werkzeug.security import check_password_hash, generate_password_hash
-
+from datetime import date, datetime, timedelta
 from App.main import create_app
 from App.database import create_db
 from App.models import User
@@ -33,7 +33,12 @@ from App.controllers import (
     get_user_by_email,
     get_user_by_phoneNumber,
     update_temp_user,
-    getComments
+    getComments,
+    setDates,
+    findItems,
+    grantTempApproval,
+    UnapproveTemp
+
 )
 
 from wsgi import app
@@ -47,7 +52,7 @@ LOGGER = logging.getLogger(__name__)
 class UserUnitTests(unittest.TestCase):
 
     def test_new_user(self):
-        user = User("bob", "bobpass","bobby","brown","bob@gmail.com",443-7890,"Arima","I like cars","www.bobbyPage.com",None,None,None)
+        user = User("bob", "bobpass","bobby","brown","bob@gmail.com",443-7890,"Arima","I like cars","www.bobbyPage.com",None)
         assert user.username == "bob"
 
     # pure function no side effects or integrations called
@@ -59,12 +64,12 @@ class UserUnitTests(unittest.TestCase):
     def test_hashed_password(self):
         password = "mypass"
         hashed = generate_password_hash(password, method='sha256')
-        user = User("bob", password,"bobby","brown","bob@gmail.com",443-7890,"Arima","I like cars","www.bobbyPage.com",None,None,None)
+        user = User("bob", password,"bobby","brown","bob@gmail.com",443-7890,"Arima","I like cars","www.bobbyPage.com",None)
         assert user.password != password
 
     def test_check_password(self):
         password = "mypass"
-        user = User("bob", password,"bobby","brown","bob@gmail.com",443-7890,"Arima","I like cars","www.bobbyPage.com",None,None,None)
+        user = User("bob", password,"bobby","brown","bob@gmail.com",443-7890,"Arima","I like cars","www.bobbyPage.com",None)
         assert user.check_password(password)
     
 
@@ -90,26 +95,45 @@ def empty_db():
 class UsersIntegrationTests(unittest.TestCase):
 
     def test_create_user(self):
-        user = create_user("rick", "bobpass","bobby","brown","bike@gmail.com",892200851,"Arima","I like cars","www.bobbyPage.com",None,None,None)
+        user = create_user("rick", "bobpass","bobby","brown","bike@gmail.com",892200851,"Arima","I like cars","www.bobbyPage.com",None)
         assert user.username == "rick"
 
     def test_create_lendingOffer(self):
-        offer=create_lendingOffer(1,"pen","writes with ink","Stationary",None,None,None,"good","Arima","Do not break it")
+        offer=create_lendingOffer(1,"pen","Stationary","writes with ink",None,"Do not break it","good","Arima",)
         assert offer.item=="pen"
 
+    
+
     def test_create_lendingRequest(self):
-        user = create_user("mike", "bobpass","bobby","brown","mike@gmail.com",992000251,"Arima","I like cars","www.bobbyPage.com",None,None,None)
+        user = create_user("mike", "bobpass","bobby","brown","mike@gmail.com",192000251,"Arima","I like cars","www.bobbyPage.com",None)
         lendingRequest=create_lendingRequest(2,1,"i need it for exams","arima")
         assert lendingRequest=="Lending request created"
     
+    def test_grantTempApproval(self):
+        requestData=grantTempApproval(1,1,1,True)
+        assert requestData=="Approval Granted"
+    
+    def test_UnapproveTemp(self):
+        lendingRequest=create_lendingRequest(3,1,"i need it for exams","arima")
+        request=UnapproveTemp(2,1)
+        assert request.tempApproval==False
+
+    def test_setDates(self):
+        offer=setDates(1,1,"2022-07-12","2022-07-09")
+        assert offer.returnDate==date(2022,7,12)
+    
+    def test_findItems(self):
+        findings=findItems("Pen")
+        assert findings!=None
+    
     def test_createRating(self):
-        user = create_user("charlie", "bobpass","bobby","brown","charlie@gmail.com",882000251,"Arima","I like cars","www.bobbyPage.com",None,None,None)
+        user = create_user("charlie", "bobpass","bobby","brown","charlie@gmail.com",882000251,"Arima","I like cars","www.bobbyPage.com",None)
         rating=createRating(2,1,5)
         print(rating)
         assert rating.rate==5
     
     def test_create_report(self):
-        report=create_report(1,"He broke my lawnmower")
+        report=create_report(1,2,"He broke my lawnmower")
         assert report['description']=="He broke my lawnmower"
 
     #def test_get_all_users_json(self):
