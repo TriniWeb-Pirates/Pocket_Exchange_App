@@ -12,7 +12,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
+  <style>
+    body {
+      background-color: #2196f3;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    h2.center {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .card {
+      background-color: white;
+    }
+
+    .card-action button {
+      background-color: red;
+      color: white;
+    }
+
+    .card-action button:hover {
+      background-color: green;
+    }
+  </style>
 </head>
+
 <body>
 
   <div class="container">
