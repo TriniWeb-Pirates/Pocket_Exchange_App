@@ -1,100 +1,106 @@
 {% extends "layout2.html" %}
 {% block title %}Pocket Exchange{% endblock %}
 {% block page %}Pocket Exchange{% endblock %}
-
 {{ super() }}
-
 {% block content %}
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Profile Page</title>
-	<!--Import Google Icon Font-->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!--Import materialize.css-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-	<style>
-		body {
-			background-color: #2196f3;
-		}
-
-		.btn {
-			background-color: red;
-			color: white;
-		}
-
-		.btn:hover {
-			background-color: green;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-<div class="row">
-  <div class="col s12 m6 offset-m3">
-    <div class="card">
-      <div class="card-content">
-        <div class="row">
-          <div class="col s12">
-            <h5>{{ user.username }}</h5>
-            <p>{{ user.first_name }} {{ user.last_name }}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12">
-            <ul>
-              <li><i class="material-icons">phone</i>{{ user.phoneNumber }}</li>
-              <li><i class="material-icons">email</i>{{ user.email }}</li>
-              <li><i class="material-icons">location_city</i>{{ user.city }}</li>
-              <li><i class="material-icons">description</i>{{ user.Bio }}</li>
-              <li><i class="material-icons">link</i>{{ user.links }}</li>
-              <li><i class="material-icons">thumb_up</i>{{ user.rating }}</li>
-              <li><i class="material-icons">report_problem</i>{{ user.reportsCount }}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="card-action">
-        {% if user.imageURL !=None %}
-        <img src="{{ user.imageURL }}" class="responsive-img" alt="Profile Picture">
-        {% else %}
-        <img src="/static/images/avatar.png" class="responsive-img" alt="Profile Picture">
-        {% endif %}
-      </div>
-    </div>
-  </div>
-</div>
-			<div class="col s12 m6">
-				{% if user.id!=myID %}
-                  <div class="row">
-                    <form action="/add_comments/{{ user.id }}" method="POST" class="col s12">
-                      <div class="row">
-                        <div class="input-field col s12">
-                          <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
-                          <label for="comment">Add a comment</label>
+   <head>
+      <title>Profile Page</title>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <style>
+         body {
+         background-color: #2196f3;
+         }
+         .btn {
+         background-color: red;
+         color: white;
+         }
+         .btn:hover {
+         background-color: green;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <div class="row">
+            <div class="col s12 m6 offset-m3">
+               <div class="card">
+                  <div class="card-content">
+                     <div class="row">
+                        <div class="col s12">
+                           <h5>{{ user.username }}</h5>
+                           <p>{{ user.first_name }} {{ user.last_name }}</p>
                         </div>
-                      </div>
-                      <button type="submit" class="btn waves-effect waves-light">Submit</button>
-                    </form>
+                     </div>
+                     <div class="row">
+                        <div class="col s12">
+							<ul>
+								<li><i class="material-icons">phone</i>{{ user.phoneNumber }}</li>
+								<li><i class="material-icons">email</i>{{ user.email }}</li>
+								<li><i class="material-icons">location_city</i>{{ user.city }}</li>
+								<li><i class="material-icons">description</i>{{ user.Bio }}</li>
+								<li><i class="material-icons">link</i>{{ user.links }}</li>
+								<li>
+									<span><i class="material-icons">thumb_up</i></span>
+									<span>
+										{% for i in range(5) %}
+											{% if i < user.rating %}
+												<i class="material-icons">star</i>
+											{% else %}
+												<i class="material-icons">star_border</i>
+											{% endif %}
+										{% endfor %}
+									</span>
+								</li>
+								<li><i class="material-icons">report_problem</i>{{ user.reportsCount }}</li>
+							</ul>
+                        </div>
+                     </div>
                   </div>
-                  {% endif %}
-
-				<h5>Comments</h5>
-				{% for message in comments %}
-				<div class="card">
-					<div class="card-content">
-						<p>{{ message.comment }}</p>
-					</div>
-				</div>
-				{% endfor %}
-			</div>
-		</div>
-	</div>
-
-	<!--JavaScript at end of body for optimized loading-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
+                  <div class="card-action">
+                     {% if user.imageURL !=None %}
+                     <img src="{{ user.imageURL }}" class="responsive-img" alt="Profile Picture">
+                     {% else %}
+                     <img src="/static/images/avatar.png" class="responsive-img" alt="Profile Picture">
+                     {% endif %}
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col s12 m6">
+            {% if user.id!=myID %}
+            <div class="row">
+               <form action="/add_comments/{{ user.id }}" method="POST" class="col s12">
+                  <div class="row">
+                     <div class="input-field col s12">
+                        <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
+                        <label for="comment">Add a comment</label>
+                     </div>
+                  </div>
+                  <button type="submit" class="btn waves-effect waves-light">Submit</button>
+               </form>
+            </div>
+            <div class="row">
+               <form action="/create_report/{{ user.id }}" method="POST" class="col s12">
+                  <div class="row">
+                     <div class="input-field col s12">
+                        <textarea name="report" id="report" class="materialize-textarea"></textarea>
+                        <label for="report">Report this user</label>
+                     </div>
+                  </div>
+                  <button type="submit" class="btn waves-effect waves-light red">Report</button>
+               </form>
+            </div>
+            {% endif %}
+         </div>
+      </div>
+      </div>
+      <!--JavaScript at end of body for optimized loading-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   </body>
 </html>
-
 {% endblock %}
