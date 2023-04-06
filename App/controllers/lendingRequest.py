@@ -109,6 +109,7 @@ def changeStatus(id,userID,status):
         lendingRequest.Status=status
         offer=LendingOffer.query.get(lendingRequest.lendingoffer_ID)
         offer.Status=status
+        print(lendingRequest.toJSON())
         return lendingRequest.toJSON()
     return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"
 

@@ -15,7 +15,8 @@ from App.controllers import (
     setDates,
     getAllUserOffers,
     findItems,
-    uploadItem
+    uploadItem,
+    restartOffer
 )
 
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
@@ -163,3 +164,9 @@ def testRetreiveAllOffers():
     offers=getAllOffersJSON()
     return jsonify(offers)
 
+@lendingOffer_views.route('/testRestartOffer',methods=['PUT'])
+@login_required
+def testRestart():
+    data=request.json
+    offer=restartOffer(current_user.id,data['lendingoffer_ID'])
+    return jsonify(offer)

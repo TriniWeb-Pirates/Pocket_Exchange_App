@@ -76,6 +76,13 @@ def GrantTempApproval(lendingRequestID,lendingoffer_ID):
     #return jsonify(lendingRequest)#redirect user to setDates route with ID of approved lending request
     return redirect(url_for('lendingOffer_views.InputDates'),id=lendingRequest.id,borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID)
 
+@lendingRequests_views.route('/UnApproveTempApproval/<lendingRequestID>',methods=['PUT'])
+@login_required
+def UnApproval(lendingRequestID):
+    #data=request.form
+    lendRequest=UnapproveTemp(lendingRequestID,current_user.id)
+    return redirect(url_for('user_views.gethomepage'))
+
 #Route for changing request status
 @lendingRequests_views.route('/ChangeStatus/<lendingRequestID>', methods=['PUT'])
 @login_required
@@ -111,7 +118,7 @@ def testGetLendingRequestData():
 @login_required
 def testMakeLendingRequestPage():
     data=request.json#must change json to form for web page
-    lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['preferedLocation'],data['tempApproval'])
+    lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['reasonForUse'],data['preferedLocation'])
     #print(lendRequest.borrowDate)
     return jsonify(lendRequest)
     #return redirect(url_for("manager_views.testAddUsersToList"),borrowerID=data['borrowerID'],lendingoffer_ID=data['lendingoffer_ID'])
@@ -129,7 +136,7 @@ def testUpdateLendingRequestPage():
 @login_required
 def testUnApproval():
     data=request.json
-    lendRequest=UnapproveTemp(data['id'],current_user.id)
+    lendRequest=UnapproveTemp(data['lendingRequestID'],current_user.id)
     return lendRequest
 
 #Route to test retrieving all lending request objects in the database
