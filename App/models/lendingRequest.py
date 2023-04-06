@@ -2,7 +2,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime, timedelta
-from App.models import LendingOffer
 from flask_login import UserMixin
 
 
@@ -41,7 +40,7 @@ class LendingRequest(db.Model,UserMixin):
         return{
             "id":self.id,
             'borrowerID': self.borrowerID,
-            'user': self.user,
+            'user': self.user.toJSON(),
             'lendingoffer_ID': self.lendingoffer_ID,
             'reasonForUse':self.reasonForUse,
             'preferedLocation': self.preferedLocation,

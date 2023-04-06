@@ -117,6 +117,13 @@ def RetreiveAllUserOffers():
     offers=getAllUserOffers(current_user.id)
     return offers
 
+@lendingOffer_views.route('/RestartOffer/<lendingoffer_ID>',methods=['PUT'])
+@login_required
+def Restart(lendingoffer_ID):
+    offer=restartOffer(current_user.id,lendingoffer_ID)
+    return redirect(url_for('user_views.gethomepage'))
+
+
 #TESTING ROUTES
 #Route to test retrieving offers by a category
 @lendingOffer_views.route('/testGetCategoryOffers',methods=['GET'])

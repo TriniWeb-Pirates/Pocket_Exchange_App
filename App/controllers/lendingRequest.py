@@ -98,7 +98,7 @@ def UnapproveTemp(id,userID):
         request.tempApproval=False
         offer.borrowRequestID=None
         offer.Status="Available"
-        print(offer.toJSON())
+        #print(offer.toJSON())
         return request.toJSON() 
 
 

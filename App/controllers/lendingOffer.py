@@ -31,7 +31,7 @@ def getAllOffersJSON():
     if not data:
         return []
     items = [offer.toJSON() for offer in data]
-    print(items)
+    #print(items)
     return items
 
 def get_offer_by_ID(id):
@@ -76,22 +76,19 @@ def getAllUserOffers(userID):
 
 def restartOffer(userID,id):
     offer=LendingOffer.query.get(id)
-    print(offer.toJSON())
+   # print(offer.toJSON())
     if(userID==offer.lenderID):
         for request in offer.lendRequests:
-            print("HERE")
+           #print("HERE")
             item=LendingRequest.query.get(request.id)
-            print(item)
+            #print(item)
             db.session.delete(item)
             db.session.commit()
         offer.borrowRequestID=None
         offer.Status="Available"
         db.session.add(offer)
         db.session.commit()
-        print(offer)
+        #print(offer)
         return offer.toJSON()
     else:
         return "Action denied, You cannit restart this offer"
-
-
-

@@ -19,9 +19,6 @@ class User(db.Model,UserMixin):
     links = db.Column(db.String(120), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     reportsCount= db.Column(db.Integer, nullable=False)
-    #profile_pic= db.Column(db.Text, nullable=True)
-    #picName=db.Column(db.Text,nullable=True)
-    #mimetype=db.Column(db.Text, nullable=True)
     imageURL = db.Column(db.String(200), nullable=True)
     
     comments=db.relationship('Comment',backref='user',lazy=True,cascade="all, delete-orphan")
@@ -45,9 +42,6 @@ class User(db.Model,UserMixin):
         self.city=city
         self.Bio=Bio
         self.links=links
-       # self.profile_pic=profile_pic
-       # self.picName=picName
-       # self.mimetype=mimetype
         self.imageURL = imageURL
         self.rating=0
         self.reportsCount=0

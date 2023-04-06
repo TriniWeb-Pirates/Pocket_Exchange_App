@@ -2,6 +2,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+#from App.models import LendingRequest
 from datetime import date, datetime, timedelta
 
 class LendingOffer(db.Model,UserMixin):
@@ -57,22 +58,3 @@ class LendingOffer(db.Model,UserMixin):
             'borrowDate':self.borrowDate,
             'returnDate':self.returnDate
         }
-        
-    def toJSON2(self):
-        return{
-        'id': self.id,
-        'lenderID':self.lenderID,
-        'borrowRequestID':self.borrowRequestID,
-        'item': self.item,
-        'lendingRequests':[lendRequest.toJSON() for lendRequest in self.lendRequests],
-        'user': self.user,
-        'itemDescription':self.itemDescription,
-        'category':self.category,
-        'condition': self.condition,
-        'imageURL':self.imageURL,
-        'preferedLocation':self.preferedLocation,
-        'Status':self.Status,
-        'RulesOfUse':self.RulesOfUse,
-        'borrowDate':self.borrowDate,
-        'returnDate':self.returnDate
-    }
