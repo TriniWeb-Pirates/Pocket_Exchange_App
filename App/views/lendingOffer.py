@@ -115,7 +115,7 @@ def RetreiveAllOffers():
 @login_required
 def RetreiveAllUserOffers():
     offers=getAllUserOffers(current_user.id)
-    return offers
+    return render_template('myLendingOffers.html', offers=offers)
 
 @lendingOffer_views.route('/RestartOffer/<lendingoffer_ID>',methods=['PUT'])
 @login_required

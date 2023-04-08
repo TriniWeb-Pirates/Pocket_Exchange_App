@@ -32,7 +32,146 @@ h4{
 
 
 
+<div class="row">
+    <div class="col l12 s12">
+  
+      {% if offers %}
+  
+      {% for offer in offers %}
+      <div class="card" style="margin-bottom:90px;">
+      <div class="card-action white-text" style="background-color:#66bb6a">
+        {{offer.id}}.
+      </div>
+  
+      <div class="card-content white">
+        <!--main content will go in here-->
+        <div class="row">
+        <div class="col l4 s12">
+          <div class="card-image">
+            {% if offer.imageURL==None %}
+            <img src="/static/images/no-image.svg" class="responsive-img">
+            {% else %}
+          <img src="{{ offer.imageURL }}" class="responsive-img">
+            {% endif %}
+        </div>
+        </div>
+  
+        <div class="col l8 s12" style="color:black">
+          <h6><b>Name:</b> {{offer.item}}</h6>
+          <h6><b>Offered by:</b> {{offer.user.username}}</h6>
+          <h6><b>Description:</b> {{offer.itemDescription}}</h6>
+          <h6><b>Category:</b> {{offer.category}}</h6>
+          <h6><b>Rules of Use:</b> {{offer.RulesOfUse}}</h6>
+          <h6><b>Condition:</b> {{offer.condition}}</h6>
+          <h6><b>Contact Number:</b> {{offer.user.phoneNumber}}</h6>
+          <h6><b>City Address:</b> {{offer.user.city}}</h6>
+          <h6><b>Preferred Meetup Location:</b> {{offer.preferedLocation}}</h6>
+  
+  
+        </div>
+      </div>  <!--end of first row-->
+  
+      <!-- collapsible items will go here now. The request list first, then the make a request
+      section after-->
+  
+      <ul class="collapsible black-text">
+        <li>
+          <div class="collapsible-header white-text" style="background-color: #0040c1;"><i class="material-icons">search</i>View Request List</div>
+          <div class="collapsible-body blue lighten-3">
+      
+  
+            {% for value in offer.lendingRequests %}
+            <!--start of card item-->
+            <div class="card" style="margin-bottom:50px;">
+              
+  
+            <div class="row" style="padding:10px;">
+              <div class="col l3">
+                <h6><b>Request ID: </b> {{ value.id }}</h6>
+              </div>
+  
+              <div class="col l3">
+                <h6><b>Username:</b> {{ value.user.username }}</h6>
+              </div>
+  
+              <div class="col l5">
+                <h6><b>Contact Numer:</b> {{ value.user.phoneNumber }}</h6>
+              </div>
+            
+  
+            <div class="col l6">
+              <h6><b>City Address:</b> {{ value.user.city }}</h6>
+            </div>
+          
+  
+          <div class="col l6">
+            <h6><b>Preferred Meetup Location:</b> {{ value.preferedLocation }}</h6>
+          </div>
+  
+          <div class="col l12">
+            <h6><b>Reason for use:</b> {{ value.reasonForUse }}</h6>
+          </div>
+        </div>
+  
+        <div class="row" style="padding:10px;">
+  
+          <div class="col l3">
+            <form action="/UserProfilePage/{{ value.borrowerID }}" methods="GET">
+        <button type="submit" class="waves-effect waves-light btn green darken-2" style="margin-bottom:30px;"><i class="material-icons right">person</i>Visit Profile</button>
+      </form>
+      </div>
+  
+      {% if user.id==offer.lenderID %}
+        <div class="col l3">
+        <a class="waves-effect waves-light btn" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Approve Request</a></div>
+      </div>
+      {% endif %}
+  
+      </div> <!--end of card-->
+      {% endfor %}
+  
+  
+      
+          </div>  <!--end of collapsible body section-->
+  
+        </li>
+  
+        
+        
+        
+        
+      </ul>
+            
+  
+  
+  
+  
+  
+  
+      
+      </div>
+    </div> <!--end of card-->
+  
+  
+    {% endfor %}
+    {% endif %}
+    
+  
+  
+  
+  </div>
+  </div>
+  
+  
 
 </div> <!--end of container-->
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.collapsible');
+    M.Collapsible.init(elems);
+  });
+</script>
 
 {% endblock %}
