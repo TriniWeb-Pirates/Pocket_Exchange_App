@@ -21,6 +21,11 @@
       #logo{
         font-size:20px;
       }
+
+      #plant{
+        max-height:4vh;
+      }
+
     }
 
   </style>
@@ -30,7 +35,9 @@
   <body>
     <nav class="#43a047 green darken-1">
       <div class="nav-wrapper">
-        <a href="#!" id="logo" class="brand-logo center">{% block page %}{% endblock %}</a>
+        <a href="#!" id="logo" class="brand-logo center">{% block page %}{% endblock %}
+          <img id="plant" class="responsive-img" style="height:7vh;" src="/static/images/leaf2.png">
+        </a>
         <div class="nav-wrapper">
 		<a href="#" class="sidenav-trigger show-on-medium-and-up" data-target="slide_out"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="left">

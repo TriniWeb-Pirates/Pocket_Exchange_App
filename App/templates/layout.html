@@ -17,9 +17,17 @@
 
     @media screen and (max-width:600px) {
       #logo{
-        font-size:20px;
+        font-size:18px;
       }
+
+      #plant{
+        max-height:4vh;
+      }
+
+      
     }
+
+    
 
   </style>
 
@@ -28,10 +36,13 @@
   <body>
     <nav class="#43a047 green darken-1">
       <div class="nav-wrapper">
-        <a href="#!" id="logo" class="brand-logo center">{% block page %}{% endblock %}</a>
+        <a href="#!" id="logo" class="brand-logo center">{% block page %}
+          {% endblock %}<img id="plant" class="responsive-img" style="height:7vh;" src="/static/images/leaf2.png">
+          
+        </a>
         <div class="nav-wrapper">
             <ul id="nav-mobile" class="left">
-                <li><a href="/">Home</a></li>
+                <li><a href="/"><i class="material-icons">home</i></a></li>
             <!---    <li><a href="/users">Users Jinja</a></li>
                 <li><a href="/static/users">Users JS</a></li> -->
             </ul>
