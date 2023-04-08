@@ -136,6 +136,99 @@ h4{
   
         </li>
   
+    </li>
+
+      
+    <li>
+      <div class="collapsible-header white-text red accent-4"><i class="material-icons">person_pin</i>View My Approved User</div>
+      <div class="collapsible-body red lighten-2">  <!--start of second collapsible-->
+
+        <div class="card" style="margin-bottom:50px;">
+              
+
+            <div class="card-action">
+            <div class="row" style="padding:10px;">
+              <div class="col l3">
+                <h6><b>Request ID: </b> 1</h6>
+              </div>
+  
+              <div class="col l3">
+                <h6><b>Username:</b> sarah</h6>
+              </div>
+  
+              <div class="col l5">
+                <h6><b>Contact Numer:</b> 111111</h6>
+              </div>
+            
+  
+            <div class="col l6">
+              <h6><b>City Address:</b> port of spain</h6>
+            </div>
+          
+  
+          <div class="col l6">
+            <h6><b>Preferred Meetup Location:</b> tobago</h6>
+          </div>
+  
+          <div class="col l12">
+            <h6><b>Reason for use:</b> blah</h6>
+          </div>
+        </div>
+  
+        <div class="row" style="padding:10px;">
+  
+          <div class="col l3">
+            <form action="/UserProfilePage/1" methods="GET">
+        <button type="submit" class="waves-effect waves-light btn green darken-2"><i class="material-icons right">person</i>Visit Profile</button>
+      </form>
+      </div>
+  
+      
+        <div class="col l7">
+        <a class="waves-effect waves-light btn  deep-purple accent-4" style="background-color:#0040c1"><i class="material-icons right">close</i>Cancel Approval</a></div>
+      </div>
+    </div>
+      
+      <div class="card-action green lighten-4">
+      <div class="row" style="padding:5px; margin-top:-30px">
+      <div class="col s12">
+       <h6> Please enter your start date:
+        <div class="input-field inline">
+          <input id="email_inline" type="text" class="datepicker">  
+          <label for="email_inline">Start Date</label> </div> </h6>
+         
+          </div>
+
+          <div class="col s12" style="margin-top:-30px">
+            <h6> Please enter your end date:
+             <div class="input-field inline">
+               <input id="email_inline" type="text" class="datepicker"> 
+               <label for="email_inline">End Date</label> </div></h6>
+              
+               </div>
+        
+        
+        
+        
+            </div>
+
+            
+                <a class="waves-effect waves-light btn  red accent-4" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Grant Permanent Approval</a>
+              
+        </div>
+
+         
+  
+      </div> <!--end of card-->
+      
+
+      
+
+
+
+      </div>
+    </li>
+
         
         
         
@@ -171,6 +264,11 @@ h4{
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.collapsible');
     M.Collapsible.init(elems);
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    M.Datepicker.init(elems);
   });
 </script>
 
