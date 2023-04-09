@@ -75,6 +75,9 @@ h4{
       section after-->
   
       <ul class="collapsible black-text">
+
+        <!-- if we dont currently have either a temporarily or permanently approved user-->
+
         {% if offer.borrowRequestID==None %}
         <li>
           <div class="collapsible-header white-text" style="background-color: #0040c1;"><i class="material-icons">search</i>View Request List</div>
@@ -144,6 +147,8 @@ h4{
     </li>
 
 
+    <!-- if we DO have a temporarily or permanently approved user-->
+
     {% if offer.borrowRequestID %}
       
     <li>
@@ -204,17 +209,24 @@ h4{
       </form>
       </div>
   
-      
+        <!--could possible put some code here to make this button show or not show depending-->
         <div class="col l7">
           <form action="/UnApproveTempApproval/{{ request.id }}" method="POST">
         <button type="submit" class="waves-effect waves-light btn  deep-purple accent-4" style="background-color:#0040c1"><i class="material-icons right">close</i>Cancel Approval</button>
       </form></div>
+
       </div>
     </div>
+
+    <!--start of green card action-->
+
       
       <div class="card-action green lighten-4">
       <div class="row" style="padding:5px; margin-top:-30px">
       <div class="col s12">
+      
+      <!--Basically means if you have not entered a date as yet-->
+      {% if offer.borrowingDays==None %} 
         
         <form action='/ChangeStatus/{{ request.id }}/ {{ offer.id }}' method="POST">
        <h6> Please enter your start date:
@@ -240,8 +252,19 @@ h4{
                 
                 <button type="submit" class="waves-effect waves-light btn  red accent-4" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Grant Permanent Approval</button>
               </form>
-              
+
+
+        {% elif offer.borrowingDays %}
+         
+        <div class="row" style="margin-top:30px">
+          <div class="col s12">
+            <h6><b>Days Remaining:</b> {{ offer.borrowingDays }}</h6>
+            <h6><b>Return Date: </b> {{ offer.returnDate }}</h6>
+          </div>
         </div>
+        {% endif %}
+              
+        </div>  <!--end of green card action-->
 
          
   
