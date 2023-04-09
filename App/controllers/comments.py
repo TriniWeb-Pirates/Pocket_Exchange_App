@@ -1,6 +1,8 @@
 from App.models import Comment,User
 from App.database import db
 
+#testing new acccount
+
 def createComment(commentedUserID,comment):
     newComment = Comment(commentedUserID=commentedUserID,comment=comment)
     db.session.add(newComment)
