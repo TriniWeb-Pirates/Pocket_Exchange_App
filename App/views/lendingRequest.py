@@ -15,7 +15,8 @@ from App.controllers import (
     changeStatus,
     getRequest,
     UnapproveTemp,
-    getAllUserOffers
+    getAllUserOffers,
+    setDates
 )
 
 lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_folder='../templates')
@@ -100,12 +101,13 @@ def UnApproval(lendingRequestID):
     return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
 #Route for changing request status
-@lendingRequests_views.route('/ChangeStatus/<lendingRequestID>', methods=['PUT'])
+@lendingRequests_views.route('/ChangeStatus/<lendingRequestID>/<lendingoffer_ID>', methods=['POST'])
 @login_required
-def StatusChange(lendingRequestID):
+def StatusChange(lendingRequestID, lendingoffer_ID):
     data=request.form
-    lendingRequest=changeStatus(lendingRequestID,current_user.id,data['status'])
-    return jsonify(lendingRequest)
+    offer=setDates(lendingoffer_ID,lendingRequestID,data['returnDate'],data['borrowDate'])
+    lendingRequest=changeStatus(lendingRequestID,current_user.id)
+    return redirect(url_for('manager_views.TransmitList',lendingoffer_ID=lendingoffer_ID))
     #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
 
 @lendingRequests_views.route('/CheckisReturned/<lendingRequestID>')

@@ -6,7 +6,9 @@ from datetime import datetime
 from App.controllers import (
     createNotification,
     notifyUsers,
-    getAllNotifications
+    getAllNotifications,
+    findBorrowingDays,
+    getReturnDate
 )
 
 lendingNotification_views = Blueprint('lendingNotification_views', __name__, template_folder='../templates')
@@ -28,9 +30,11 @@ def MakeNotification():
 @login_required
 def SendNotifications(subscriberList,lendingoffer_ID):
     #data=request.json
-    notification=notifyUsers(data['subscriberList'],data['lendingoffer_ID'])
+    notification=notifyUsers(subscriberList, lendingoffer_ID)
     #code to redirect user to some page
-    return jsonify(notification.userID)
+    #return jsonify(notification.userID)
+    
+    return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
 @lendingNotification_views.route("/RetrieveNotifications", methods=['GET'])
 @login_required

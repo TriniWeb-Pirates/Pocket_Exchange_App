@@ -3,7 +3,7 @@ from App.database import db
 from datetime import date, datetime, timedelta
 
 def create_lendingOffer(lenderID,item,category,itemDescription,imageURL,rulesOfUse,condition,preferedLocation):
-    offer = LendingOffer(lenderID=lenderID,borrowRequestID=None,item=item.lower(),category=category,itemDescription=itemDescription,imageURL=imageURL,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status="Available",returnDate=None,borrowDate=None)
+    offer = LendingOffer(lenderID=lenderID,borrowRequestID=None, borrowingDays=None, item=item.lower(),category=category,itemDescription=itemDescription,imageURL=imageURL,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status="Available",returnDate=None,borrowDate=None)
     db.session.add(offer)
     db.session.commit()
     return offer
@@ -14,8 +14,11 @@ def setDates(id,lendingRequestID,returnDate,borrowDate):
     if(request.tempApproval==True):
         offer.returnDate=datetime.date(datetime.strptime(returnDate, "%Y-%m-%d"))
         offer.borrowDate=datetime.date(datetime.strptime(borrowDate, "%Y-%m-%d"))
+        print(offer.returnDate)
+        print(offer.borrowDate)
         db.session.add(offer)
         db.session.commit()
+        days = findBorrowingDays(offer.id)
         return offer
     else:
         return "Action Denied, this lending request must be temporarily approved first"
@@ -47,13 +50,30 @@ def get_all_offers():
 
 def findBorrowingDays(offerID):
     offer=LendingOffer.query.get(offerID)
-    today=datetime.date.today()
-    if(today>=offer.borrowDate):
-        borrowingDays=offer.returnDate-today
-        return borrowingDays
-    else:
-        borrowingDays=offer.returnDate-offer.borrowDate
-        return borrowingDays
+    today=date.today()
+    if(offer.borrowDate):
+        if(today>=offer.borrowDate):
+            borrowingDays=offer.returnDate-today
+            print(borrowingDays)
+            offer.borrowingDays = borrowingDays.days
+            db.session.add(offer)
+            db.session.commit()
+            
+            return borrowingDays
+        else:
+            borrowingDays=offer.returnDate-offer.borrowDate
+            offer.borrowingDays = borrowingDays.days
+            db.session.add(offer)
+            db.session.commit()
+            print(borrowingDays)
+            return borrowingDays
+
+# updates the borrowing days in the database
+def getAllBorrowingDays():
+    offers = LendingOffer.query.all()
+    for offer in offers:
+        findBorrowingDays(offer.id)
+    return offers
 
 def checkDate(offerID):
     offer=LendingOffer.query.get(offerID)
@@ -107,6 +127,7 @@ def restartOffer(userID,id):
             db.session.delete(item)
             db.session.commit()
         offer.borrowRequestID=None
+        offer.borrowingDays=None
         offer.Status="Available"
         db.session.add(offer)
         db.session.commit()
@@ -125,3 +146,13 @@ def getApprovedRequest(offers):
             return approvedRequest
         else:
             return None
+
+
+def getReturnDate(lendingoffer_ID):
+    offer = LendingOffer.query.get(lendingoffer_ID)
+    if(offer.returnDate):
+        return offer.returnDate
+    else:
+        return None
+    
+

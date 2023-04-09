@@ -20,14 +20,16 @@ class LendingOffer(db.Model,UserMixin):
     RulesOfUse= db.Column(db.String(200), nullable=False)
     borrowDate=db.Column(db.Date, nullable=True)
     returnDate=db.Column(db.Date,nullable=True)
+    borrowingDays = db.Column(db.Integer, nullable=True)
     
     lendRequests=db.relationship('LendingRequest',backref='lendingOffer',lazy="joined",cascade="all, delete-orphan")
     lendingnotif = db.relationship('LendingNotification',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
     interestedUserList=db.relationship('Manager',backref='lendingOffer',uselist=False)
 
-    def __init__(self,lenderID,borrowRequestID,itemDescription,condition,item,category,imageURL,preferedLocation,Status,RulesOfUse,borrowDate,returnDate):
+    def __init__(self,lenderID,borrowRequestID, borrowingDays, itemDescription,condition,item,category,imageURL,preferedLocation,Status,RulesOfUse,borrowDate,returnDate):
         self.lenderID=lenderID
         self.borrowRequestID=None
+        self.borrowingDays=None
         self.itemDescription=itemDescription
         self.item=item
         self.category=category
@@ -45,6 +47,7 @@ class LendingOffer(db.Model,UserMixin):
             'id': self.id,
             'lenderID':self.lenderID,
             'borrowRequestID':self.borrowRequestID,
+            'borrowingDays':self.borrowingDays,
             'item': self.item,
             'lendingRequests':[lendRequest.toJSON() for lendRequest in self.lendRequests],
             'user': self.user.toJSON(),

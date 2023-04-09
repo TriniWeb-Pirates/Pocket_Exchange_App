@@ -21,8 +21,9 @@ def AddUsersToList(borrowerID,lendingoffer_ID):
 @login_required
 def TransmitList(lendingoffer_ID):
     subscriberList=getList(lendingoffer_ID)
+    print(subscriberList.toJSON())
     #return jsonify(subscriberList.InterestedUserList)
-    return redirect(url_for('lendingNotification_views.SendNotifications'),subscriberList=subscriberList,lendingoffer_ID=lendingoffer_ID)
+    return redirect(url_for('lendingNotification_views.SendNotifications', subscriberList=subscriberList.InterestedUserList,lendingoffer_ID=lendingoffer_ID))
 
 #Testing Routes
 @manager_views.route('/testAddToList/<borrowerID>/<lendingoffer_ID>', methods=['POST'])

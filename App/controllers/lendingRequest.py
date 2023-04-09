@@ -112,13 +112,13 @@ def UnapproveTemp(id,userID):
         return "Action Denied"
 
 
-def changeStatus(id,userID,status):
+def changeStatus(id,userID):
     lendingRequest=LendingRequest.query.get(id)
     
     if(lendingRequest.tempApproval==True and lendingRequest.borrowerID!=userID):
-        lendingRequest.Status=status
+        lendingRequest.Status=True
         offer=LendingOffer.query.get(lendingRequest.lendingoffer_ID)
-        offer.Status=status
+        offer.Status="Unavailable"
         db.session.add(lendingRequest)
         db.session.commit()
         db.session.add(offer)

@@ -215,9 +215,11 @@ h4{
       <div class="card-action green lighten-4">
       <div class="row" style="padding:5px; margin-top:-30px">
       <div class="col s12">
+        
+        <form action='/ChangeStatus/{{ request.id }}/ {{ offer.id }}' method="POST">
        <h6> Please enter your start date:
         <div class="input-field inline">
-          <input id="email_inline" type="text" class="datepicker">  
+          <input id="email_inline" name="borrowDate" class="datepicker">  
           <label for="email_inline">Start Date</label> </div> </h6>
          
           </div>
@@ -225,7 +227,7 @@ h4{
           <div class="col s12" style="margin-top:-30px">
             <h6> Please enter your end date:
              <div class="input-field inline">
-               <input id="email_inline" type="text" class="datepicker"> 
+               <input id="email_inline" name="returnDate" class="datepicker"> 
                <label for="email_inline">End Date</label> </div></h6>
               
                </div>
@@ -235,8 +237,9 @@ h4{
         
             </div>
 
-            
-                <a class="waves-effect waves-light btn  red accent-4" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Grant Permanent Approval</a>
+                
+                <button type="submit" class="waves-effect waves-light btn  red accent-4" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Grant Permanent Approval</button>
+              </form>
               
         </div>
 
@@ -294,7 +297,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.datepicker');
-    M.Datepicker.init(elems);
+    M.Datepicker.init(elems,{
+      format:'yyyy-mm-dd'
+    });
   });
 </script>
 

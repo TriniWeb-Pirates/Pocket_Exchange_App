@@ -17,7 +17,8 @@ from App.controllers import (
     findItems,
     uploadItem,
     restartOffer,
-    getApprovedRequest
+    getApprovedRequest,
+    getAllBorrowingDays
 )
 
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
@@ -116,6 +117,9 @@ def RetreiveAllOffers():
 @login_required
 def RetreiveAllUserOffers():
     offers=getAllUserOffers(current_user.id)
+
+    #borrowingDays = getAllBorrowingDays()
+
     
     return render_template('myLendingOffers.html', offers=offers)
 
