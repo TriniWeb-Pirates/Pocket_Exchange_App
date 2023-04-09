@@ -28,6 +28,15 @@
         
       }
 
+      #icon{
+        font-size:20px;
+      }
+
+      #menu{
+        font-size:20px;
+        margin-right:-10px;
+      }
+
     }
 
   </style>
@@ -41,9 +50,9 @@
           <img id="plant" class="responsive-img" style="height:7vh" src="/static/images/leaf9.png">
         </a>
         <div class="nav-wrapper">
-		<a href="#" class="sidenav-trigger show-on-medium-and-up" data-target="slide_out"><i class="material-icons">menu</i></a>
+		<a href="#" class="sidenav-trigger show-on-medium-and-up" data-target="slide_out"><i id="menu" class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="left">
-                <li><a href="/notifications"><i class="material-icons">notifications</i></a></li>
+                <li><a href="/notifications"><i id="icon" class="material-icons">notifications</i></a></li>
             <!---    <li><a href="/users">Users Jinja</a></li>
                 <li><a href="/static/users">Users JS</a></li> -->
             </ul>

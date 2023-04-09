@@ -17,6 +17,16 @@ h4{
 
 }
 
+
+@media screen and (max-width:600px) {
+      
+       #test{
+        font-size: 8px;
+       }
+
+      
+    }
+
 </style>
 
 <div class="container">
@@ -24,7 +34,7 @@ h4{
 <h4 class="center white-text" style="margin-top:30px"> My Lending Offers </h4>
 
 <div class="row">
-<div class="col s4 offset-s5">
+<div class="col l4 offset-l5 s4 offset-s3 offset-m5">
 <img src="/static/images/box.png" style="height:20vh;margin-top:15px"> </div></div>
 
 <!--start of offers will be displayed here-->
@@ -120,14 +130,14 @@ h4{
   
           <div class="col l3">
             <form action="/UserProfilePage/{{ value.borrowerID }}" methods="GET">
-        <button type="submit" class="waves-effect waves-light btn green darken-2" style="margin-bottom:30px;"><i class="material-icons right">person</i>Visit Profile</button>
+        <button id="test" type="submit" class="waves-effect waves-light btn green darken-2" style="margin-bottom:30px;"><i class="material-icons right">person</i>Visit Profile</button>
       </form>
       </div>
   
       
         <div class="col l3">
           <form action="/GrantTempApproval/{{ value.id }} / {{ offer.id }}" method="POST">
-        <button class="waves-effect waves-light btn" type="submit" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Approve Request</button>
+        <button id="test" class="waves-effect waves-light btn" type="submit" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Approve Request</button>
       </form>
     </div>
       </div>
@@ -205,7 +215,7 @@ h4{
   
           <div class="col l3">
             <form action="/UserProfilePage/{{ request.borrowerID }}" methods="GET">
-        <button type="submit" class="waves-effect waves-light btn green darken-2"><i class="material-icons right">person</i>Visit Profile</button>
+        <button id="test" type="submit" class="waves-effect waves-light btn green darken-2"><i class="material-icons right">person</i>Visit Profile</button>
       </form>
       </div>
   
@@ -213,7 +223,7 @@ h4{
         {% if request.tempApproval==True and request.Status==False %}
         <div class="col l7">
           <form action="/UnApproveTempApproval/{{ request.id }}" method="POST">
-        <button type="submit" class="waves-effect waves-light btn  deep-purple accent-4" style="background-color:#0040c1"><i class="material-icons right">close</i>Cancel Approval</button>
+        <button id="test" type="submit" class="waves-effect waves-light btn  deep-purple accent-4" style="background-color:#0040c1"><i class="material-icons right">close</i>Cancel Approval</button>
       </form></div>
       {% endif %}
 
@@ -252,7 +262,7 @@ h4{
             </div>
 
                 
-                <button type="submit" class="waves-effect waves-light btn  red accent-4" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Grant Permanent Approval</button>
+                <button id="test" type="submit" class="waves-effect waves-light btn  red accent-4" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Grant Permanent Approval</button>
               </form>
 
 
@@ -273,8 +283,16 @@ h4{
             {% endif %}
 
           </div>
+
         </div>
-        </div>
+
+            <div class="row">
+              <div class="col s12">
+            <button id="test" type="submit" class="waves-effect waves-light btn red accent-4">Item Was Returned Successfully</button></div>
+          </div>
+          
+        
+        
         {% endif %}
               
         </div>  <!--end of green card action-->
