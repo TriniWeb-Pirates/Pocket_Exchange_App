@@ -91,12 +91,13 @@ def GrantTempApproval2(lendingRequestID,lendingoffer_ID):
 
    # return redirect(url_for('lendingOffer_views.InputDates'),id=lendingRequest.id,borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID)
 
-@lendingRequests_views.route('/UnApproveTempApproval/<lendingRequestID>',methods=['PUT'])
+@lendingRequests_views.route('/UnApproveTempApproval/<lendingRequestID>',methods=['POST'])
 @login_required
 def UnApproval(lendingRequestID):
     #data=request.form
     lendRequest=UnapproveTemp(lendingRequestID,current_user.id)
-    return redirect(url_for('user_views.gethomepage'))
+    flash('You have cancelled this users temporary approval request. Your offer will be reshown on the homepage. ')
+    return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
 #Route for changing request status
 @lendingRequests_views.route('/ChangeStatus/<lendingRequestID>', methods=['PUT'])

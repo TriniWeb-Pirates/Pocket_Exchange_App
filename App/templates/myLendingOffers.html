@@ -199,14 +199,16 @@ h4{
         <div class="row" style="padding:10px;">
   
           <div class="col l3">
-            <form action="/UserProfilePage/1" methods="GET">
+            <form action="/UserProfilePage/{{ request.borrowerID }}" methods="GET">
         <button type="submit" class="waves-effect waves-light btn green darken-2"><i class="material-icons right">person</i>Visit Profile</button>
       </form>
       </div>
   
       
         <div class="col l7">
-        <a class="waves-effect waves-light btn  deep-purple accent-4" style="background-color:#0040c1"><i class="material-icons right">close</i>Cancel Approval</a></div>
+          <form action="/UnApproveTempApproval/{{ request.id }}" method="POST">
+        <button type="submit" class="waves-effect waves-light btn  deep-purple accent-4" style="background-color:#0040c1"><i class="material-icons right">close</i>Cancel Approval</button>
+      </form></div>
       </div>
     </div>
       
