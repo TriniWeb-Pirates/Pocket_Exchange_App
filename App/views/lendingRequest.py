@@ -111,11 +111,6 @@ def StatusChange(lendingRequestID, lendingoffer_ID):
     return redirect(url_for('manager_views.TransmitList',lendingoffer_ID=lendingoffer_ID))
     #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
 
-@lendingRequests_views.route('/CheckisReturned/<lendingRequestID>')
-@login_required
-def CheckisReturned(lendingRequestID):
-    lendingRequest=changeIsReturned(lendingRequestID,current_user.id)
-    return jsonify(lendingRequest)
 
 #testing routes
 #Route to test lending request limit in Postman
@@ -197,9 +192,3 @@ def testStatusChange():
     return jsonify(lendingRequest)
     #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
 
-@lendingRequests_views.route('/testCheckisReturned')
-@login_required
-def testCheckisReturned():
-    data=request.json
-    lendingRequest=changeIsReturned(data['id'],current_user.id,data['isReturned'])
-    return jsonify(lendingRequest)

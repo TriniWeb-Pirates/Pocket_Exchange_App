@@ -3,7 +3,7 @@ from App.database import db
 from datetime import date, datetime, timedelta
 
 def create_lendingOffer(lenderID,item,category,itemDescription,imageURL,rulesOfUse,condition,preferedLocation):
-    offer = LendingOffer(lenderID=lenderID,borrowRequestID=None, borrowingDays=None, item=item.lower(),category=category,itemDescription=itemDescription,imageURL=imageURL,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status="Available",returnDate=None,borrowDate=None)
+    offer = LendingOffer(lenderID=lenderID,borrowRequestID=None, borrowingDays=None, item=item.lower(),category=category,itemDescription=itemDescription,imageURL=imageURL,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status="Available",returnDate=None,borrowDate=None,isReturned=False)
     db.session.add(offer)
     db.session.commit()
     return offer
@@ -155,4 +155,15 @@ def getReturnDate(lendingoffer_ID):
     else:
         return None
     
-
+def changeIsReturned(id,userID):
+    lendingRequest=LendingRequest.query.get(id)
+    if(lendingRequest.tempApproval==True and lendingRequest.Status==True and lendingRequest.borrowerID!=userID):
+        lendingRequest.isReturned=True
+        offer=LendingOffer.query.get(lendingRequest.lendingoffer_ID)
+        offer.Status="Unavailable"
+        db.session.add(lendingRequest)
+        db.session.commit()
+        db.session.add(offer)
+        db.session.commit()
+        return lendingRequest.toJSON()
+    return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"

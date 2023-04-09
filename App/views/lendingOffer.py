@@ -18,7 +18,8 @@ from App.controllers import (
     uploadItem,
     restartOffer,
     getApprovedRequest,
-    getAllBorrowingDays
+    getAllBorrowingDays,
+    changeIsReturned
 )
 
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
@@ -129,6 +130,11 @@ def Restart(lendingoffer_ID):
     offer=restartOffer(current_user.id,lendingoffer_ID)
     return redirect(url_for('user_views.gethomepage'))
 
+@lendingOffer_views.route('/CheckisReturned/<lendingRequestID>')
+@login_required
+def CheckisReturned(lendingRequestID):
+    lendingRequest=changeIsReturned(lendingRequestID,current_user.id)
+    return jsonify(lendingRequest)
 
 #TESTING ROUTES
 #Route to test retrieving offers by a category
@@ -183,3 +189,10 @@ def testRestart():
     data=request.json
     offer=restartOffer(current_user.id,data['lendingoffer_ID'])
     return jsonify(offer)
+
+@lendingRequests_views.route('/testCheckisReturned')
+@login_required
+def testCheckisReturned():
+    data=request.json
+    lendingRequest=changeIsReturned(data['id'],current_user.id,data['isReturned'])
+    return jsonify(lendingRequest)

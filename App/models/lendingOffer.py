@@ -21,12 +21,13 @@ class LendingOffer(db.Model,UserMixin):
     borrowDate=db.Column(db.Date, nullable=True)
     returnDate=db.Column(db.Date,nullable=True)
     borrowingDays = db.Column(db.Integer, nullable=True)
+    isReturned=db.Column(db.Boolean,nullable=False)
     
     lendRequests=db.relationship('LendingRequest',backref='lendingOffer',lazy="joined",cascade="all, delete-orphan")
     lendingnotif = db.relationship('LendingNotification',backref='lendingOffer',lazy=True,cascade="all, delete-orphan")
     interestedUserList=db.relationship('Manager',backref='lendingOffer',uselist=False)
 
-    def __init__(self,lenderID,borrowRequestID, borrowingDays, itemDescription,condition,item,category,imageURL,preferedLocation,Status,RulesOfUse,borrowDate,returnDate):
+    def __init__(self,lenderID,borrowRequestID, borrowingDays, itemDescription,condition,item,category,imageURL,preferedLocation,Status,RulesOfUse,borrowDate,returnDate,isReturned):
         self.lenderID=lenderID
         self.borrowRequestID=None
         self.borrowingDays=None
@@ -40,6 +41,7 @@ class LendingOffer(db.Model,UserMixin):
         self.RulesOfUse=RulesOfUse
         self.borrowDate=borrowDate
         self.returnDate=returnDate
+        self.isReturned=False
         
 
     def toJSON(self):
@@ -59,5 +61,6 @@ class LendingOffer(db.Model,UserMixin):
             'Status':self.Status,
             'RulesOfUse':self.RulesOfUse,
             'borrowDate':self.borrowDate,
-            'returnDate':self.returnDate
+            'returnDate':self.returnDate,
+            "isReturned": self.isReturned
         }
