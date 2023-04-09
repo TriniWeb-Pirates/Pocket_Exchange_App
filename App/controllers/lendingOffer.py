@@ -114,3 +114,14 @@ def restartOffer(userID,id):
         return offer.toJSON()
     else:
         return "Action denied, You cannit restart this offer"
+
+
+
+def getApprovedRequest(offers):
+    for offer in offers:
+        offer = LendingOffer.query.get(lendingOfferID)
+        if(offer.borrowRequestID!=None):
+            approvedRequest = LendingRequest.query.get(offer.borrowRequestID)
+            return approvedRequest
+        else:
+            return None

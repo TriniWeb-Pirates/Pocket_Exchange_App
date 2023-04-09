@@ -16,7 +16,8 @@ from App.controllers import (
     getAllUserOffers,
     findItems,
     uploadItem,
-    restartOffer
+    restartOffer,
+    getApprovedRequest
 )
 
 lendingOffer_views = Blueprint('lendingOffer_views', __name__, template_folder='../templates')
@@ -115,7 +116,8 @@ def RetreiveAllOffers():
 @login_required
 def RetreiveAllUserOffers():
     offers=getAllUserOffers(current_user.id)
-    return render_template('myLendingOffers.html', offers=offers, approvedRequest=None)
+    
+    return render_template('myLendingOffers.html', offers=offers)
 
 @lendingOffer_views.route('/RestartOffer/<lendingoffer_ID>',methods=['PUT'])
 @login_required

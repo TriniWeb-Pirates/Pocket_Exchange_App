@@ -75,7 +75,7 @@ h4{
       section after-->
   
       <ul class="collapsible black-text">
-        {% if approvedRequest==None %}
+        {% if offer.borrowRequestID==None %}
         <li>
           <div class="collapsible-header white-text" style="background-color: #0040c1;"><i class="material-icons">search</i>View Request List</div>
           <div class="collapsible-body blue lighten-3">
@@ -144,13 +144,23 @@ h4{
     </li>
 
 
-    {% if approvedRequest %}
+    {% if offer.borrowRequestID %}
       
     <li>
       <div class="collapsible-header white-text red accent-4"><i class="material-icons">person_pin</i>View My
-        {% if approvedRequest.tempApproval==True and approvedRequest.Status==False %} Temporarily Approved User
-        {% elif approvedRequest.tempApproval==True and approvedRequest.Status==True %} Permanently Approved User
+        {% for request in offer.lendingRequests %}
+        {% if request.tempApproval==True and request.Status==False %} 
+        {% set answer = 'Temporarily Approved User' %}
+
+        {% elif request.tempApproval==True and request.Status==True %}
+        {% set answer = 'Permanently Approved User' %}
+
         {% endif %}
+
+        {{ answer }}
+
+        {% if request.tempApproval==True and request.Status==False or request.tempApproval==True and request.Status==True %}
+        
         </div>
       <div class="collapsible-body red lighten-2">  <!--start of second collapsible-->
 
@@ -160,29 +170,29 @@ h4{
             <div class="card-action">
             <div class="row" style="padding:10px;">
               <div class="col l3">
-                <h6><b>Request ID: </b> {{ approvedRequest.id }}</h6>
+                <h6><b>Request ID: </b> {{ request.id }}</h6>
               </div>
   
               <div class="col l3">
-                <h6><b>Username:</b> {{ approvedRequest.user.username }}</h6>
+                <h6><b>Username:</b> {{ request.user.username }}</h6>
               </div>
   
               <div class="col l5">
-                <h6><b>Contact Numer:</b> {{ approvedRequest.user.phoneNumber }}</h6>
+                <h6><b>Contact Numer:</b> {{ request.user.phoneNumber }}</h6>
               </div>
             
   
             <div class="col l6">
-              <h6><b>City Address:</b> {{ approvedRequest.user.city }}</h6>
+              <h6><b>City Address:</b> {{ request.user.city }}</h6>
             </div>
           
   
           <div class="col l6">
-            <h6><b>Preferred Meetup Location:</b> {{ approvedRequest.preferedLocation }}</h6>
+            <h6><b>Preferred Meetup Location:</b> {{ request.preferedLocation }}</h6>
           </div>
   
           <div class="col l12">
-            <h6><b>Reason for use:</b> {{ approvedRequest.reasonForUse }}</h6>
+            <h6><b>Reason for use:</b> {{ request.reasonForUse }}</h6>
           </div>
         </div>
   
@@ -240,6 +250,8 @@ h4{
       </div>
     </li>
 
+    {% endif %}
+    {% endfor %}
     {% endif %}
         
         
