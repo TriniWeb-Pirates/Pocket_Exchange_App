@@ -118,7 +118,7 @@ def RetreiveAllOffers():
 def RetreiveAllUserOffers():
     offers=getAllUserOffers(current_user.id)
 
-    #borrowingDays = getAllBorrowingDays()
+    borrowingDays = getAllBorrowingDays()
 
     
     return render_template('myLendingOffers.html', offers=offers)

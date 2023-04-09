@@ -113,8 +113,7 @@ def StatusChange(lendingRequestID, lendingoffer_ID):
 @lendingRequests_views.route('/CheckisReturned/<lendingRequestID>')
 @login_required
 def CheckisReturned(lendingRequestID):
-    data=request.form
-    lendingRequest=changeIsReturned(lendingRequestID,current_user.id,data['isReturned'])
+    lendingRequest=changeIsReturned(lendingRequestID,current_user.id)
     return jsonify(lendingRequest)
 
 #testing routes

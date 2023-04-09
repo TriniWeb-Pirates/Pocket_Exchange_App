@@ -127,12 +127,12 @@ def changeStatus(id,userID):
         return lendingRequest.toJSON()
     return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"
 
-def changeIsReturned(id,userID,isReturned):
+def changeIsReturned(id,userID):
     lendingRequest=LendingRequest.query.get(id)
     if(lendingRequest.tempApproval==True and lendingRequest.Status==True and lendingRequest.borrowerID!=userID):
-        lendingRequest.isReturned=isReturned
+        lendingRequest.isReturned=True
         offer=LendingOffer.query.get(lendingRequest.lendingoffer_ID)
-        offer.Status=False
+        offer.Status="Unavailable"
         db.session.add(lendingRequest)
         db.session.commit()
         db.session.add(offer)
