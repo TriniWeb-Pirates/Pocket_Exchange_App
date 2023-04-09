@@ -6,4 +6,50 @@
 
 {% block content %}
 
+<head>
+    <title>Borrow Request</title>
+    <!-- Materialize CSS stylesheets and scripts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Borrow Request</h1>
+      {% for item in items %}
+        <div class="card">
+          <div class="card-image">
+            <img src="{{ item.image }}">
+          </div>
+          <div class="card-content">
+            <span class="card-title">{{ item.name }}</span>
+            <p>Offered by: {{ item.user }}</p>
+            {% if item.Status == 'requested' %}
+              <p>Status: Requested</p>
+            {% elif item.Status == 'approved' %}
+              <p>Status: Approved</p>
+              <p>Date to be returned: {{ item.returnDate }}</p>
+              <p>Days left: {{ item.borrowingDays }}</p>
+            {% elif item.Status == 'returned' %}
+              <p>Status: Returned</p>
+              <p>Return Successful!</p>
+            {% endif %}
+          </div>
+          {% if item.Status == 'approved' %}
+            <div class="card-action">
+              <form action="{{ url_for('return_item', item_id=item.id) }}" method="POST">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Mark as Returned</button>
+              </form>
+            </div>
+          {% elif item.Status == 'returned' %}
+            <div class="card-action">
+              <form action="{{ url_for('delete_item', item_id=item.id) }}" method="POST">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Delete Request</button>
+              </form>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </body>
+
 {% endblock %}
