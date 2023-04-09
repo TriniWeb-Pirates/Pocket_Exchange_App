@@ -210,10 +210,12 @@ h4{
       </div>
   
         <!--could possible put some code here to make this button show or not show depending-->
+        {% if request.tempApproval==True and request.Status==False %}
         <div class="col l7">
           <form action="/UnApproveTempApproval/{{ request.id }}" method="POST">
         <button type="submit" class="waves-effect waves-light btn  deep-purple accent-4" style="background-color:#0040c1"><i class="material-icons right">close</i>Cancel Approval</button>
       </form></div>
+      {% endif %}
 
       </div>
     </div>
@@ -221,7 +223,7 @@ h4{
     <!--start of green card action-->
 
       
-      <div class="card-action green lighten-4">
+      <div class="card-action green lighten-3">
       <div class="row" style="padding:5px; margin-top:-30px">
       <div class="col s12">
       
@@ -257,10 +259,21 @@ h4{
         {% elif offer.borrowingDays %}
          
         <div class="row" style="margin-top:30px">
-          <div class="col s12">
-            <h6><b>Days Remaining:</b> {{ offer.borrowingDays }}</h6>
-            <h6><b>Return Date: </b> {{ offer.returnDate }}</h6>
+          <div class="col s12 center">
+            <img src="/static/images/hourglass.png" style="height:10vh"> 
+            <h6 class="green-text text-darken-4"><b>Time left for the return of this item:</b></h6>
           </div>
+
+            <div class="col s12">
+            <h6 class="green-text text-darken-4" style="padding:10px"><b>Days Remaining: {{ offer.borrowingDays }}</b></h6>
+            <h6 class="green-text text-darken-4" style="padding:10px"><b>Return Date:  {{ offer.returnDate }}</b></h6>
+
+            {% if offer.borrowingDays<=-1 %}
+            <h6 class="red-text text-accent-4" style="padding:10px"><b>This item is {{ offer.borrowingDays*-1 }} days overdue!</b></h6>
+            {% endif %}
+
+          </div>
+        </div>
         </div>
         {% endif %}
               
