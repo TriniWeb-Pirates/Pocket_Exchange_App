@@ -14,7 +14,8 @@ from App.controllers import (
     grantTempApproval,
     changeStatus,
     getRequest,
-    UnapproveTemp
+    UnapproveTemp,
+    getAllUserOffers
 )
 
 lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_folder='../templates')
@@ -68,13 +69,16 @@ def RetreiveOfferRequests(lendingoffer_ID):
     requests=getAllOfferRequests(lendingoffer_ID)
     return jsonify(requests)
 
-@lendingRequests_views.route('/GrantTempApproval/<lendingRequestID>/<lendingoffer_ID>', methods=['PUT'])
+@lendingRequests_views.route('/GrantTempApproval/<lendingRequestID>/<lendingoffer_ID>', methods=['POST'])
 @login_required
 def GrantTempApproval(lendingRequestID,lendingoffer_ID):
     data=request.form
-    lendingRequest=grantTempApproval(lendingRequestID,lendingoffer_ID,current_user.id,data['status'])
+    lendingRequest=grantTempApproval(lendingRequestID,lendingoffer_ID,current_user.id)
+    offers=getAllUserOffers(current_user.id)
     #return jsonify(lendingRequest)#redirect user to setDates route with ID of approved lending request
-    return redirect(url_for('lendingOffer_views.InputDates'),id=lendingRequest.id,borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID)
+    return render_template("myLendingOffers.html", offers=offers, approvedRequest=lendingRequest)
+
+   # return redirect(url_for('lendingOffer_views.InputDates'),id=lendingRequest.id,borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID)
 
 @lendingRequests_views.route('/UnApproveTempApproval/<lendingRequestID>',methods=['PUT'])
 @login_required

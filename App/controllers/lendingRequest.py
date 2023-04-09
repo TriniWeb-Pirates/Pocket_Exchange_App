@@ -73,11 +73,11 @@ def getAllOfferRequests(lendingoffer_ID):
     return items
 
 #grantApproval must be revised
-def grantTempApproval(id,lendingoffer_ID,userID,status):
+def grantTempApproval(id,lendingoffer_ID,userID):
     request=LendingRequest.query.get(id)
     offer=LendingOffer.query.get(lendingoffer_ID)
     if(request.borrowerID!=userID):
-        request.tempApproval=status
+        request.tempApproval=True
 
         db.session.add(request)
         db.session.commit()
@@ -87,10 +87,11 @@ def grantTempApproval(id,lendingoffer_ID,userID,status):
         db.session.add(offer)
         db.session.commit()
         #print(offer.toJSON())
-        return "Approval Granted"
+        return request
         #return request.toJSON()
     else:
-        return "Approval denied, users can not approve their own lending requests"
+        #return "Approval denied, users can not approve their own lending requests"
+        return None
 
 def UnapproveTemp(id,userID):
     request=LendingRequest.query.get(id)

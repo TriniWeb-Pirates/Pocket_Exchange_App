@@ -75,11 +75,11 @@ h4{
       section after-->
   
       <ul class="collapsible black-text">
+        {% if approvedRequest==None %}
         <li>
           <div class="collapsible-header white-text" style="background-color: #0040c1;"><i class="material-icons">search</i>View Request List</div>
           <div class="collapsible-body blue lighten-3">
       
-  
             {% for value in offer.lendingRequests %}
             <!--start of card item-->
             <div class="card" style="margin-bottom:50px;">
@@ -123,24 +123,35 @@ h4{
   
       
         <div class="col l3">
-        <a class="waves-effect waves-light btn" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Approve Request</a></div>
+          <form action="/GrantTempApproval/{{ value.id }} / {{ offer.id }}" method="POST">
+        <button class="waves-effect waves-light btn" type="submit" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Approve Request</button>
+      </form>
+    </div>
       </div>
       
   
       </div> <!--end of card-->
       {% endfor %}
+      
   
   
       
           </div>  <!--end of collapsible body section-->
   
         </li>
+        {% endif %}
   
     </li>
 
+
+    {% if approvedRequest %}
       
     <li>
-      <div class="collapsible-header white-text red accent-4"><i class="material-icons">person_pin</i>View My Approved User</div>
+      <div class="collapsible-header white-text red accent-4"><i class="material-icons">person_pin</i>View My
+        {% if approvedRequest.tempApproval==True and approvedRequest.Status==False %} Temporarily Approved User
+        {% elif approvedRequest.tempApproval==True and approvedRequest.Status==True %} Permanently Approved User
+        {% endif %}
+        </div>
       <div class="collapsible-body red lighten-2">  <!--start of second collapsible-->
 
         <div class="card" style="margin-bottom:50px;">
@@ -149,29 +160,29 @@ h4{
             <div class="card-action">
             <div class="row" style="padding:10px;">
               <div class="col l3">
-                <h6><b>Request ID: </b> 1</h6>
+                <h6><b>Request ID: </b> {{ approvedRequest.id }}</h6>
               </div>
   
               <div class="col l3">
-                <h6><b>Username:</b> sarah</h6>
+                <h6><b>Username:</b> {{ approvedRequest.user.username }}</h6>
               </div>
   
               <div class="col l5">
-                <h6><b>Contact Numer:</b> 111111</h6>
+                <h6><b>Contact Numer:</b> {{ approvedRequest.user.phoneNumber }}</h6>
               </div>
             
   
             <div class="col l6">
-              <h6><b>City Address:</b> port of spain</h6>
+              <h6><b>City Address:</b> {{ approvedRequest.user.city }}</h6>
             </div>
           
   
           <div class="col l6">
-            <h6><b>Preferred Meetup Location:</b> tobago</h6>
+            <h6><b>Preferred Meetup Location:</b> {{ approvedRequest.preferedLocation }}</h6>
           </div>
   
           <div class="col l12">
-            <h6><b>Reason for use:</b> blah</h6>
+            <h6><b>Reason for use:</b> {{ approvedRequest.reasonForUse }}</h6>
           </div>
         </div>
   
@@ -229,6 +240,7 @@ h4{
       </div>
     </li>
 
+    {% endif %}
         
         
         
