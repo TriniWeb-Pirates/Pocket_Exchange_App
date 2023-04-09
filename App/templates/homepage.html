@@ -316,6 +316,8 @@ h4, h5{
     {% if offers %}
 
     {% for offer in offers %}
+
+    {% if offer.borrowRequestID==None %}
     <div class="card" style="margin-bottom:90px;">
     <div class="card-action" style="background-color:#66bb6a">
       {{offer.id}}.
@@ -401,11 +403,14 @@ h4, h5{
 
     {% if user.id==offer.lenderID %}
       <div class="col l3">
-      <a class="waves-effect waves-light btn" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Approve Request</a></div>
+        <form action="/GrantTempApproval2/{{ value.id }} / {{ offer.id }}" method="POST">
+      <button class="waves-effect waves-light btn" style="background-color:#0040c1"style="margin-bottom:30px;"><i class="material-icons right">check</i>Approve Request</button>
+    </form></div>
     </div>
     {% endif %}
 
     </div> <!--end of card-->
+  
     {% endfor %}
 
 
@@ -465,6 +470,7 @@ h4, h5{
   </div> <!--end of card-->
 
 
+  {% endif %}
   {% endfor %}
   {% endif %}
   

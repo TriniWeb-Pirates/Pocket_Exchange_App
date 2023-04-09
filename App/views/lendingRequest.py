@@ -76,7 +76,18 @@ def GrantTempApproval(lendingRequestID,lendingoffer_ID):
     lendingRequest=grantTempApproval(lendingRequestID,lendingoffer_ID,current_user.id)
     offers=getAllUserOffers(current_user.id)
     #return jsonify(lendingRequest)#redirect user to setDates route with ID of approved lending request
-    return render_template("myLendingOffers.html", offers=offers, approvedRequest=lendingRequest)
+    return render_template("myLendingOffers.html", offers=offers)
+
+
+@lendingRequests_views.route('/GrantTempApproval2/<lendingRequestID>/<lendingoffer_ID>', methods=['POST'])
+@login_required
+def GrantTempApproval2(lendingRequestID,lendingoffer_ID):
+    data=request.form
+    lendingRequest=grantTempApproval(lendingRequestID,lendingoffer_ID,current_user.id)
+    offers=getAllUserOffers(current_user.id)
+    #return jsonify(lendingRequest)#redirect user to setDates route with ID of approved lending request
+    flash('You have temporarily approved this users request successfully. You can see the status of your offer in the My Items Page > My Lending Items')
+    return redirect(url_for('user_views.gethomepage'))
 
    # return redirect(url_for('lendingOffer_views.InputDates'),id=lendingRequest.id,borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID)
 
