@@ -1,4 +1,4 @@
-from App.models import LendingOffer,LendingRequest,User
+from App.models import LendingOffer,LendingRequest,User,Manager
 from App.database import db
 from datetime import date, datetime, timedelta
 
@@ -107,6 +107,10 @@ def update_Offer(OfferID,item,itemDescription,category,imageURL,condition,prefer
 def remove_Offer(id):
    # offer=LendingOffer.query.get(id)
     offer=get_offer_by_ID(id)
+    manager_for_offer=Manager.query.filter_by(lendingOfferID=offer.id).first()
+    if(manager_for_offer):
+        db.session.delete(manager_for_offer)
+        db.session.commit()    
     db.session.delete(offer)
     db.session.commit()
     return offer
