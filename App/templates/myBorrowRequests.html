@@ -15,7 +15,8 @@
   <body> 
     <div class="container">
       <h1>Borrow Request</h1>
-      {% for item in items %}
+      {% if requests %}
+      {% for item in requests %}
         <div class="card">
           <div class="card-image">
             <img src="{{ item.image }}">
@@ -49,7 +50,9 @@
           {% endif %}
         </div>
       {% endfor %}
+      {% endif %}
     </div>
   </body>
+
 
 {% endblock %}

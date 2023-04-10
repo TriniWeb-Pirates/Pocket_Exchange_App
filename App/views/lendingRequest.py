@@ -112,6 +112,15 @@ def StatusChange(lendingRequestID, lendingoffer_ID):
     #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
 
 
+@lendingRequests_views.route('/GetAllUserRequests', methods=['GET'])
+@login_required
+def getUserRequests():
+
+    requests = getAllUserRequestsJSON(current_user.id)
+
+    return render_template('myBorrowRequests.html', requests=requests)
+
+
 #testing routes
 #Route to test lending request limit in Postman
 @lendingRequests_views.route('/testLendingRequestForm', methods=['GET'])

@@ -18,7 +18,7 @@ def create_lendingRequest(borrowerID,lendingoffer_ID,reasonForUse,preferedLocati
 
     #data=LendingOffer.query.get(lendingoffer_ID)
     if(data==None):
-        request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,reasonForUse=reasonForUse,preferedLocation=preferedLocation,Status=False,tempApproval=False,isReturned=False)
+        request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,reasonForUse=reasonForUse,preferedLocation=preferedLocation,Status=False,tempApproval=False)
         db.session.add(request)
         db.session.commit()
         return "Lending request created"
@@ -41,6 +41,7 @@ def getAllUserRequestsJSON(borrowerID):
     if not data:
         return []
     items = [request.toJSON() for request in data]
+    print(items)
     return items
 
 def get_request_by_ID(id):
@@ -126,4 +127,5 @@ def changeStatus(id,userID):
         print(lendingRequest.toJSON())
         return lendingRequest.toJSON()
     return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"
+
 
