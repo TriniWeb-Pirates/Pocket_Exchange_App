@@ -92,7 +92,7 @@ def create_user_page2(id):
     if pic:
         imageURL = uploadProfile(pic, profile_pic) #once a picture has been uploaded, send to firebase and get URL
     else:
-        imageURL = None
+        imageURL = "/static/images/avatar.png"
 
 
     #temp user code here now

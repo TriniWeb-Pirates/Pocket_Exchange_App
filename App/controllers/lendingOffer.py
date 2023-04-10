@@ -54,7 +54,7 @@ def findBorrowingDays(offerID):
     if(offer.borrowDate!=None and offer.returnDate!=None):
         if(today>=offer.borrowDate):
             borrowingDays=offer.returnDate-today
-            print(borrowingDays)
+            print(borrowingDays.days)
             offer.borrowingDays = borrowingDays.days
             db.session.add(offer)
             db.session.commit()
@@ -134,7 +134,7 @@ def restartOffer(userID,id):
         offer.borrowRequestID=None
         offer.borrowingDays=None
         offer.returnDate = None
-        offer.startDate = None
+        offer.borrowDate = None
         offer.isReturned = False
         offer.Status="Available"
         db.session.add(offer)

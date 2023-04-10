@@ -38,7 +38,7 @@ def makeOfferPage():
     if(pic):
         imageURL = uploadItem(pic, itemPic)
     else:
-        imageURL = None
+        imageURL = '/static/images/no-image.svg'
 
     offer=create_lendingOffer(current_user.id,data['item'],data['category'],data['itemDescription'],imageURL,data['rulesOfUse'],data['condition'],data['preferedLocation'])
     print(offer.item)
