@@ -107,13 +107,14 @@ class UsersIntegrationTests(unittest.TestCase):
     def test_create_lendingRequest(self):
         user = create_user("mike", "bobpass","bobby","brown","mike@gmail.com",192000251,"Arima","I like cars","www.bobbyPage.com",None)
         lendingRequest=create_lendingRequest(2,1,"i need it for exams","arima")
-        assert lendingRequest=="Lending request created"
+        assert lendingRequest=="Borrow request created"
     
     def test_grantTempApproval(self):
-        requestData=grantTempApproval(1,1,1,True)
+        requestData=grantTempApproval(1,1,1)
         assert requestData=="Approval Granted"
     
     def test_UnapproveTemp(self):
+        user = create_user("marcus", "bobpass","bobby","brown","marcus@gmail.com",182470251,"Arima","I like cars","www.bobbyPage.com",None)
         lendingRequest=create_lendingRequest(3,1,"i need it for exams","arima")
         request=UnapproveTemp(2,1)
         assert request.tempApproval==False
