@@ -34,8 +34,8 @@ h4{
 <h4 class="center white-text" style="margin-top:30px"> My Lending Offers </h4>
 
 <div class="row">
-<div class="col l4 offset-l5 s4 offset-s3 offset-m5">
-<img src="/static/images/box.png" style="height:20vh;margin-top:15px"> </div></div>
+<div class="col l2 offset-l5 s6 offset-s3 m4 offset-m4">
+<img src="/static/images/box.png" class="responsive-img" style="margin-top:15px"> </div></div>
 
 <!--start of offers will be displayed here-->
 
@@ -56,7 +56,7 @@ h4{
       <div class="card-content white">
         <!--main content will go in here-->
         <div class="row">
-        <div class="col l4 s12">
+        <div class="col l4 m8 offset-m2 s10 offset-s1">
           <div class="card-image">
             {% if offer.imageURL==None %}
             <img src="/static/images/no-image.svg" class="responsive-img">
@@ -66,7 +66,7 @@ h4{
         </div>
         </div>
   
-        <div class="col l8 s12" style="color:black">
+        <div class="col l8 m12 s12" style="color:black">
           <h6><b>Name:</b> {{offer.item}}</h6>
           <h6><b>Offered by:</b> {{offer.user.username}}</h6>
           <h6><b>Description:</b> {{offer.itemDescription}}</h6>

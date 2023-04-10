@@ -326,7 +326,7 @@ h4, h5{
     <div class="card-content white">
       <!--main content will go in here-->
       <div class="row">
-      <div class="col l4 s12">
+      <div class="col l4 m8 offset-m2 s10 offset-s1">
         <div class="card-image">
           {% if offer.imageURL==None %}
           <img src="/static/images/no-image.svg" class="responsive-img">
@@ -336,7 +336,7 @@ h4, h5{
       </div>
       </div>
 
-      <div class="col l8 s12" style="color:black">
+      <div class="col l8 m12 s12" style="color:black">
         <h6><b>Name:</b> {{offer.item}}</h6>
         <h6><b>Offered by:</b> {{offer.user.username}}</h6>
         <h6><b>Description:</b> {{offer.itemDescription}}</h6>
