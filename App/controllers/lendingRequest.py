@@ -22,6 +22,7 @@ def create_lendingRequest(borrowerID,lendingoffer_ID,reasonForUse,preferedLocati
         db.session.add(request)
         db.session.commit()
         return "Borrow request created"
+        #return request
     else:
         return "Request denied, user can not request their own lending offer"
 
@@ -84,12 +85,13 @@ def grantTempApproval(id,lendingoffer_ID,userID):
         db.session.commit()
         offer.borrowRequestID=id
         offer.Status="Unavailable"
+        print("OFFER BORROW REQUEST ID IS HERE")
         print(offer.borrowRequestID)
         db.session.add(offer)
         db.session.commit()
         #print(offer.toJSON())
-        return request
-        #return request.toJSON()
+        #return request
+        return request.toJSON()
     else:
         #return "Approval denied, users can not approve their own lending requests"
         return None
@@ -98,6 +100,7 @@ def UnapproveTemp(id,userID):
     request=LendingRequest.query.get(id)
     print(request)
     offer=LendingOffer.query.filter_by(id=request.lendingoffer_ID,lenderID=userID).first()
+    #offer=LendingOffer.query.get(request.lendingoffer_ID)
     if(userID!=request.borrowerID and offer.lenderID==userID):
         request.tempApproval=False
         offer.borrowRequestID=None
