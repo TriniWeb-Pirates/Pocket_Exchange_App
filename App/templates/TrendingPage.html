@@ -1,27 +1,22 @@
 {% extends "layout2.html" %}
 {% block title %}Pocket Exchange{% endblock %}
 {% block page %}Pocket Exchange{% endblock %}
-
 {{ super() }}
-
 {% block content %}
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <style>
-    body {
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   <style>
+      body {
       background-color: #2196f3;
-    }
-
-    h3.center {
+      }
+      h3.center {
       color: #fff;
       text-align: center;
       margin-top: 30px;
-    }
-
-    .card {
+      }
+      .card {
       margin: 0 auto;
       margin-bottom: 20px;
       width: 90%;
@@ -29,32 +24,27 @@
       transition: 0.3s;
       border-radius: 5px;
       background-color: #fff;
-    }
-
-    .card:hover {
+      }
+      .card:hover {
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .card-image img {
+      }
+      .card-image img {
       width: 100%;
       height: 200px;
       object-fit: cover;
       border-top-right-radius: 5px;
       border-top-left-radius: 5px;
-    }
-
-    .card-content {
+      }
+      .card-content {
       padding: 20px;
-    }
-
-    .card-title {
+      }
+      .card-title {
       color: #f44336;
       font-size: 24px;
       font-weight: 500;
       margin-bottom: 10px;
-    }
-
-    .card-action a {
+      }
+      .card-action a {
       background-color: #4caf50;
       color: #fff;
       font-size: 18px;
@@ -63,41 +53,38 @@
       border-radius: 5px;
       text-transform: uppercase;
       transition: 0.3s;
-    }
-
-    .card-action a:hover {
+      }
+      .card-action a:hover {
       background-color: #ff8f00;
-    }
-  </style>
+      }
+   </style>
 </head>
-
 <body>
-  <div class="container">
-    <h3 class="center">Trending Items</h3>
-    <div class="row">
-      {% for item in trendingList %}
-      <div class="col s12 m6 l4">
-        <div class="card">
-          <div class="card-image">
-            {% if item.imageURL %}
-            <img src="{{item.imageURL}}" alt="Item Image" enctype="multipart/form-data">
-            {% else %}
-            <img src="/static/images/no-image.svg" alt="Item Image">
-            {% endif %}
-          </div>
-          <div class="card-content">
-            <span class="card-title">{{ item.Item_Name }}</span>
-            <p>{{item.requestCount}}</p>
-          </div>
-         <div class="card-action">
-            <a href="/homepage" type="submit" class="btn waves-effect waves-light">Check Item</a>
-          </div>
-        </div>
+   <div class="container">
+      <h3 class="center">Trending Items</h3>
+      <div class="row">
+         {% for item in trendingList %}
+         <div class="col s12 m6 l4">
+            <div class="card">
+               <div class="card-image">
+                  {% if item.imageURL %}
+                  <img src="{{item.imageURL}}" alt="Item Image" enctype="multipart/form-data">
+                  {% else %}
+                  <img src="/static/images/no-image.svg" alt="Item Image">
+                  {% endif %}
+               </div>
+               <div class="card-content">
+                  <span class="card-title">{{ item.Item_Name }}</span>
+                  <p>{{item.requestCount}}</p>
+               </div>
+               <div class="card-action">
+                  <a href="/homepage" type="submit" class="btn waves-effect waves-light">Check Item</a>
+               </div>
+            </div>
+         </div>
+         {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   </div>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
-
 {% endblock %}
