@@ -77,7 +77,8 @@ def deleteOffer(id):
     #data=request.form
     data=remove_Offer(id)
     offer=get_offer_by_ID(id)
-    return jsonify(offer)
+    flash('Offer has been successfully deleted. ')
+    return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
 #Route to retrieve all lending offers by category
 @lendingOffer_views.route('/GetCategoryOffers/<category>',methods=['GET'])

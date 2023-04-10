@@ -6,6 +6,18 @@
 
 {% block content %}
 
+<style>
+  body{
+    background-color: #0040c1;
+}
+
+h4{
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight:400;
+
+}
+</style>
+
 
 
 <head>
@@ -16,7 +28,7 @@
   </head>
   <body> 
     <div class="container">
-      <h4 class="center">My Borrow Requests</h4><br>
+      <h4 class="center white-text">My Borrow Requests</h4><br>
       {% if requests %}
       {% for item in requests %}
         <div class="card" style="margin-bottom:50px">
@@ -42,21 +54,26 @@
             <span class="card-title"><b>Status:</b> Unapproved</span>
             {% endif %}
 
-            {% if item.tempApproval==True and item.Status==True %}
+            {% if item.tempApproval==True and item.Status==True and item.lendingOffer.isReturned==False %}
               <span class="card-title"><b>Date to be returned:</b> {{ item.lendingOffer.returnDate }}</span>
               <span class="card-title"><b>Days left:</b> {{ item.lendingOffer.borrowingDays }}</span>
               {% endif %}
 
             {% if item.lendingOffer.isReturned == True %}
-              <span class="card-title"></b> You have returned this item successfully!</span></b>
+            <br>
+              <span class="card-title green-text text-darken-3"><b> You have successfully returned this item!</span></b>
 
-              <div class="card-action">
-                <form action='/DeleteRequest/{{ item.id }}' method="GET">
-                  <button class="btn waves-effect waves-light" type="submit" name="action">Delete Request</button>
-                </form>
-              </div>
+              
               
             {% endif %}
+
+            <div class="card-action">
+              <form action='/DeleteRequest/{{ item.id }}' method="GET">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Delete Request</button>
+              </form>
+            </div>
+
+            
           </div> <!--ending card content-->
         
             

@@ -223,7 +223,7 @@ h4{
         {% if request.tempApproval==True and request.Status==False %}
         <div class="col l7">
           <form action="/UnApproveTempApproval/{{ request.id }}" method="POST">
-        <button id="test" type="submit" class="waves-effect waves-light btn  deep-purple accent-4" style="background-color:#0040c1"><i class="material-icons right">close</i>Cancel Approval</button>
+        <button id="test" type="submit" class="waves-effect waves-light btn " style="background-color:#0040c1"><i class="material-icons right">close</i>Cancel Approval</button>
       </form></div>
       {% endif %}
 
@@ -241,18 +241,18 @@ h4{
       {% if offer.borrowingDays==None %} 
         
         <form action='/ChangeStatus/{{ request.id }}/ {{ offer.id }}' method="POST">
-       <h6> Please enter your start date:
+       <h6> <b>Please enter your start date:
         <div class="input-field inline">
           <input id="email_inline" name="borrowDate" class="datepicker">  
-          <label for="email_inline">Start Date</label> </div> </h6>
+          <label for="startdate"></label> </div> </b> </h6>
          
           </div>
 
           <div class="col s12" style="margin-top:-30px">
-            <h6> Please enter your end date:
+            <h6> <b> Please enter your end date:
              <div class="input-field inline">
                <input id="email_inline" name="returnDate" class="datepicker"> 
-               <label for="email_inline">End Date</label> </div></h6>
+               <label for="email_inline"></label> </div> </b></h6>
               
                </div>
         
@@ -266,7 +266,7 @@ h4{
               </form>
 
 
-        {% elif offer.borrowingDays and offer.isReturned==False %}
+        {% elif offer.borrowingDays!=None and offer.isReturned==False %}
          
         <div class="row" style="margin-top:30px">
           <div class="col s12 center">
@@ -313,6 +313,7 @@ h4{
         </div>  <!--end of green card action-->
 
          
+
   
       </div> <!--end of card-->
       
@@ -341,6 +342,17 @@ h4{
   
       
       </div>
+
+
+      <div class="row">
+        <div class="col l3 offset-l10 s6 offset-s7 m5 offset-m9" style="margin-bottom:20px">
+          <form action='/removeLendingOffer{{ offer.id }}' method='POST'>
+      <button type='submit' class="waves-effect waves-light btn"> Delete</button>
+      </form>
+    </div>
+    </div>
+
+
     </div> <!--end of card-->
   
   

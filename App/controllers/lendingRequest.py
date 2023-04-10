@@ -21,7 +21,7 @@ def create_lendingRequest(borrowerID,lendingoffer_ID,reasonForUse,preferedLocati
         request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,reasonForUse=reasonForUse,preferedLocation=preferedLocation,Status=False,tempApproval=False)
         db.session.add(request)
         db.session.commit()
-        return "Lending request created"
+        return "Borrow request created"
     else:
         return "Request denied, user can not request their own lending offer"
 
