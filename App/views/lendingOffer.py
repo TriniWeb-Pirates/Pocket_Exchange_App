@@ -190,7 +190,7 @@ def testRestart():
     offer=restartOffer(current_user.id,data['lendingoffer_ID'])
     return jsonify(offer)
 
-@lendingRequests_views.route('/testCheckisReturned')
+@lendingOffer_views.route('/testCheckisReturned')
 @login_required
 def testCheckisReturned():
     data=request.json
