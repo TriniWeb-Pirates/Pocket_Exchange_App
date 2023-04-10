@@ -62,5 +62,5 @@ class LendingOffer(db.Model,UserMixin):
             'RulesOfUse':self.RulesOfUse,
             'borrowDate':self.borrowDate,
             'returnDate':self.returnDate,
-            "isReturned": self.isReturned
+            'isReturned': self.isReturned
         }

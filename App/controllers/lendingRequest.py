@@ -129,3 +129,31 @@ def changeStatus(id,userID):
     return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"
 
 
+
+def deleteLendingRequest(requestID):
+
+    request = LendingRequest.query.get(requestID)
+    offer = LendingOffer.query.get(request.lendingoffer_ID)
+
+    if(request.tempApproval==True):
+        offer.borrowRequestID=None
+        offer.Status = "Available"
+
+    if(request.Status==True):
+        offer.borrowingDays=None
+        offer.returnDate = None
+        offer.startDate = None
+
+    db.session.delete(request)
+    db.session.commit()
+
+    db.session.add(offer)
+    db.session.commit()
+
+    return 'Request was successfully deleted'
+
+
+
+
+
+         

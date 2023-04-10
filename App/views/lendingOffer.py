@@ -124,17 +124,17 @@ def RetreiveAllUserOffers():
     
     return render_template('myLendingOffers.html', offers=offers)
 
-@lendingOffer_views.route('/RestartOffer/<lendingoffer_ID>',methods=['PUT'])
+@lendingOffer_views.route('/RestartOffer/<lendingoffer_ID>',methods=['GET'])
 @login_required
 def Restart(lendingoffer_ID):
     offer=restartOffer(current_user.id,lendingoffer_ID)
-    return redirect(url_for('user_views.gethomepage'))
+    return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
-@lendingOffer_views.route('/CheckisReturned/<lendingRequestID>')
+@lendingOffer_views.route('/CheckisReturned/<lendingOfferID>')
 @login_required
-def CheckisReturned(lendingRequestID):
-    lendingRequest=changeIsReturned(lendingRequestID,current_user.id)
-    return jsonify(lendingRequest)
+def CheckisReturned(lendingOfferID):
+    lendingOffer=changeIsReturned(lendingOfferID,current_user.id)
+    return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
 #TESTING ROUTES
 #Route to test retrieving offers by a category

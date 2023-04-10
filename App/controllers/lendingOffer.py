@@ -51,7 +51,7 @@ def get_all_offers():
 def findBorrowingDays(offerID):
     offer=LendingOffer.query.get(offerID)
     today=date.today()
-    if(offer.borrowDate):
+    if(offer.borrowDate!=None and offer.returnDate!=None):
         if(today>=offer.borrowDate):
             borrowingDays=offer.returnDate-today
             print(borrowingDays)
@@ -67,6 +67,11 @@ def findBorrowingDays(offerID):
             db.session.commit()
             print(borrowingDays)
             return borrowingDays
+    
+    else:
+        return None
+    
+
 
 # updates the borrowing days in the database
 def getAllBorrowingDays():
@@ -128,6 +133,8 @@ def restartOffer(userID,id):
             db.session.commit()
         offer.borrowRequestID=None
         offer.borrowingDays=None
+        offer.returnDate = None
+        offer.startDate = None
         offer.Status="Available"
         db.session.add(offer)
         db.session.commit()
@@ -156,14 +163,16 @@ def getReturnDate(lendingoffer_ID):
         return None
     
 def changeIsReturned(id,userID):
-    lendingRequest=LendingRequest.query.get(id)
+    lendingOffer=LendingOffer.query.get(id)
+    lendingRequest = LendingRequest.query.get(lendingOffer.borrowRequestID)
+
     if(lendingRequest.tempApproval==True and lendingRequest.Status==True and lendingRequest.borrowerID!=userID):
-        lendingRequest.isReturned=True
-        offer=LendingOffer.query.get(lendingRequest.lendingoffer_ID)
-        offer.Status="Unavailable"
-        db.session.add(lendingRequest)
+        lendingOffer.isReturned=True
+        lendingOffer.Status="Unavailable"
+        db.session.add(lendingOffer)
         db.session.commit()
-        db.session.add(offer)
-        db.session.commit()
-        return lendingRequest.toJSON()
+        return lendingOffer.toJSON()
+
     return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"
+
+

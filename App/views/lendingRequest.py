@@ -16,7 +16,8 @@ from App.controllers import (
     getRequest,
     UnapproveTemp,
     getAllUserOffers,
-    setDates
+    setDates,
+    deleteLendingRequest
 )
 
 lendingRequests_views = Blueprint('lendingRequests_views', __name__, template_folder='../templates')
@@ -119,6 +120,15 @@ def getUserRequests():
     requests = getAllUserRequestsJSON(current_user.id)
     print(requests)
     return render_template('myBorrowRequests.html', requests=requests)
+
+
+@lendingRequests_views.route('/DeleteRequest/<requestID>', methods=['GET'])
+@login_required
+def deleteUserRequest(requestID):
+    msg = deleteLendingRequest(requestID)
+    flash(msg)
+    
+    return redirect(url_for('lendingRequests_views.getUserRequests'))
 
 
 #testing routes
