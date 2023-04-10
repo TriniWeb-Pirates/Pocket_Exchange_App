@@ -117,7 +117,7 @@ def StatusChange(lendingRequestID, lendingoffer_ID):
 def getUserRequests():
 
     requests = getAllUserRequestsJSON(current_user.id)
-
+    print(requests)
     return render_template('myBorrowRequests.html', requests=requests)
 
 

@@ -6,6 +6,8 @@
 
 {% block content %}
 
+
+
 <head>
     <title>Borrow Request</title>
     <!-- Materialize CSS stylesheets and scripts -->
@@ -14,44 +16,58 @@
   </head>
   <body> 
     <div class="container">
-      <h1>Borrow Request</h1>
+      <h4 class="center">My Borrow Requests</h4><br>
       {% if requests %}
       {% for item in requests %}
-        <div class="card">
+        <div class="card" style="margin-bottom:50px">
+          <div class="card-action green white-text"> 
+            {{ item.id }}.
+          </div>
+          <div class="row">
+            <div class="col s4">
           <div class="card-image">
-            <img src="{{ item.image }}">
+            <img style="padding:10px" class="responsive-img" src="{{ item.lendingOffer.imageURL }}">
           </div>
-          <div class="card-content">
-            <span class="card-title">{{ item.name }}</span>
-            <p>Offered by: {{ item.user }}</p>
-            {% if item.Status == 'requested' %}
-              <p>Status: Requested</p>
-            {% elif item.Status == 'approved' %}
-              <p>Status: Approved</p>
-              <p>Date to be returned: {{ item.returnDate }}</p>
-              <p>Days left: {{ item.borrowingDays }}</p>
-            {% elif item.Status == 'returned' %}
-              <p>Status: Returned</p>
-              <p>Return Successful!</p>
-            {% endif %}
-          </div>
-          {% if item.Status == 'approved' %}
-            <div class="card-action">
-              <form action="{{ url_for('return_item', item_id=item.id) }}" method="POST">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Mark as Returned</button>
-              </form>
-            </div>
-          {% elif item.Status == 'returned' %}
-            <div class="card-action">
-              <form action="{{ url_for('delete_item', item_id=item.id) }}" method="POST">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Delete Request</button>
-              </form>
-            </div>
-          {% endif %}
         </div>
-      {% endfor %}
-      {% endif %}
-    </div>
+
+        <div class="col s8">
+          <div class="card-content">
+            <span class="card-title"><b>Item Name:</b> {{ item.lendingOffer.item }}</span>
+            <span class="card-title"><b>Offered by:</b> {{ item.lendingOffer.user.username }}</span>
+            {% if item.tempApproval == True and item.Status==False %}
+              <span class="card-title"><b>Status:</b> Temporarily Approved</span>
+            {% elif item.tempApproval == True and item.Status==True %}
+              <span class="card-title"><b>Status:</b> Permanently approved</span>
+            {% else %}
+            <span class="card-title"><b>Status:</b> Unapproved</span>
+            {% endif %}
+
+            {% if item.tempApproval==True and item.Status==True %}
+              <span class="card-title"><b>Date to be returned:</b> {{ item.lendingOffer.returnDate }}</span>
+              <span class="card-title"><b>Days left:</b> {{ item.lendingOffer.borrowingDays }}</span>
+              {% endif %}
+
+            {% if item.lendingOffer.isReturned == True %}
+              <span class="card-title"></b> You have returned this item successfully!</span></b>
+
+              <div class="card-action">
+                <form action="{{ url_for('delete_item', item_id=item.id) }}" method="POST">
+                  <button class="btn waves-effect waves-light" type="submit" name="action">Delete Request</button>
+                </form>
+              </div>
+              
+            {% endif %}
+          </div> <!--ending card content-->
+        
+            
+        </div> <!--ending col s8-->
+      
+    </div> <!--end of row-->
+    </div> <!--end of card-->
+    {% endfor %}
+    {% endif %}
+
+  </div>  <!--end of container-->
   </body>
 
 
