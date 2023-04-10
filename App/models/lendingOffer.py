@@ -51,7 +51,7 @@ class LendingOffer(db.Model,UserMixin):
             'borrowRequestID':self.borrowRequestID,
             'borrowingDays':self.borrowingDays,
             'item': self.item,
-            'lendingRequests':[lendRequest.toJSON() for lendRequest in self.lendRequests],
+            'lendingRequests':self.lendRequests,
             'user': self.user.toJSON(),
             'itemDescription':self.itemDescription,
             'category':self.category,

@@ -41,7 +41,7 @@ class LendingRequest(db.Model,UserMixin):
             "id":self.id,
             'borrowerID': self.borrowerID,
             'user': self.user.toJSON(),
-            'lendingOffer':self.lendingOffer,
+            'lendingOffer':self.lendingOffer.toJSON(),
             'lendingoffer_ID': self.lendingoffer_ID,
             'reasonForUse':self.reasonForUse,
             'preferedLocation': self.preferedLocation,

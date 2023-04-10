@@ -266,7 +266,7 @@ h4{
               </form>
 
 
-        {% elif offer.borrowingDays or offer.borrowingDays<=0 and offer.isReturned==False %}
+        {% elif offer.borrowingDays and offer.isReturned==False %}
          
         <div class="row" style="margin-top:30px">
           <div class="col s12 center">

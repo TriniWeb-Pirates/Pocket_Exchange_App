@@ -144,10 +144,13 @@ def deleteLendingRequest(requestID):
         offer.returnDate = None
         offer.startDate = None
 
-    db.session.delete(request)
-    db.session.commit()
+    if(offer.isReturned==True):
+        offer.isReturned=False
 
     db.session.add(offer)
+    db.session.commit()
+
+    db.session.delete(request)
     db.session.commit()
 
     return 'Request was successfully deleted'
