@@ -14,9 +14,11 @@ rating_views = Blueprint('rating_views', __name__, template_folder='../templates
 @login_required
 def AddRatingFunc(recipientID):
     data=request.form
-    response=createRating(recipientID,data['rate'])
-    #return redirect(url_for())
-    return jsonify(response.rate)
+    rating= int(data['rate'])
+    response=createRating(current_user.id,recipientID,rating)
+    flash("Rating successfully added!")
+    return redirect(url_for('user_views.getUserProfilepage',id=recipientID))
+    #return jsonify(response.rate)
 
 
 

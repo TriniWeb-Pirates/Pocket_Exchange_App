@@ -154,8 +154,11 @@ def getprofilepage():
 def getUserProfilepage(id):
     userData=get_user_TOJSON(id)
     comments=getComments(id)
-    return render_template("ProfilePage.html",user=userData,myID=current_user.id, comments=comments)
-
+    if userData != None:
+        return render_template("ProfilePage.html",user=userData,myID=current_user.id, comments=comments)
+    else:
+        flash("User has been deleted.")
+        return redirect(url_for("user_views.gethomepage"))
 
 
 

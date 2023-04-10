@@ -12,6 +12,9 @@ def createComment(commentedUserID,comment):
 
 def getComments(commentedUserID):
     comments = Comment.query.filter_by(commentedUserID=commentedUserID).all()
-    results = [comment.toJSON() for comment in comments]
-    print(results)
+    if comments:
+        results = [comment.toJSON() for comment in comments]
+    else:
+        results=None
+    #print(results)
     return results

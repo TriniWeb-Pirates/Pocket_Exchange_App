@@ -15,7 +15,7 @@ def buildTredingList():
     itemList=[]
     trendingList=[]
     offers=LendingOffer.query.all()
-    items = [offer.toJSON2() for offer in offers]
+    items = [offer.toJSON() for offer in offers]
     for item in items:
         user=User.query.get(item['lenderID'])
         username=user.username

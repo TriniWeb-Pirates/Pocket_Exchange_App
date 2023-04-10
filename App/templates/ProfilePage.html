@@ -22,6 +22,41 @@
          .btn:hover {
          background-color: green;
          }
+         .rate {
+         margin-right: 30%;
+         height: 46px;
+         padding: 0 10px;
+         }
+         .rate:not(:checked) > input {
+         position:absolute;
+         top:-9999px;
+         }
+         .rate:not(:checked) > label {
+         float:right;
+         width:1em;
+         overflow:hidden;
+         white-space:nowrap;
+         cursor:pointer;
+         font-size:30px;
+         color:#ccc;
+         }
+         .rate:not(:checked) > label:before {
+         content: '★ ';
+         }
+         .rate > input:checked ~ label {
+         color: #ffc700;    
+         }
+         .rate:not(:checked) > label:hover,
+         .rate:not(:checked) > label:hover ~ label {
+         color: #deb217;  
+         }
+         .rate > input:checked + label:hover,
+         .rate > input:checked + label:hover ~ label,
+         .rate > input:checked ~ label:hover,
+         .rate > input:checked ~ label:hover ~ label,
+         .rate > label:hover ~ input:checked ~ label {
+         color: #c59b08;
+         }
       </style>
    </head>
    <body>
@@ -38,64 +73,71 @@
                      </div>
                      <div class="row">
                         <div class="col s12">
-							<ul>
-								<li><i class="material-icons">phone</i>{{ user.phoneNumber }}</li>
-								<li><i class="material-icons">email</i>{{ user.email }}</li>
-								<li><i class="material-icons">location_city</i>{{ user.city }}</li>
-								<li><i class="material-icons">description</i>{{ user.Bio }}</li>
-								<li><i class="material-icons">link</i>{{ user.links }}</li>
-								<li>
-									<span><i class="material-icons">thumb_up</i></span>
-									<span>
-										{% for i in range(5) %}
-											{% if i < user.rating %}
-												<i class="material-icons">star</i>
-											{% else %}
-												<i class="material-icons">star_border</i>
-											{% endif %}
-										{% endfor %}
-									</span>
-								</li>
-								<li><i class="material-icons">report_problem</i>{{ user.reportsCount }}</li>
-							</ul>
+                           <ul>
+                              <li><i class="material-icons">phone</i>{{ user.phoneNumber }}</li>
+                              <li><i class="material-icons">email</i>{{ user.email }}</li>
+                              <li><i class="material-icons">location_city</i>{{ user.city }}</li>
+                              <li><i class="material-icons">description</i>{{ user.Bio }}</li>
+                              <li><i class="material-icons">link</i>{{ user.links }}</li>                          
+                              <li><i class="material-icons">report_problem</i>{{ user.reportsCount }}</li>
+                              <li><i class="material-icons">rating</i>{{ user.rating }}</li>
+                              
+                           </ul>
                         </div>
                      </div>
                   </div>
                   <div class="card-action">
-                     {% if user.imageURL !=None %}
-                     <img src="{{ user.imageURL }}" class="responsive-img" alt="Profile Picture">
-                     {% else %}
-                     <img src="/static/images/avatar.png" class="responsive-img" alt="Profile Picture">
-                     {% endif %}
+                  {% if user.imageURL !=None %}
+                  <img src="{{ user.imageURL }}" class="responsive-img" alt="Profile Picture">
+                  {% else %}
+                  <img src="/static/images/avatar.png" class="responsive-img" alt="Profile Picture">
+                  {% endif %}
                   </div>
                </div>
             </div>
          </div>
          <div class="col s12 m6">
-            {% if user.id!=myID %}
-            <div class="row">
-               <form action="/add_comments/{{ user.id }}" method="POST" class="col s12">
-                  <div class="row">
-                     <div class="input-field col s12">
-                        <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
-                        <label for="comment">Add a comment</label>
-                     </div>
-                  </div>
-                  <button type="submit" class="btn waves-effect waves-light">Submit</button>
-               </form>
-            </div>
-            <div class="row">
-               <form action="/create_report/{{ user.id }}" method="POST" class="col s12">
-                  <div class="row">
-                     <div class="input-field col s12">
-                        <textarea name="report" id="report" class="materialize-textarea"></textarea>
-                        <label for="report">Report this user</label>
-                     </div>
-                  </div>
-                  <button type="submit" class="btn waves-effect waves-light red">Report</button>
-               </form>
-            </div>
-            {% endif %}
+         {% if user.id!=myID %}
+         <div class="row">
+            <form action='/AddRating/{{user.id}}' method="post">
+               <div class="rate center">
+                  <input type="radio" id="star5" name="rate" value="5" />
+                  <label for="star5" title="text">5 stars</label>
+                  <input type="radio" id="star4" name="rate" value="4" />
+                  <label for="star4" title="text">4 stars</label>
+                  <input type="radio" id="star3" name="rate" value="3" />
+                  <label for="star3" title="text">3 stars</label>
+                  <input type="radio" id="star2" name="rate" value="2" />
+                  <label for="star2" title="text">2 stars</label>
+                  <input type="radio" id="star1" name="rate" value="1" />
+                  <label for="star1" title="text">1 star</label>
+                  <button class=" #039be5 light-blue darken-1 btn waves-effect waves-light" type="submit">Add Rating</button>
+               </div> 
+            </form>
+         </div>
+         <div class="row">
+         <form action="/add_comments/{{ user.id }}" method="POST" class="col s12">
+         <div class="row">
+         <div class="input-field col s12">
+         <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
+         <label for="comment">Add a comment</label>
+         </div>
+         </div>
+         <button type="submit" class="btn waves-effect waves-light">Submit</button>
+         </form>
+         </div>
+         <div class="row">
+         <form action="/AddReport/{{user.id}}" method="POST" class="col s12">
+         <div class="row">
+         <div class="input-field col s12">
+         <textarea name="description" id="report" class="materialize-textarea"></textarea>
+         <label for="report">Report this user</label>
+         </div>
+         </div>
+         <button type="submit" class="btn waves-effect waves-light red">Report</button>
+         </form>
+         </div>
+         {% endif %}
          </div>
       </div>
       </div>

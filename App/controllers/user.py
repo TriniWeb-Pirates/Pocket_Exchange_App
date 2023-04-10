@@ -27,8 +27,11 @@ def get_user_by_phoneNumber(phoneNumber):
 
 def get_user_TOJSON(id):
     data=User.query.get(id)
-    return data.toJSON()
-
+    if data:
+        return data.toJSON()
+    else:
+        return None
+        
 def get_all_users():
     return User.query.all()
 
