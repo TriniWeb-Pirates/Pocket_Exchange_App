@@ -17,16 +17,20 @@ def notifyUsers(subscriberList,lendingoffer_ID):
     approvedUser = request.borrowerID
     user = str(approvedUser)
 
+
     name=str(offer.item)
     fullMessage=name+message
     for value in subscriberList:
-        if(value!=',' and str(value)!=user):
-            print('the value of value right now is')
-            print(value)
-            user=int(value)
-            notification=createNotification(user,lendingoffer_ID,fullMessage)
-            print(notification)
+        if(value!=','):
+            if(value!=user):
+                user=int(value) 
+                notification=createNotification(user,lendingoffer_ID,fullMessage)
+            else:
+                notification= None
     return notification
+
+
+
 
 def getAllNotifications():
     items=LendingNotification.query.all()

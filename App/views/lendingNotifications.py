@@ -62,7 +62,7 @@ def SendNotifications(subscriberList,lendingoffer_ID):
     notification=notifyUsers(subscriberList, lendingoffer_ID)
     #code to redirect user to some page
     #return jsonify(notification.userID)
-    
+    print(notification)
     return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
 @lendingNotification_views.route("/RetrieveNotifications", methods=['GET'])

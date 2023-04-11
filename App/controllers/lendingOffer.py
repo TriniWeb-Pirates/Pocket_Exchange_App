@@ -141,6 +141,10 @@ def restartOffer(userID,id):
         offer.borrowDate = None
         offer.isReturned = False
         offer.Status="Available"
+        manager = Manager.query.filter_by(lendingOfferID=offer.id).first()
+        manager.InterestedUserList = ''
+        db.session.add(manager)
+        db.session.commit()
         db.session.add(offer)
         db.session.commit()
         print(offer.toJSON())
