@@ -87,12 +87,14 @@
                               <li><i class="material-icons">rating</i>{{ user.rating }}</li>
                               <li>
                                  <i class="material-icons">comment</i>
+                                 {% if comments %}
                                  {% for comment in comments %}
                                  <div>
                                     <p>{{ comment.name }} said:</p>
                                     <p>{{ comment.message }}</p>
                                  </div>
                                  {% endfor %}
+                                 {% endif %}
                               </li>
                            </ul>
                         </div>

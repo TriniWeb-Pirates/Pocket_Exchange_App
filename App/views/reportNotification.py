@@ -5,7 +5,8 @@ from datetime import datetime
 
 from App.controllers import (
     createReportNotification,
-    getAllUserReportNotifications
+    getAllUserReportNotifications,
+    deleteReportNotif
 )
 
 reportingNotification_views = Blueprint('reportingNotification_views', __name__, template_folder='../templates')
@@ -15,6 +16,15 @@ reportingNotification_views = Blueprint('reportingNotification_views', __name__,
 def MakeReportNotificationPage(offenderID):
     notification=createReportNotification(offenderID)
     return jsonify(notification)
+
+
+@reportingNotification_views.route('/DeleteReportNotification/<notificationID>',methods=['POST'])
+@login_required
+def deleteReportN(notificationID):
+    msg = deleteReportNotif(notificationID)
+    flash(msg)
+    return redirect(url_for('lendingNotification_views.getNotificationPage'))
+
 
 #Test Routes
 @reportingNotification_views.route('/testCreateReportNotificationPage',methods=['POST'])

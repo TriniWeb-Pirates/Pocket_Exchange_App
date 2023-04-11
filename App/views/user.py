@@ -108,6 +108,9 @@ def create_user_page2(id):
         print(temp_users)
     print('All temp users have been deleted')
 
+    if(user=="You are a blocked user"):
+        flash(user)
+
     return redirect(url_for("user_views.getLoginPage"))
 
 #Route to display the login page

@@ -47,12 +47,12 @@ def addBlackListedUser(email,phoneNumber):
     return blockedUser
 
 message="Warning someone has filed a report against you, if you are reported "
-message2=" time/s your account will be deleted!"
+message2=" more time/s your account will be deleted!"
 
 
 def createReportNotification(userID):
     user=User.query.get(userID)
-    num=5-user.reportsCount
+    num=3-user.reportsCount
     remainder=str(num)
     reportNotification=ReportNotification(userID=userID, notification=message+remainder+message2)
     db.session.add(reportNotification)
@@ -66,3 +66,12 @@ def getAllUserReportNotifications(userID):
         return notifications
     else:
         return "You currently have no Report Notifications"
+
+
+
+
+def deleteReportNotif(reportID):
+    notification = ReportNotification.query.get(reportID)
+    db.session.delete(notification)
+    db.session.commit()
+    return 'Report Notification deleted'

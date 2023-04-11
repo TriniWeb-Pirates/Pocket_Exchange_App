@@ -13,10 +13,16 @@ def createNotification(userID,itemID,message):
 
 def notifyUsers(subscriberList,lendingoffer_ID):
     offer=LendingOffer.query.get(lendingoffer_ID)
+    request = LendingRequest.query.get(offer.borrowRequestID)
+    approvedUser = request.borrowerID
+    user = str(approvedUser)
+
     name=str(offer.item)
     fullMessage=name+message
     for value in subscriberList:
-        if(value!=','):
+        if(value!=',' and str(value)!=user):
+            print('the value of value right now is')
+            print(value)
             user=int(value)
             notification=createNotification(user,lendingoffer_ID,fullMessage)
             print(notification)
@@ -35,3 +41,12 @@ def getAllUserLendingNotifications(userID):
     else:
         return "You currently have no Lending Notifications"
 
+
+
+def deleteNotification(notificationID):
+    notification = LendingNotification.query.get(notificationID)
+    print(notification)
+    db.session.delete(notification)
+    db.session.commit()
+    
+    return 'Notification deleted.'

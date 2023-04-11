@@ -10,7 +10,8 @@ from App.controllers import (
     findBorrowingDays,
     getReturnDate,
     getAllUserLendingNotifications,
-    getAllUserReportNotifications
+    getAllUserReportNotifications,
+    deleteNotification
 )
 
 lendingNotification_views = Blueprint('lendingNotification_views', __name__, template_folder='../templates')
@@ -19,8 +20,32 @@ lendingNotification_views = Blueprint('lendingNotification_views', __name__, tem
 @login_required
 def getNotificationPage():
     lendingNotifications=getAllUserLendingNotifications(current_user.id)
+    print(lendingNotifications)
+    if(type(lendingNotifications)==str):
+        flash('You have no current Lending Notifications.')
+        lendingNotifications=None
+
     reportNotifications=getAllUserReportNotifications(current_user.id)
+
+    if(type(reportNotifications)==str):
+        flash('You have no current Report Notifications.')
+        reportNotifications=None
+    
     return render_template('notificationsPage.html',lendingNotifications=lendingNotifications,reportNotifications=reportNotifications)
+
+
+@lendingNotification_views.route('/DeleteLendingNotification/<notificationID>',methods=['POST'])
+@login_required
+def deleteLendingNotification(notificationID):
+    
+    msg = deleteNotification(notificationID)
+    flash(msg)
+    
+    return redirect(url_for('lendingNotification_views.getNotificationPage'))
+
+
+
+
 
 @lendingNotification_views.route('/CreateLendingNotification',methods=['POST'])
 @login_required

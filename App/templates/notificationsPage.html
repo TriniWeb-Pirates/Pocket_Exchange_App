@@ -40,7 +40,10 @@
 
     <div class="row">
 
-        
+        <!--start of card-->
+
+        {% if lendingNotifications %}
+        {% for notification in lendingNotifications %}
       <div id="trending" class="card">
       
       <div id="trending_outer" class="card-action purple darken-3">
@@ -48,50 +51,52 @@
       </div>
       
         <div id="trending" class="card-action white" style="padding-bottom:25px">
-      Notification number #1
+      <h6><b>Item Notification: </b> {{ notification.notification }} </h6>
 
-      
-      <a class="waves-effect waves-light btn right green darken-1">Delete</a>
+      <form action="/DeleteLendingNotification/{{ notification.id }}" method="POST">
+      <button type="submit" class="waves-effect waves-light btn right green darken-1">Delete</button>
+    </form>
     
       </div>
         
-      </div>
+      </div> <!--end of card-->
+
+    {% endfor %}
+    {% endif %}
 
 
 
+
+    {% if reportNotifications %}
+        {% for notification in reportNotifications %}
       <div id="trending" class="card">
       
-        <div id="trending_outer" class="card-action purple darken-3">
-        
-        </div>
-        
-          <div id="trending" class="card-action white" style="padding-bottom:25px">
-        Notification number #1
-  
-        
-        <a class="waves-effect waves-light btn right green darken-1">Delete</a>
+      <div id="trending_outer" class="card-action red accent-4">
       
-        </div>
-          
-        </div>
+      </div>
+      
+        <div id="trending" class="card-action white" style="padding-bottom:25px">
+      <h6><b>Report Notification: </b> {{ notification.notification }} </h6>
+
+      <form action="/DeleteReportNotification/{{ notification.id }}" method="POST">
+      <button type="submit" class="waves-effect waves-light btn right green darken-1">Delete</button>
+    </form>
+    
+      </div>
+        
+      </div> <!--end of card-->
+
+    {% endfor %}
+    {% endif %}
+
+    
+
+
+      
 
 
 
-        <div id="trending" class="card">
-      
-            <div id="trending_outer" class="card-action purple darken-3">
-            
-            </div>
-            
-              <div id="trending" class="card-action white" style="padding-bottom:25px">
-            Notification number #1
-      
-            
-            <a class="waves-effect waves-light btn right green darken-1">Delete</a>
-          
-            </div>
-              
-            </div>
+        
       
 
       
