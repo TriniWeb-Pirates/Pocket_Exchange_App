@@ -11,7 +11,7 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
    <style>
       body {
-      background-color: #2196f3;
+      background-color: blue;
       }
       .container {
       display: flex;
@@ -27,7 +27,7 @@
       transform: translateX(-50%);
       }
       .card {
-      background-color: white;
+      background-color: #fffdd0;
       }
       .card-action button {
       background-color: red;
@@ -46,6 +46,13 @@
          <div class="col s12 m6 l4">
             <div class="card">
                <div class="card-content">
+                  <div class="card-action">
+                     {% if user.imageURL !=None %}
+                     <img src="{{ user.imageURL }}" class="responsive-img" alt="Profile Picture">
+                     {% else %}
+                     <img src="/static/images/avatar.png" class="responsive-img" alt="Profile Picture">
+                     {% endif %}
+                  </div>
                   <span class="card-title">{{ user.name }}</span>
                   <p>Rating: {{ user.rating }}</p>
                </div>
