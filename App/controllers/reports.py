@@ -1,4 +1,4 @@
-from App.models import Report,BlockedUser,User,ReportNotification
+from App.models import Report,BlockedUser,User,ReportNotification,LendingNotification
 from App.database import db
 
 def create_report(userID,offenderID,description):
@@ -18,6 +18,17 @@ def create_report(userID,offenderID,description):
         #    count=count+1
         if(user.reportsCount>=3):
             blackListedUser=addBlackListedUser(user.email,user.phoneNumber)
+            LNotifications=LendingNotification.query.filter_by(userID=offenderID).all()
+            if(LNotifications):
+                for message in LNotifications:
+                    db.session.delete(message)
+                    db.session.commit()
+            RNotifications=ReportNotification.query.filter_by(userID=offenderID).all()
+            if(RNotifications):
+                for RNotification in RNotifications:
+                    db.session.delete(RNotification)
+                    db.session.commit()
+
             db.session.add(blackListedUser)
             db.session.commit()
             db.session.delete(user)
