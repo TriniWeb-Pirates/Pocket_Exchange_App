@@ -16,5 +16,5 @@ def getComments(commentedUserID):
         results = [comment.toJSON() for comment in comments]
     else:
         results=None
-    #print(results)
+    print(results)
     return results
