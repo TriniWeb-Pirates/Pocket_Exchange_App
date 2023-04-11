@@ -13,3 +13,11 @@ def createReportNotification(userID):
     db.session.add(reportNotification)
     db.session.commit()
     return reportNotification.toJSON()
+
+def getAllUserReportNotifications(userID):
+    messages=ReportNotification.query.filter_by(userID=userID).all()
+    if(messages):
+        notifications = [message.toJSON() for message in messages]
+        return notifications
+    else:
+        return "You currently have no Report Notifications"

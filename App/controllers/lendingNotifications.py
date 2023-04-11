@@ -26,3 +26,12 @@ def getAllNotifications():
     items=LendingNotification.query.all()
     data = [item.toJSON() for item in items]
     return data
+
+def getAllUserLendingNotifications(userID):
+    messages=LendingNotification.query.filter_by(userID=userID).all()
+    if(messages):
+        notifications = [message.toJSON() for message in messages]
+        return notifications
+    else:
+        return "You currently have no Lending Notifications"
+

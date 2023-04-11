@@ -8,7 +8,9 @@ from App.controllers import (
     notifyUsers,
     getAllNotifications,
     findBorrowingDays,
-    getReturnDate
+    getReturnDate,
+    getAllUserLendingNotifications,
+    getAllUserReportNotifications
 )
 
 lendingNotification_views = Blueprint('lendingNotification_views', __name__, template_folder='../templates')
@@ -16,7 +18,9 @@ lendingNotification_views = Blueprint('lendingNotification_views', __name__, tem
 @lendingNotification_views.route('/notifications', methods=['GET'])
 @login_required
 def getNotificationPage():
-    return render_template('notificationsPage.html')
+    lendingNotifications=getAllUserLendingNotifications(current_user.id)
+    reportNotifications=getAllUserReportNotifications(current_user.id)
+    return render_template('notificationsPage.html',lendingNotifications=lendingNotifications,reportNotifications=reportNotifications)
 
 @lendingNotification_views.route('/CreateLendingNotification',methods=['POST'])
 @login_required

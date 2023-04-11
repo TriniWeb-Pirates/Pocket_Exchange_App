@@ -4,7 +4,8 @@ from flask_login import login_required, current_user, LoginManager
 from datetime import datetime
 
 from App.controllers import (
-    createReportNotification
+    createReportNotification,
+    getAllUserReportNotifications
 )
 
 reportingNotification_views = Blueprint('reportingNotification_views', __name__, template_folder='../templates')
