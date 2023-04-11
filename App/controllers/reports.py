@@ -1,4 +1,4 @@
-from App.models import Report,BlockedUser,User,ReportNotification,LendingNotification
+from App.models import Report,BlockedUser,User,ReportNotification,LendingNotification,Manager,LendingOffer,LendingRequest
 from App.database import db
 
 def create_report(userID,offenderID,description):
@@ -28,7 +28,24 @@ def create_report(userID,offenderID,description):
                 for RNotification in RNotifications:
                     db.session.delete(RNotification)
                     db.session.commit()
-
+            offers=LendingOffer.query.filter_by(lenderID=offenderID).all()
+            if(offers):
+                for offer in offers:
+                    db.session.delete(offer)
+                    db.session.commit()
+            requests=LendingRequest.query.filter_by(borrowerID=offenderID).all()
+            if(requests):
+                for request in requests:
+                    manager=Manager.query.filter_by(lendingOfferID=request.lendingoffer_ID).first()
+                    x=request.borrowerID
+                    person=str(x)
+                    for value in manager.InterestedUserList:
+                        if(value==person):
+                            manager.InterestedUserList=manager.InterestedUserList.replace(value,",")
+                            db.session.add(manager)
+                            db.session.commit()
+                    db.session.delete(request)
+                    db.session.commit()
             db.session.add(blackListedUser)
             db.session.commit()
             db.session.delete(user)
