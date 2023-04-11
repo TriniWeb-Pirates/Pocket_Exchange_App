@@ -1,4 +1,4 @@
-from App.models import Report,BlockedUser,User
+from App.models import Report,BlockedUser,User,ReportNotification
 from App.database import db
 
 def create_report(userID,offenderID,description):
@@ -10,6 +10,7 @@ def create_report(userID,offenderID,description):
         db.session.commit()
         db.session.add(user)
         db.session.commit()
+        createReportNotification(offenderID)
         #reports=Report.query.filter_by(offenderID=offenderID).all()
         #data = [report.toJSON() for report in reports]
         #count=0
@@ -44,3 +45,24 @@ def addBlackListedUser(email,phoneNumber):
     db.session.add(blockedUser)
     db.session.commit()
     return blockedUser
+
+message="Warning someone has filed a report against you, if you are reported "
+message2=" time/s your account will be deleted!"
+
+
+def createReportNotification(userID):
+    user=User.query.get(userID)
+    num=5-user.reportsCount
+    remainder=str(num)
+    reportNotification=ReportNotification(userID=userID, notification=message+remainder+message2)
+    db.session.add(reportNotification)
+    db.session.commit()
+    return reportNotification.toJSON()
+
+def getAllUserReportNotifications(userID):
+    messages=ReportNotification.query.filter_by(userID=userID).all()
+    if(messages):
+        notifications = [message.toJSON() for message in messages]
+        return notifications
+    else:
+        return "You currently have no Report Notifications"

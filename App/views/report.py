@@ -15,7 +15,7 @@ report_views = Blueprint('report_views', __name__, template_folder='../templates
 def Reporting(offenderID):
     data=request.form
     report=create_report(current_user.id,offenderID,data['description'])
-    flash("You report this user.")
+    flash("You have reported this user.")
     return redirect(url_for('user_views.getUserProfilepage', id=offenderID))
 
 #Test Routes
