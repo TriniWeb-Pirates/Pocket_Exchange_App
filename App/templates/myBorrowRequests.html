@@ -67,14 +67,29 @@ h4{
               
             {% endif %}
 
-            <div class="card-action">
-              <form action='/DeleteRequest/{{ item.id }}' method="GET">
+            <div class="card-action" style="padding-left:0px">
+
+              
+
+
+
+              
                 <div class="row" style="margin-bottom:-6px; margin-top:10px">
-                <div class="col s4 offset-s8">
+
+                  
+                  <div class="col s6">
+                <form action="/UserProfilePage/{{ item.lendingOffer.lenderID }}" methods="GET">
+                  <button type="submit" class="waves-effect waves-light btn green darken-2" style="margin-bottom:30px;"><i class="material-icons right">person</i>Visit Profile</button>
+                </form>
+              </div>
+              
+                  <div class="col s6">
+                  <form action='/DeleteRequest/{{ item.id }}' method="GET"></form>
                 <button class="btn waves-effect waves-light" type="submit" name="action">Delete Request</button>
-              </div>
-              </div>
               </form>
+            </div>
+              </div>
+              
             </div>
 
             
