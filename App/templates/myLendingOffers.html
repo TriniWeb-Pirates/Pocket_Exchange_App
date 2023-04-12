@@ -301,13 +301,23 @@ h4{
 
         {% if offer.isReturned==True %}
 
+        <div class="col s12">
+        <div class="row" style="margin-top:15px">
+          <div class="col l1 offset-l5 m2 offset-m5 s3 offset-s5">
+      <img src="/static/images/check.png" class="responsive-img"></div>
+    </div>
 
-       <h6> Item was returned successfully. You can give this user a rating, restart your offer, or delete it. </h6>
+       <div class="row">
+       <h6><b>Item was returned successfully. You can give this user a rating, restart your offer, or delete it. </b></h6>
+      </div>
 
+       <div class="row">
         <form action='/RestartOffer/{{ offer.id }}' method="GET">
-        <button type="submit" class="waves-effect waves-light btn">Restart</button>
+        <button type="submit" class="waves-effect waves-light btn red accent-4"> <i class="material-icons right">replay</i>Restart</button>
         </form>
+      </div>
 
+      </div>
         {% endif %}
               
         </div>  <!--end of green card action-->
