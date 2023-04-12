@@ -130,25 +130,9 @@
                </div>  <!--end of card content-->
             </div> <!--end of card-->
                <div class="col s12">
-                  <div class="card">
-                     <div class="card-content">
-                        <form action="/add_comments/{{ user.id }}" method="POST">
-                              <div class="input-field col s12">
-                                 <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
-                                 <label for="comment">Add a comment</label>
-                                 <button type="submit" class="btn waves-effect waves-light">Submit</button>
-                              </div>
-                        </form>
-                        {% if comments %}
-                        {% for comment in comments %}
-                        <div>
-                        <p>{{ comment.comment }}</p>
-                        </div>
-                        {% endfor %}
-                        {% endif %}                  
-                        </div>
-                     </div>
-                     <div class="card">
+                  
+
+                     <div class="card"> <!--start of report-->
                         <div class="card-content">
                            <form action="/AddReport/{{user.id}}" method="POST">
                               <div class="input-field col s12">
@@ -158,8 +142,45 @@
                               <button type="submit" class="btn waves-effect waves-light red">Report</button>
                            </form>
                         </div>
-                     </div>
+                     </div> <!--end of report-->
+
+                     <div class="card">  <!--start of comment-->
+                        <div class="card-content">
+                           <form action="/add_comments/{{ user.id }}" method="POST">
+                                 <div class="input-field">
+                                    <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
+                                    <label for="comment">Add a comment</label>
+                                    <button type="submit" class="btn waves-effect waves-light">Submit</button>
+                                 </div>
+                           </form>
+                                            
+                           </div>
+                        </div> <!--end of comment-->
+
+
+
+                        
                      {% endif %}
+                     {% if comments %}
+                     <div class="col s12" >
+                     <div class="card">
+                        <div class="card-action blue white-text">
+                           <h5 class="center">Comments</h5>
+                        </div>
+                     </div>
+                     
+                    
+                     {% for comment in comments %}
+
+                     <div class="card">
+                        <div class="card-action">
+                        <h6>{{ comment.comment }}</h6></div></div>
+                     {% endfor %}
+                     {% endif %}
+                  </div>
+
+
+
                   </div>
             </div> <!--end of l6 column-->
          </div>   <!--end of row-->
