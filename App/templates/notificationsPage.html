@@ -51,12 +51,13 @@
       </div>
       
         <div id="trending" class="card-action white" style="padding-bottom:25px">
+          <div class="row" style="margin-bottom:-10px">
       <h6><b>Item Notification: </b> {{ notification.notification }} </h6>
 
       <form action="/DeleteLendingNotification/{{ notification.id }}" method="POST">
       <button type="submit" class="waves-effect waves-light btn right green darken-1">Delete</button>
     </form>
-    
+  </div>
       </div>
         
       </div> <!--end of card-->
@@ -76,6 +77,7 @@
       </div>
       
         <div id="trending" class="card-action white" style="padding-bottom:25px">
+          <div class="row"style="margin-bottom:-10px">
       <h6><b>Report Notification: </b> {{ notification.notification }} </h6>
 
       <form action="/DeleteReportNotification/{{ notification.id }}" method="POST">
@@ -83,6 +85,7 @@
     </form>
     
       </div>
+    </div>
         
       </div> <!--end of card-->
 
