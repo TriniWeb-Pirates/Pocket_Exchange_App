@@ -13,19 +13,8 @@
       body {
       background-color: #0040c1;
       }
-      .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      position: relative;
-      }
-      h2.center {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      }
+      
+      
       .card {
       background-color: #fffdd0;
       }
@@ -36,24 +25,33 @@
       .card-action button:hover {
       background-color: green;
       }
+
+      h4{
+  font-family: 'Frank Ruhl Libre', serif;
+  font-weight:400;
+
+}
    </style>
 </head>
 <body>
    <div class="container">
-      <h2 class="center">Top Users</h2>
+      <div class="row">
+      <h4 class="center white-text">Top Users</h4>
+   </div>
       <div class="row">
          {% for user in items %}
          <div class="col s12 m6 l4">
             <div class="card">
+               <div class="card-action yellow darken-1"></div>
                <div class="card-content">
-                  <div class="card-action">
+                  <div class="card-image">
                      {% if user.imageURL !=None %}
                      <img src="{{ user.imageURL }}" class="responsive-img" alt="Profile Picture">
                      {% else %}
                      <img src="/static/images/avatar.png" class="responsive-img" alt="Profile Picture">
                      {% endif %}
                   </div>
-                  <span class="card-title">{{ user.name }}</span>
+                  <span class="card-title"><b>{{ user.username }}</b></span>
                   <p>Rating: {{ user.rating }}</p>
                </div>
                <div class="card-action">
