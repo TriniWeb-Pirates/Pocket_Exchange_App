@@ -23,7 +23,7 @@
          background-color: green;
          }
          .rate {
-         margin-right: 30%;
+         margin-right: 25%;
          height: 46px;
          padding: 0 10px;
          }
@@ -99,13 +99,29 @@
                   {% endif %}
                </div>
             </div>
+
+            {% if user.id!=myID %}
+            <div class="card"> <!--start of report-->
+               <div class="card-content">
+                  <form action="/AddReport/{{user.id}}" method="POST">
+                     <div class="input-field col s12">
+                        <textarea name="description" id="report" class="materialize-textarea"></textarea>
+                        <label for="report">Report this user</label>
+                     </div>
+                     <button type="submit" class="btn waves-effect waves-light">Report</button>
+                  </form>
+               </div>
+            </div> <!--end of report-->
+            {% endif %}
+
+
          </div>
          <div class="col l6 s12 m7">
             {% if user.id!=myID %}
             <div class="card">
                <div class="card-content">
                   <div class="row">
-                  <div class="col l8 s12 m12 offset-m2">
+                  <div class="col l12 s12">
                   <form action='/AddRating/{{user.id}}' method="post">
                      <div class="rate center">
                         <input type="radio" id="star5" name="rate" value="5" />
@@ -120,8 +136,8 @@
                         <label for="star1" title="text">1 star</label>
                      </div>
                   </div>
-                        <div class="col l4 s12 offset-s3 m12 offset-m3">
-                        <button class=" #039be5 light-blue darken-1 btn waves-effect waves-light" type="submit">Add Rating</button>
+                        <div class="col l12 s12  m12">
+                        <button class=" #039be5  btn waves-effect waves-light green" type="submit">Add Rating</button>
                      </form>
                      </div>
                   </div>
@@ -132,17 +148,7 @@
                <div class="col s12">
                   
 
-                     <div class="card"> <!--start of report-->
-                        <div class="card-content">
-                           <form action="/AddReport/{{user.id}}" method="POST">
-                              <div class="input-field col s12">
-                                 <textarea name="description" id="report" class="materialize-textarea"></textarea>
-                                 <label for="report">Report this user</label>
-                              </div>
-                              <button type="submit" class="btn waves-effect waves-light red">Report</button>
-                           </form>
-                        </div>
-                     </div> <!--end of report-->
+                     
 
                      <div class="card">  <!--start of comment-->
                         <div class="card-content">
@@ -150,7 +156,7 @@
                                  <div class="input-field">
                                     <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
                                     <label for="comment">Add a comment</label>
-                                    <button type="submit" class="btn waves-effect waves-light">Submit</button>
+                                    <button type="submit" class="btn waves-effect waves-light green">Submit Comment</button>
                                  </div>
                            </form>
                                             
@@ -164,7 +170,7 @@
                      {% if comments %}
                      <div class="col s12" >
                      <div class="card">
-                        <div class="card-action blue white-text">
+                        <div class="card-action green white-text">
                            <h5 class="center">Comments</h5>
                         </div>
                      </div>
