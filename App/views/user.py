@@ -165,6 +165,9 @@ def getUserProfilepage(id):
         return redirect(url_for("user_views.gethomepage"))
 
 
+@user_views.route('/guidelines', methods=['GET'])
+def getguidelinespage():
+    return render_template("Guideline.html")
 
 
 #Testing routes
