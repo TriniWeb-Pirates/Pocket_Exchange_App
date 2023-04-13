@@ -40,4 +40,5 @@ envVarGroups:
 databases:
 - name: flask-postgres-api-db
   plan: free
-  databaseName: mydb
+  #databaseName: mydb
+  databaseName: database_for_pocket_exchange_app_bz33
