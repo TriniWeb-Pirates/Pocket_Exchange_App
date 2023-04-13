@@ -206,9 +206,8 @@ def testGrantTempApproval():
 #Route for changing request status
 @lendingRequests_views.route('/testChangeStatus', methods=['PUT'])
 @login_required
-def testStatusChange():
+def TestStatusChange():
     data=request.json
-    lendingRequest=changeStatus(data['id'],current_user.id,data['status'])
-    return jsonify(lendingRequest)
-    #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
-
+    offer=setDates(data['id'],data['lendingRequestID'],data['returnDate'],data['borrowDate'])
+    lendingRequest=changeStatus(data['lendingRequestID'],current_user.id)
+    return jsonify(lendingRequest['tempApproval'], "Dates Added and Permanent Approval Granted")

@@ -131,7 +131,7 @@ def Restart(lendingoffer_ID):
     offer=restartOffer(current_user.id,lendingoffer_ID)
     return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
-@lendingOffer_views.route('/CheckisReturned/<lendingOfferID>')
+@lendingOffer_views.route('/CheckisReturned/<lendingOfferID>', methods=['GET'])
 @login_required
 def CheckisReturned(lendingOfferID):
     lendingOffer=changeIsReturned(lendingOfferID,current_user.id)
@@ -193,9 +193,10 @@ def testRestart():
     offer=restartOffer(current_user.id,data['lendingoffer_ID'])
     return jsonify(offer)
 
-@lendingOffer_views.route('/testCheckisReturned')
+
+@lendingOffer_views.route('/testCheckisReturned', methods=['PUT'])
 @login_required
 def testCheckisReturned():
     data=request.json
-    lendingRequest=changeIsReturned(data['id'],current_user.id,data['isReturned'])
-    return jsonify(lendingRequest)
+    lendingRequest=changeIsReturned(data['id'],current_user.id)
+    return jsonify(lendingRequest,"Item Has Been Returned")
