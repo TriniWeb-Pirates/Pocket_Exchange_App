@@ -45,7 +45,7 @@ def get_all_users_json():
 def get_user(id):
     return User.query.get(id)
 
-def update_user(id,username,password,firstName,lastName,email,phoneNumber,city,Bio,links,imageURL):
+def update_user(id,username,password,firstName,lastName,phoneNumber,email,city,Bio,links,imageURL):
     user = get_user(id)
     if user:
         user.username = username

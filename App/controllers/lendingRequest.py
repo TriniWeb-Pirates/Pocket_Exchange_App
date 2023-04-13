@@ -83,6 +83,7 @@ def grantTempApproval(id,lendingoffer_ID,userID):
 
         db.session.add(request)
         db.session.commit()
+        print(request.toJSON())
         offer.borrowRequestID=id
         offer.Status="Unavailable"
         print("OFFER BORROW REQUEST ID IS HERE")

@@ -152,30 +152,32 @@ def testGetCategoryOffers():
 def testMakeOfferPage():
     data=request.json#must change json to form for web page
     offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],data['itemDescription'],data['imageURL'],data['rulesOfUse'],data['condition'],data['preferedLocation'])
-    return jsonify(offer.item)
+    return jsonify(offer.toJSON(),"Lending Offer Created")
 
-@lendingOffer_views.route('/testAddDates/<lendingRequestID>',methods=['PUT'])
+
+@lendingOffer_views.route('/TestAddDates',methods=['PUT'])
 @login_required
-def testInputDates(lendingRequestID):
+def TestInputDates():
     data=request.json
-    offer=setDates(data['id'],data['lendingRequestID'],data['returnDate'],data['borrowDate'])
-    return jsonify(offer.returnDate)
+    offer=setDates(data['lendingoffer_ID'],data['lendingRequestID'],data['returnDate'],data['borrowDate'])
+    return jsonify(offer.returnDate, "Dates Added")
 
 #Route to test updating a lending offer
-@lendingOffer_views.route('/testUpdateLendingOffer<OfferID>',methods=['PUT'])
+@lendingOffer_views.route('/testUpdateLendingOffer/<OfferID>',methods=['PUT'])
 @login_required
 def testChangeOffer(OfferID):
     data=request.json#must change json to form for web page
-    offer=update_Offer(data['OfferID'],data['item'],data['category'],data['itemDescription'],data['itemPic'],data['itemPicName'],data['mimetype'],data['rulesOfUse'],data['condition'],data['preferedLocation'])
-    return jsonify(offer.item)
+    offer=update_Offer(data['OfferID'],data['item'],data['category'],data['itemDescription'],data['imageURL'],data['rulesOfUse'],data['condition'],data['preferedLocation'])
+    return jsonify(offer.toJSON(), "Lending Offer Data Updated")
 
 #Route to test deleting a lending offer
-@lendingOffer_views.route('/testRemoveLendingOffer<id>',methods=['POST'])
+@lendingOffer_views.route('/testRemoveLendingOffer/<id>',methods=['POST'])
 def testDeleteOffer(id):
     data=request.json
     data=remove_Offer(data['id'])
     offer=get_offer_by_ID(id)
-    return jsonify(offer)
+    offers=getAllOffersJSON()
+    return jsonify(offers.toJSON(),"Lending Offer Removed")
 
 #Route to test retrieving all lending offers
 @lendingOffer_views.route('/testGetAllOffers', methods=['GET'])

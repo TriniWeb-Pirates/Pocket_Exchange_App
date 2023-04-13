@@ -180,8 +180,7 @@ def testAddUser():
         flash("Username is taken please enter a new username.")
         return jsonify("Username is taken please enter a new username.")
     user=create_user(data1['username'], data1['password'], data1['firstName'], data1['lastName'], data1['phoneNumber'],data1['email'], data1['city'], data1['Bio'], data1['links'],data1['imageURL'])
-    print(user.firstName)
-    return jsonify(user.id)
+    return jsonify(user.toJSON(),"New User Created")
 
 #Route to test login in Postman
 @user_views.route('/TestLogin',methods=['POST'])
@@ -193,34 +192,22 @@ def TestloginUser():
         return jsonify("Error invalid credentials")
     login_user(permittedUser,remember=True)
     flash('You were successfully logged in!')
-    return jsonify(permittedUser.username)
-    #return redirect(url_for(''))
+    return jsonify("Login Successful")
 
 #Route to test update user function in Postman
 @user_views.route('/testUpdateUserProfile',methods=['PUT'])
 @login_required
 def testUpdateUser():
     data=request.json
-    user=update_user(1,data['username'],data['password'],data['firstName'],data['lastName'],data['email'],data['phoneNumber'],data['city'],data['Bio'],data['links'],data['imageURL'])
-    return jsonify(user)
+    user=update_user(1,data['username'],data['password'],data['firstName'],data['lastName'],data['phoneNumber'],data['email'],data['city'],data['Bio'],data['links'],data['imageURL'])
+    return jsonify(user.toJSON(), "User Data Updated")
 
 
 #Route to retrieve all user objects in the database
 @user_views.route('/getAllUsers', methods=['GET'])
 def get_user_page():
     users = get_all_users_json()
-    return jsonify(users)
-
-@user_views.route('/api/users', methods=['GET'])
-def get_users_action():
-    users = get_all_users_json()
-    return jsonify(users)
-
-@user_views.route('/api/users', methods=['POST'])
-def create_user_endpoint():
-    data = request.json
-    create_user(data['username'], data['password'])
-    return jsonify({'message': f"user {data['username']} created"})
+    return jsonify(users, "All User Data Displayed")
 
 @user_views.route('/users', methods=['POST'])
 def create_user_action():

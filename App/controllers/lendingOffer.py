@@ -11,6 +11,7 @@ def create_lendingOffer(lenderID,item,category,itemDescription,imageURL,rulesOfU
 def setDates(id,lendingRequestID,returnDate,borrowDate):
     offer=LendingOffer.query.get(id)
     request=LendingRequest.query.get(lendingRequestID)
+    print(request)
     if(request.tempApproval==True):
         offer.returnDate=datetime.date(datetime.strptime(returnDate, "%Y-%m-%d"))
         offer.borrowDate=datetime.date(datetime.strptime(borrowDate, "%Y-%m-%d"))
