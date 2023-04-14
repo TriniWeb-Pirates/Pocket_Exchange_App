@@ -17,6 +17,11 @@ trend_views = Blueprint('trend_views', __name__, template_folder='../templates')
 def gettrendpage():
     trendingList=buildTredingList()
     return render_template("TrendingPage.html",trendingList=trendingList)
+
+@trend_views.route('/testTrending_page', methods=['GET'])
+def testGettrendpage():
+    trendingList=buildTredingList()
+    return jsonify(trendingList,"Trending List Data Displayed")
     
 
 
