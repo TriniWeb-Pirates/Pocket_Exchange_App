@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, jsonify, request, send_from_direct
 from flask import Flask, flash,Response
 from flask_login import login_required, current_user, LoginManager
 from werkzeug.utils import secure_filename
+import json
 
 from App.controllers import (
     create_lendingOffer, 
@@ -144,7 +145,7 @@ def CheckisReturned(lendingOfferID):
 def testGetCategoryOffers():
     data=request.json
     offers=getItmesByCategory(data['category'])
-    return offers
+    return jsonify(offers)
 
 #Route to test create lending offer 
 @lendingOffer_views.route('/testCreateLendingOfferPage',methods=['POST'])
@@ -185,6 +186,13 @@ def testDeleteOffer(id):
 def testRetreiveAllOffers():
     offers=getAllOffersJSON()
     return jsonify(offers)
+
+@lendingOffer_views.route('/TestGetAllUserOffers', methods=['GET'])
+@login_required
+def testRetreiveAllUserOffers():
+    offers=getAllUserOffers(current_user.id)
+    data=json.dumps(offers)    
+    return jsonify(data.item,"All User Items Offers Displayed")
 
 @lendingOffer_views.route('/testRestartOffer',methods=['PUT'])
 @login_required
