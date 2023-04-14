@@ -29,14 +29,14 @@ def AddRatingFunc(recipientID):
 def testAddRatingFunc(id,recipientID):
     data=request.json
     response=createRating(data['id'],data['recipientID'],data['rate'])
-    return jsonify(response)
+    return jsonify(response.toJSON(),"Rating Added")
 
 @rating_views.route('/testDisplayAllRatings',methods=['GET'])
 @login_required
 def testGetAllRatingsFunc():
     ratings=retieveAllRatings()
     #print(response.rate)
-    return jsonify(ratings)
+    return jsonify(ratings,"All Rating Data Displayed")
 
 @rating_views.route('/testUpdateRating/<id>',methods=['PUT'])
 @login_required

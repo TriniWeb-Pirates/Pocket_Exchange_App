@@ -24,7 +24,7 @@ def Reporting(offenderID):
 def testReporting():
     data=request.json
     report=create_report(current_user.id,data['offenderID'],data['description'])
-    return jsonify(report)
+    return jsonify(report,"Report Created")
 
 @report_views.route('/testGetAllBlocked',methods=['Get'])
 @login_required

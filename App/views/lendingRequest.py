@@ -176,7 +176,7 @@ def testUnApproval():
 @login_required
 def testRetreiveAllRequests():
     requests=getAllRequestsJSON()
-    return jsonify(requests.items())
+    return jsonify(requests)
 
 #Route to test retrieving all lending request objects in the database
 @lendingRequests_views.route('/testGetAllUserRequests/<borrowerID>', methods=['GET'])
@@ -200,8 +200,7 @@ def testGrantTempApproval():
     data=request.json
     lendingRequest=grantTempApproval(data['id'],data['lendingoffer_ID'],current_user.id)
     #print(lendingRequest)
-    return jsonify(lendingRequest['tempApproval'], "Temporary Approval Granted")
-    #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
+    return jsonify("Temporary Approval Granted")
 
 #Route for changing request status
 @lendingRequests_views.route('/testChangeStatus', methods=['PUT'])

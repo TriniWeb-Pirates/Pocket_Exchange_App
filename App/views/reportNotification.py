@@ -32,4 +32,11 @@ def deleteReportN(notificationID):
 def testMakeReportNotificationPage():
     data=request.json
     notification=createReportNotification(data['userID'])
-    return jsonify(notification)
+    return jsonify(notification,"Report Notification Created")
+
+@reportingNotification_views.route('/TestDeleteReportNotification',methods=['DELETE'])
+@login_required
+def testDeleteReportN():
+    data=request.json
+    msg = deleteReportNotif(data['notificationID'])
+    return jsonify(msg)

@@ -18,8 +18,13 @@ leaderboard_views = Blueprint('leaderboard_views', __name__, template_folder='..
 @leaderboard_views.route('/leaderboard', methods=['GET'])
 def getleaderboard():
     items=createLeaderboard()
-    #return jsonify(items
     return render_template("LeaderBoard.html",items=items)
+
+#Test Route
+@leaderboard_views.route('/testLeaderboard', methods=['GET'])
+def testGetleaderboard():
+    items=createLeaderboard()
+    return jsonify(items,"Leaderboard Data Displayed")
 
 
 

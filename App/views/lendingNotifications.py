@@ -78,9 +78,9 @@ def GetData():
 def testMakeNotificationPage():
     data=request.json
     #message="Sorry but the item you have requested is unavailable at this time, Please try again when it is made available "
-    notification=createNotification(data['userID'], data['requestID'], data['itemID'])
+    notification=createNotification(data['userID'], data['itemID'],data['message'])
     #notification=createNotification(data['userID'], data['itemID'])
-    return jsonify(notification.itemID)
+    return jsonify(notification.toJSON(),"Lending Notification Added")
 
 @lendingNotification_views.route("/testSendNotifications/<subscriberList>/<lendingoffer_ID>", methods=['GET'])
 @login_required
@@ -88,7 +88,7 @@ def testSendNotifications(subscriberList,lendingoffer_ID):
     data=request.json
     notification=notifyUsers(data['subscriberList'],data['lendingoffer_ID'])
     #code to redirect user to some page
-    return jsonify(notification.userID)
+    return jsonify(notification.toJSON(),"Users Have Been Notified")
 
 @lendingNotification_views.route("/testRetrieveNotifications", methods=['GET'])
 @login_required
@@ -97,4 +97,9 @@ def testGetData():
     #code to redirect user to some page
     return jsonify(notifications)
 
-
+@lendingNotification_views.route('/TestDeleteLendingNotification',methods=['DELETE'])
+@login_required
+def TestdeleteLendingNotification():
+    data=request.json
+    msg = deleteNotification(data['notificationID'])
+    return jsonify("Lending Notification Deleted")
