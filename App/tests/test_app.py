@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import date, datetime, timedelta
 from App.main import create_app
 from App.database import create_db
-from App.models import User
+from App.models import User,LendingOffer,LendingNotification,LendingRequest,Rating,Report,Comment
 from App.controllers import (
     create_user,
     create_lendingOffer,
@@ -55,11 +55,25 @@ class UserUnitTests(unittest.TestCase):
         user = User("bob", "bobpass","bobby","brown","bob@gmail.com",443-7890,"Arima","I like cars","www.bobbyPage.com",None)
         assert user.username == "bob"
 
-    # pure function no side effects or integrations called
-    #def test_toJSON(self):
-    #    user = User("bob", "bobpass","bobby","brown","bob@gmail.com",443-7890,"Arima","I like cars","www.bobbyPage.com",None,None,None)
-    #    user_json = user.toJSON()
-    #    self.assertDictEqual(user_json, {"id":None, "username":"bob","password":"bobpass","firstName":"bobby","lastName":"brown","email":"bob@gmail.com","phoneNumber":443-7890,"city":"Arima","Bio":"I like cars","links":"www.bobbyPage.com","rating":0,"reportsCount":0,"profile_pic":None,"picName":None,"mimetype":None})
+    #pure function no side effects or integrations called
+    def testUser_toJSON(self):
+        user = User("bob", "bobpass","bobby","brown",443-7890,"bob@gmail.com","Arima","I like cars","www.bobbyPage.com",None)
+        user_json = user.toJSON()
+        self.assertDictEqual(user_json, {"id":None, "username":"bob","firstName":"bobby","lastName":"brown","email":"bob@gmail.com","phoneNumber":443-7890,"city":"Arima","Bio":"I like cars","links":"www.bobbyPage.com","rating":0,"reportsCount":0,"imageURL":None})
+    
+    #def testLendingOffer_toJSON(self):
+    #    offer = LendingOffer(1,None,None,"it is a big book","textbook"
+    #    #'user'={"bob", "bobpass","bobby","brown",443-7890,"bob@gmail.com","Arima","I like cars","www.bobbyPage.com",None},
+    #    ,"Books",None,"Good","Arima","Available","Use wisely",None,None,False)
+    #    offer_json = offer.toJSON()
+    #    self.assertDictEqual(offer_json, {"id":None,"lenderID":1,'borrowRequestID':None,'borrowingDays':None,'item':"textbook","lendingRequests":None,"user":None,'itemDescription':'it is a big book','category':'Books','condition':'Good','imageURL':None,'preferedLocation':'Arima','Status':'Available','RulesOfUse':'Use wisely','borrowDate':None,'returnDate':None,'isReturned':False})
+        
+        #self.assertDictEqual(offer_json, {"id":None,"lenderID":1,'borrowRequestID':None,'borrowingDays':None,'item':"textbook","lendingRequests":None,"user":{"id":None, "username":"bob","firstName":"bobby","lastName":"brown","email":"bob@gmail.com","phoneNumber":443-7890,"city":"Arima","Bio":"I like cars","links":"www.bobbyPage.com","rating":0,"reportsCount":0,"imageURL":None},'itemDescription':'it is a big book','category':'Books','condition':'Good','imageURL':None,'preferedLocation':'Arima','Status':'Available','RulesOfUse':'Use wisely','borrowDate':None,'returnDate':None,'isReturned':False})
+
+    #def testLendingRequest_toJSON(self):
+    #    request = LendingRequest(1,1,"I need it for exams","Arima",False,False)
+    #    request_json = request.toJSON()
+    #    self.assertDictEqual(request_json, {"id":None, "borrowerID":1,"user":None,"lendingOffer":None,"lendingoffer_ID":1,"reasonForUse":"I need it for exams","preferedLocation":'Arima',"Status":False,"tempApproval":False})
     
     def test_hashed_password(self):
         password = "mypass"
@@ -101,8 +115,6 @@ class UsersIntegrationTests(unittest.TestCase):
     def test_create_lendingOffer(self):
         offer=create_lendingOffer(1,"pen","Stationary","writes with ink",None,"Do not break it","good","Arima",)
         assert offer.item=="pen"
-
-    
 
     def test_create_lendingRequest(self):
         user = create_user("mike", "bobpass","bobby","brown","mike@gmail.com",192000251,"Arima","I like cars","www.bobbyPage.com",None)

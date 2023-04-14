@@ -55,7 +55,7 @@ class User(db.Model,UserMixin):
             'lastName': self.lastName,
             'phoneNumber': self.phoneNumber,
             'email': self.email,
-            'rating': self.rating,
+            #'rating': self.rating,
             'city': self.city,
             'Bio': self.Bio,
             'links':self.links,
