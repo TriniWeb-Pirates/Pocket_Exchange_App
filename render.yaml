@@ -11,7 +11,7 @@ services:
   startCommand: "gunicorn wsgi:app"
   envVars:
   - fromGroup: Pocket_App_envGroup
-  - key: POSTGRES_URL
+  - key: SQLALCHEMY_DATABASE_URI
     fromDatabase:
       name: Pocket_Exchange_db
       property: host
