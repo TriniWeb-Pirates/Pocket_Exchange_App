@@ -243,7 +243,7 @@ h4{
         <form action='/ChangeStatus/{{ request.id }}/ {{ offer.id }}' method="POST">
        <h6> <b>Please enter your start date:
         <div class="input-field inline">
-          <input id="email_inline" name="borrowDate" class="datepicker">  
+          <input required id="email_inline" name="borrowDate" class="datepicker">  
           <label for="startdate"></label> </div> </b> </h6>
          
           </div>
@@ -251,7 +251,7 @@ h4{
           <div class="col s12" style="margin-top:-30px">
             <h6> <b> Please enter your end date:
              <div class="input-field inline">
-               <input id="email_inline" name="returnDate" class="datepicker"> 
+               <input required id="email_inline" name="returnDate" class="datepicker"> 
                <label for="email_inline"></label> </div> </b></h6>
               
                </div>
@@ -275,8 +275,8 @@ h4{
           </div>
 
             <div class="col s12">
-            <h6 class="green-text text-darken-4" style="padding:10px"><b>Days Remaining: {{ offer.borrowingDays }}</b></h6>
             <h6 class="green-text text-darken-4" style="padding:10px"><b>Return Date:  {{ offer.returnDate }}</b></h6>
+            <h6 class="green-text text-darken-4" style="padding:10px"><b>Days Remaining: {{ offer.borrowingDays }}</b></h6>
 
             {% if offer.borrowingDays<=-1 %}
             <h6 class="red-text text-accent-4" style="padding:10px"><b>This item is {{ offer.borrowingDays*-1 }} days overdue!</b></h6>

@@ -112,7 +112,7 @@
                <div class="card-content">
                   <form action="/AddReport/{{user.id}}" method="POST">
                      <div class="input-field col s12">
-                        <textarea name="description" id="report" class="materialize-textarea"></textarea>
+                        <textarea required name="description" id="report" class="materialize-textarea"></textarea>
                         <label for="report">Report this user</label>
                      </div>
                      <button type="submit" class="btn waves-effect waves-light">Report</button>
@@ -146,7 +146,7 @@
                      </div>
                   </div>
                         <div class="col l12 s12  m12">
-                        <button class=" #039be5  btn waves-effect waves-light green" type="submit">Add Rating</button>
+                        <button class=" #039be5 btn waves-effect waves-light green" type="submit">Add Rating</button>
                      </form>
                      </div>
                   </div>
@@ -167,7 +167,7 @@
                         <div class="card-content">
                            <form action="/add_comments/{{ user.id }}" method="POST">
                                  <div class="input-field">
-                                    <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
+                                    <textarea required name="comment" id="comment" class="materialize-textarea"></textarea>
                                     <label for="comment">Add a comment</label>
                                     <button type="submit" class="btn waves-effect waves-light green">Submit Comment</button>
                                  </div>
