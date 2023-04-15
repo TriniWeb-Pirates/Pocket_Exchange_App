@@ -24,6 +24,11 @@ h4{
         font-size: 8px;
        }
 
+       #test1{
+        font-size:8px;
+        margin-top:20px;
+       }
+
       
     }
 
@@ -34,7 +39,7 @@ h4{
 <h4 class="center white-text" style="margin-top:30px"> My Lending Offers </h4>
 
 <div class="row">
-<div class="col l2 offset-l5 s6 offset-s3 m4 offset-m4">
+<div class="col l2 offset-l5 s4 offset-s4 m4 offset-m4">
 <img src="/static/images/box.png" class="responsive-img" style="margin-top:15px"> </div></div>
 
 <!--start of offers will be displayed here-->
@@ -223,7 +228,7 @@ h4{
         {% if request.tempApproval==True and request.Status==False %}
         <div class="col l7 m6 s12">
           <form action="/UnApproveTempApproval/{{ request.id }}" method="POST">
-        <button id="test" type="submit" class="waves-effect waves-light btn " style="background-color:#0040c1"><i class="material-icons right">close</i>Cancel Approval</button>
+        <button id="test1" type="submit" class="waves-effect waves-light btn " style="background-color:#0040c1"><i class="material-icons right">close</i>Cancel Approval</button>
       </form></div>
       {% endif %}
 
@@ -303,7 +308,7 @@ h4{
 
         <div class="col s12">
         <div class="row" style="margin-top:15px">
-          <div class="col l1 offset-l5 m2 offset-m5 s3 offset-s5">
+          <div class="col l1 offset-l5 m2 offset-m5 s4 offset-s4">
       <img src="/static/images/check.png" class="responsive-img"></div>
     </div>
 
