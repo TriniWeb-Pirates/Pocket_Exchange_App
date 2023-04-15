@@ -38,7 +38,7 @@
       }
       
       #tree2{
-        margin-top:-20px;
+        margin-top:-70px;
       }
 
       #button{
@@ -60,7 +60,7 @@
         }
 
         #button{
-          margin-top:-120px;
+          margin-top:10px;
         }
     }
 
@@ -70,8 +70,42 @@
             margin-top:20px;
         }
 
-        
+        #wow{
+            margin-top:-30px;
+            
+        }
+
+        #tree2{
+        margin-top:-50px;
+      }
     }
+
+
+    @media screen and (min-width:993px) {
+        
+      #tree2{
+        margin-left:70px;
+        margin-top:30px;
+      }
+      
+    }
+
+    @media screen and (min-width:1353px){
+      #plant{
+         max-height:5vh;
+      }
+
+      #hands{
+        margin-left:-55%
+      }
+    }
+
+        
+      
+
+        
+
+    
 
     body{
       background-color: #43a047;
@@ -151,9 +185,9 @@
 
     <div class="row" style="margin-top:-40px;"> <!--make second row-->
 
-    <div class="col s8 offset-s2 l4 offset-l4 m5 offset-m3" style="margin-top:-20px;">
+    <div class="col s8 offset-s2 l4 offset-l4 m6 offset-m3" style="margin-top:-20px;">
    
-    <img class="responsive-img" src="/static/images/welcome/hands.png">
+    <img id="hands" class="responsive-img" src="/static/images/welcome/hands.png">
 </div>
 
 
@@ -166,11 +200,11 @@
     
 
 
-        </div>
+        </div>   <!--end of blue section-->
 
 
 
-        <div class="row">  <!--beginning of green section-->
+        <div class="row">  <!--beginning of green section row-->
 
         <div class="col l4 s6 m4">
           
@@ -180,14 +214,7 @@
         </div>
 
 
-        <div class="col l4 s6 m4 offset-l4 offset-s6 offset-m4" id="tree2">
-          
-          <img class="responsive-img" src="/static/images/welcome/tree2.svg" style="margin-top:-300px">
-  
-  
-          </div>
-
-          <div id="button" class="col l2 offset-l1 s5 offset-s4 m4 offset-m4">
+        <div id="button" class="col l2 offset-l1 s5 offset-s4 m4">
 
           <a href="/sign" style="width:100%; background-color: #01579b;" class="waves-effect waves-light btn">Sign Up</a>
 
@@ -195,7 +222,17 @@
 
         </div>
 
-        </div>  <!--end of green section-->
+
+        <div class="col l4 s6 m4 offset-l4 offset-s6 offset-m8" id="tree2">
+          
+          <img class="responsive-img" src="/static/images/welcome/tree2.svg" style="margin-top:-315px">
+  
+  
+          </div>
+
+          
+
+        </div>  <!--end of green section row-->
 
 
 
