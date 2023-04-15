@@ -31,7 +31,7 @@ def loadConfig(app, config):
         #delta = app.config['JWT_EXPIRATION_DELTA']
     else:
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
-        app.config['FLAS_APP'] = os.environ.get("wsgi.py")
+        #app.config['FLAS_APP'] = os.environ.get("wsgi.py")
         app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
         app.config['DEBUG'] = os.environ.get('ENV').upper() != 'PRODUCTION'
         app.config['ENV'] = os.environ.get('ENV')
