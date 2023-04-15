@@ -1,4 +1,4 @@
-from App.models import LendingRequest, LendingOffer,User
+from App.models import LendingRequest, LendingOffer,User, Manager
 from App.database import db
 from datetime import datetime
 
@@ -150,6 +150,16 @@ def deleteLendingRequest(requestID):
 
     if(offer.isReturned==True):
         offer.isReturned=False
+
+    manager=Manager.query.filter_by(lendingOfferID=request.lendingoffer_ID).first()
+    x=request.borrowerID
+    person=str(x)
+    for value in manager.InterestedUserList:
+        
+        if(value==person):
+            manager.InterestedUserList=manager.InterestedUserList.replace(value,",")
+            db.session.add(manager)
+            db.session.commit()
 
     db.session.add(offer)
     db.session.commit()

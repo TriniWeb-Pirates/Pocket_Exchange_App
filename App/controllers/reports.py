@@ -1,5 +1,6 @@
 from App.models import Report,BlockedUser,User,ReportNotification,LendingNotification,Manager,LendingOffer,LendingRequest
 from App.database import db
+from App.controllers import deleteLendingRequest
 
 def create_report(userID,offenderID,description):
     user=User.query.get(offenderID)
@@ -44,8 +45,7 @@ def create_report(userID,offenderID,description):
                             manager.InterestedUserList=manager.InterestedUserList.replace(value,",")
                             db.session.add(manager)
                             db.session.commit()
-                    db.session.delete(request)
-                    db.session.commit()
+                    deleteLendingRequest(request.id)
             db.session.add(blackListedUser)
             db.session.commit()
             db.session.delete(user)
