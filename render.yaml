@@ -33,6 +33,8 @@ envVarGroups:
   envVars:
   - key: ENV
     value: production
+  - key: SECRET_KEY
+    value: secret
   - key: FLASK_APP
     value: wsgi.py
     
