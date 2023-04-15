@@ -1,7 +1,7 @@
 
 services:
 - type: web
-  name: flask-postgres-api
+  name: Pocket_Exchange_App
   env: python
   repo: https://github.com/TriniWeb-Pirates/Pocket_Exchange_App
   plan: free
@@ -10,26 +10,26 @@ services:
   buildCommand: "pip install -r requirements.txt"
   startCommand: "gunicorn wsgi:app"
   envVars:
-  - fromGroup: flask-postgres-api-settings
+  - fromGroup: Pocket_App_envGroup
   - key: POSTGRES_URL
     fromDatabase:
-      name: flask-postgres-api-db
+      name: Pocket_Exchange_db
       property: host
   - key: POSTGRES_USER
     fromDatabase:
-      name: flask-postgres-api-db
+      name: Pocket_Exchange_db
       property: user
   - key: POSTGRES_PASSWORD
     fromDatabase:
-      name: flask-postgres-api-db
+      name: Pocket_Exchange_db
       property: password
   - key: POSTGRES_DB
     fromDatabase:
-      name: flask-postgres-api-db
+      name: Pocket_Exchange_db
       property: database 
 
 envVarGroups:
-- name: flask-postgres-api-settings
+- name: Pocket_App_envGroup
   envVars:
   - key: ENV
     value: production
@@ -38,7 +38,7 @@ envVarGroups:
     
 
 databases:
-- name: flask-postgres-api-db
+- name: Pocket_Exchange_db
   plan: free
   databaseName: mydb
   #databaseName: database_for_pocket_exchange_app_bz33
