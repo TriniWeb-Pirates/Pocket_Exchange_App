@@ -92,6 +92,7 @@ def grantTempApproval(id,lendingoffer_ID,userID):
         db.session.commit()
         #print(offer.toJSON())
         #return request
+        #print(request.toJSON())
         return request.toJSON()
     else:
         #return "Approval denied, users can not approve their own lending requests"
