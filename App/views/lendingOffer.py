@@ -43,6 +43,7 @@ def makeOfferPage():
 
     offer=create_lendingOffer(current_user.id,data['item'],data['category'],data['itemDescription'],imageURL,data['rulesOfUse'],data['condition'],data['preferedLocation'])
     print(offer.item)
+    flash('You have successfully added a new item')
     return redirect(url_for('user_views.gethomepage'))
 
 @lendingOffer_views.route('/searchItem',methods=['GET'])
@@ -78,7 +79,7 @@ def deleteOffer(id):
     #data=request.form
     data=remove_Offer(id)
     offer=get_offer_by_ID(id)
-    flash('Offer has been successfully deleted. ')
+    flash('Lending Offer has been successfully deleted. ')
     return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
 #Route to retrieve all lending offers by category
@@ -130,12 +131,14 @@ def RetreiveAllUserOffers():
 @login_required
 def Restart(lendingoffer_ID):
     offer=restartOffer(current_user.id,lendingoffer_ID)
+    flash('Your offer has been successfully restarted. Any associated requests have been removed, and it will be re-displayed on the All Items Page.')
     return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
 @lendingOffer_views.route('/CheckisReturned/<lendingOfferID>', methods=['GET'])
 @login_required
 def CheckisReturned(lendingOfferID):
     lendingOffer=changeIsReturned(lendingOfferID,current_user.id)
+    flash('Item was successfully returned.')
     return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
 #TESTING ROUTES

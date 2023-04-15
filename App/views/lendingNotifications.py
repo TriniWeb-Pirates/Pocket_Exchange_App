@@ -22,7 +22,7 @@ def getNotificationPage():
     lendingNotifications=getAllUserLendingNotifications(current_user.id)
     print(lendingNotifications)
     if(type(lendingNotifications)==str):
-        flash('You have no current Lending Notifications.')
+        flash('You have no current Item Notifications.')
         lendingNotifications=None
 
     reportNotifications=getAllUserReportNotifications(current_user.id)

@@ -57,6 +57,12 @@ h4{
             {% if item.tempApproval==True and item.Status==True and item.lendingOffer.isReturned==False %}
               <span class="card-title"><b>Date to be returned:</b> {{ item.lendingOffer.returnDate }}</span>
               <span class="card-title"><b>Days left:</b> {{ item.lendingOffer.borrowingDays }}</span>
+
+              {% if item.lendingOffer.borrowingDays<=-1 %}
+            <span class="card-title red-text text-accent-4"><b>This item is {{ item.lendingOffer.borrowingDays*-1 }} days overdue!</b></span>
+            {% endif %}
+
+
               {% endif %}
 
             {% if item.lendingOffer.isReturned == True %}

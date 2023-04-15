@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template, flash
+from flask import Blueprint, request, jsonify, render_template, flash, redirect, url_for
 from flask_login import current_user
 #from models import Comment
 
@@ -15,10 +15,8 @@ def add_comment(id):
     message = request.form['comment']
     comment = createComment(id, message)
 
-    userData=get_user_TOJSON(id)
-    comments=getComments(id)
     flash('Comment added successfully')
-    return render_template("ProfilePage.html",user=userData,myID=current_user.id, comments=comments)
+    return redirect(url_for('user_views.getUserProfilepage', id=id))
 
 @comment_views.route('/get_comments', methods=['GET'])
 def get_comments():

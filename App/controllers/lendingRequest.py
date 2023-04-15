@@ -21,7 +21,7 @@ def create_lendingRequest(borrowerID,lendingoffer_ID,reasonForUse,preferedLocati
         request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,reasonForUse=reasonForUse,preferedLocation=preferedLocation,Status=False,tempApproval=False)
         db.session.add(request)
         db.session.commit()
-        return "Borrow request created"
+        return "Borrow request created successfully. You can see the status of your request in the My Items Page > My Borrow Requests. "
         #return request
     else:
         return "Request denied, user can not request their own lending offer"
@@ -66,7 +66,7 @@ def countRequests(borrowerID):
     for item in items:
         count=count+1
     if count>=3:
-        return "Maximum Lending Request Limit Reached, User Can Only Have 3 Active Lending Requests"
+        return "Maximum Borrow Request Limit Reached, User Can Only Have 3 Active Borrow Requests"
     return None
 
 def getAllOfferRequests(lendingoffer_ID):
