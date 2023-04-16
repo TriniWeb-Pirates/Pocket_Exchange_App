@@ -172,6 +172,77 @@ def getguidelinespage():
 
 #Testing routes
 #Route to test create user function in Postman
+@user_views.route('/testAdd_User_Page1',methods=['POST'])
+def testCreate_user_page1():
+    data1=request.json
+    user=get_user_by_username(data1['username'])
+    user2 = get_user_by_email(data1['email'])
+
+    username=data1['username']
+    password=data1['password']
+    firstName=data1['firstName']
+    lastName=data1['lastName']
+    email=data1['email']
+    if user:
+        flash("Username is taken please enter a new username.")
+        return jsonify("Username is taken please enter a new username.")
+    
+    if user2:
+        flash('This Email address is already taken. Please enter a new email address')
+        return jsonify('This Email address is already taken. Please enter a new email address')
+    #otherwise go ahead and create new temp user 
+    
+    temp_users = get_all_temp_users()
+
+    if(temp_users==None):
+        temp_user = create_temp_user(username, firstName, lastName, password, email)
+    else:
+        intermediate = temp_users.pop()
+        id = intermediate.id
+        temp_user = update_temp_user(id, username, firstName, lastName, password, email)
+
+    return jsonify("Temporary User Created")
+
+@user_views.route('/testAdd_User_Page2',methods=['POST'])
+def testCreate_user_page2():
+    data2=request.json
+
+    user = get_user_by_phoneNumber(data2['phoneNumber'])
+    if(user):
+        flash('This phone number is already taken. Please enter a different number.')
+        return jsonify('This phone number is already taken. Please enter a different number.')
+
+    pic=None
+    #pic=request.json["profile_pic"] #actual picture 
+    #if(pic):
+        #profile_pic=secure_filename(pic.filename) #actual filename 
+    #    profile_pic=secure_filename(data2['filename'])
+  
+    #storing our images here 
+    if pic:
+        imageURL = uploadProfile(pic, profile_pic) #once a picture has been uploaded, send to firebase and get URL
+    else:
+        imageURL = "/static/images/avatar.png"
+
+
+    #temp user code here now
+    temp_user = get_temp_user(data2['id'])
+    user=create_user(temp_user.username, temp_user.password, temp_user.firstName, temp_user.lastName, temp_user.email,data2["phoneNumber"],  data2['city'], data2['Bio'], data2['links'], imageURL)  
+    delete_temp_user(data2['id'])
+    
+    users = get_all_users_json()
+
+    temp_users = get_all_temp_users_json
+    if(temp_users):
+        print(temp_users)
+    print('All temp users have been deleted')
+
+    if(user=="You are a blocked user"):
+        flash(user)
+
+    return jsonify('User Created')
+
+
 @user_views.route('/testAddUser',methods=['POST'])
 def testAddUser():
     data1=request.json
