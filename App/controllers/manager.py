@@ -1,6 +1,7 @@
 from App.models import Manager,User
 from App.database import db
 
+#Function to add users to the subscriber list for a lending offer
 def addToList(borrowerID,lendingoffer_ID):
     interestedUsers=Manager.query.filter_by(lendingOfferID=lendingoffer_ID).first()
     if(interestedUsers==None):
@@ -12,11 +13,11 @@ def addToList(borrowerID,lendingoffer_ID):
     else:
         data=str(borrowerID)
         interestedUsers.InterestedUserList=interestedUsers.InterestedUserList + "," + data
-        #obj=Manager(lendingoffer_ID=lendingoffer_ID,InterestedUserList=interestedUsers)
         db.session.add(interestedUsers)
         db.session.commit()
         return interestedUsers
 
+#Function to get the manager object for a lending offer
 def getList(lendingoffer_ID):
     data=Manager.query.filter_by(lendingOfferID=lendingoffer_ID).first()
     return data

@@ -9,11 +9,12 @@ config = {
 firebase = pyrebase.initialize_app(config)
 storage = firebase.storage()
 
+#Function to upload profile pictures to firebase storage
 def uploadProfile(pic, profile_pic):
     storage.child(f'profile_pictures/{profile_pic}').put(pic)
     return  storage.child(f'profile_pictures/{profile_pic}').get_url(None)
 
-
+#Function to upload lending offer pictures to firebase storage
 def uploadItem(pic, itemPicName):
     storage.child(f'item_images/{itemPicName}').put(pic)
     return  storage.child(f'item_images/{itemPicName}').get_url(None)

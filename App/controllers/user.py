@@ -1,6 +1,7 @@
 from App.models import User,BlockedUser
 from App.database import db
 
+#Function to create users
 def create_user(username, password,firstName,lastName,email,phone,city,biography,links,imageURL):
     blockedUsers=BlockedUser.query.all()
     found=False

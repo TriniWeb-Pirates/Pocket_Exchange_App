@@ -2,21 +2,20 @@ from App.models import LendingOffer,LendingRequest,User,Manager
 from App.database import db
 from datetime import date, datetime, timedelta
 
+#Function to create a lending offer
 def create_lendingOffer(lenderID,item,category,itemDescription,imageURL,rulesOfUse,condition,preferedLocation):
     offer = LendingOffer(lenderID=lenderID,borrowRequestID=None, borrowingDays=None, item=item.lower(),category=category,itemDescription=itemDescription,imageURL=imageURL,RulesOfUse=rulesOfUse,condition=condition,preferedLocation=preferedLocation,Status="Available",returnDate=None,borrowDate=None,isReturned=False)
     db.session.add(offer)
     db.session.commit()
     return offer
 
+#Function to set dates on a lending offer when the user has granted permanent approval of a request
 def setDates(id,lendingRequestID,returnDate,borrowDate):
     offer=LendingOffer.query.get(id)
     request=LendingRequest.query.get(lendingRequestID)
-    print(request)
     if(request.tempApproval==True):
         offer.returnDate=datetime.date(datetime.strptime(returnDate, "%Y-%m-%d"))
         offer.borrowDate=datetime.date(datetime.strptime(borrowDate, "%Y-%m-%d"))
-        print(offer.returnDate)
-        print(offer.borrowDate)
         db.session.add(offer)
         db.session.commit()
         days = findBorrowingDays(offer.id)
@@ -24,20 +23,19 @@ def setDates(id,lendingRequestID,returnDate,borrowDate):
     else:
         return "Action Denied, this lending request must be temporarily approved first"
 
+#Function to search for a lending offer and return a list of dicts 
 def findItems(userInput):
     data=userInput.lower()
     results=LendingOffer.query.filter_by(item=data).all()
     findings = [result.toJSON() for result in results]
-    print(findings)
     return findings
 
-
+#Function to return a list of dicts for all offers
 def getAllOffersJSON():
     data = LendingOffer.query.all()
     if not data:
         return []
     items = [offer.toJSON() for offer in data]
-    #print(items)
     return items
 
 def get_offer_by_ID(id):
@@ -49,24 +47,22 @@ def get_lender(lenderID):
 def get_all_offers():
     return LendingOffer.query.all()
 
+#Function to return number of days an item has borrowed for
 def findBorrowingDays(offerID):
     offer=LendingOffer.query.get(offerID)
     today=date.today()
     if(offer.borrowDate!=None and offer.returnDate!=None):
         if(today>=offer.borrowDate):
             borrowingDays=offer.returnDate-today
-            print(borrowingDays.days)
             offer.borrowingDays = borrowingDays.days
             db.session.add(offer)
             db.session.commit()
-            
             return borrowingDays
         else:
             borrowingDays=offer.returnDate-offer.borrowDate
             offer.borrowingDays = borrowingDays.days
             db.session.add(offer)
             db.session.commit()
-            print(borrowingDays)
             return borrowingDays
     
     else:
@@ -81,6 +77,7 @@ def getAllBorrowingDays():
         findBorrowingDays(offer.id)
     return offers
 
+#Function to check the status of the offer and return a message whether the item is late or still has time before returned
 def checkDate(offerID):
     offer=LendingOffer.query.get(offerID)
     today=datetime.date.today()
@@ -105,8 +102,8 @@ def update_Offer(OfferID,item,itemDescription,category,imageURL,condition,prefer
     db.session.commit()
     return offer
 
+#Function to remove a lending offer
 def remove_Offer(id):
-   # offer=LendingOffer.query.get(id)
     offer=get_offer_by_ID(id)
     manager_for_offer=Manager.query.filter_by(lendingOfferID=offer.id).first()
     if(manager_for_offer):
@@ -116,24 +113,24 @@ def remove_Offer(id):
     db.session.commit()
     return offer
 
+#Function to return a list of dicts for all items in a category
 def getItmesByCategory(category):
     data=LendingOffer.query.filter_by(category=category).all()
     items = [offer.toJSON() for offer in data]
     return items
 
+#Function to return all user offers in a list of dicts 
 def getAllUserOffers(userID):
     offers=LendingOffer.query.filter_by(lenderID=userID).all()
     items = [offer.toJSON() for offer in offers]
     return items
 
+#Function to restart offer and reset data in the offer and remove associated requests
 def restartOffer(userID,id):
     offer=LendingOffer.query.get(id)
-   # print(offer.toJSON())
     if(userID==offer.lenderID):
         for request in offer.lendRequests:
-           #print("HERE")
             item=LendingRequest.query.get(request.id)
-            #print(item)
             db.session.delete(item)
             db.session.commit()
         offer.borrowRequestID=None
@@ -148,13 +145,12 @@ def restartOffer(userID,id):
         db.session.commit()
         db.session.add(offer)
         db.session.commit()
-        print(offer.toJSON())
         return offer.toJSON()
     else:
         return "Action denied, You cannit restart this offer"
 
 
-
+#Function to return approved request for an offer
 def getApprovedRequest(offers):
     for offer in offers:
         offer = LendingOffer.query.get(lendingOfferID)
@@ -164,18 +160,18 @@ def getApprovedRequest(offers):
         else:
             return None
 
-
+#Function to return the return date on a lending offer
 def getReturnDate(lendingoffer_ID):
     offer = LendingOffer.query.get(lendingoffer_ID)
     if(offer.returnDate):
         return offer.returnDate
     else:
         return None
-    
+
+#Function to set the isReturned to true
 def changeIsReturned(id,userID):
     lendingOffer=LendingOffer.query.get(id)
     lendingRequest = LendingRequest.query.get(lendingOffer.borrowRequestID)
-
     if(lendingRequest.tempApproval==True and lendingRequest.Status==True and lendingRequest.borrowerID!=userID):
         lendingOffer.isReturned=True
         lendingOffer.Status="Unavailable"

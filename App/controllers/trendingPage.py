@@ -11,6 +11,7 @@ TrendingDict={
 def trendingItemsCriteria(data):
     return data['requestCount']
 
+#Function to create the trending items list
 def buildTredingList():
     itemList=[]
     trendingList=[]

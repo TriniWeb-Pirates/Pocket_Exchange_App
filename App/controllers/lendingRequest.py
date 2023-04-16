@@ -2,9 +2,8 @@ from App.models import LendingRequest, LendingOffer,User, Manager
 from App.database import db
 from datetime import datetime
 
+#Function to create a lending request
 def create_lendingRequest(borrowerID,lendingoffer_ID,reasonForUse,preferedLocation):
-    #returnDate=datetime.date(datetime.strptime(returnDate, "%Y-%m-%d"))
-    #borrowDate=datetime.date(datetime.strptime(borrowDate, "%Y-%m-%d"))
     validUser=User.query.get(borrowerID)
     if(validUser==None):
         return "Request denied, user does not exist"
@@ -16,13 +15,11 @@ def create_lendingRequest(borrowerID,lendingoffer_ID,reasonForUse,preferedLocati
     if(duplicate):
         return "Request denied, you cannot make more than one request per item. "
 
-    #data=LendingOffer.query.get(lendingoffer_ID)
     if(data==None):
         request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,reasonForUse=reasonForUse,preferedLocation=preferedLocation,Status=False,tempApproval=False)
         db.session.add(request)
         db.session.commit()
         return "Borrow request created successfully. You can see the status of your request in the My Items Page > My Borrow Requests. "
-        #return request
     else:
         return "Request denied, user can not request their own lending offer"
 
@@ -37,28 +34,24 @@ def getRequest(id):
     request=LendingRequest.query.get(id)
     return request.toJSON()
 
+#function to return all user requests in a list of dicts
 def getAllUserRequestsJSON(borrowerID):
     data = LendingRequest.query.filter_by(borrowerID=borrowerID).all()
     if not data:
         return []
     items = [request.toJSON() for request in data]
-    print(items)
     return items
 
 def get_request_by_ID(id):
     return LendingRequest.query.filter_by(id=id).first()
     
-def calculateBorrowingDays(borrowDate,returnDate):
-    #code to calculate days
-    pass
-
-
 def updateLendingRequest(id,borrowerID,lendingoffer_ID,reasonForUse,preferedLocation):
     request=get_request_by_ID(id)
     request.reasonForUse=reasonForUse
     request.preferedLocation=preferedLocation
     return request
 
+#Function to count lending requests for an offer
 def countRequests(borrowerID):
     requests=LendingRequest.query.filter_by(borrowerID=borrowerID).all()
     items = [request.toJSON() for request in requests]
@@ -74,35 +67,27 @@ def getAllOfferRequests(lendingoffer_ID):
     items = [request.toJSON() for request in requests]
     return items
 
-#grantApproval must be revised
+#Function to grant temp approval for a lending request
 def grantTempApproval(id,lendingoffer_ID,userID):
     request=LendingRequest.query.get(id)
     offer=LendingOffer.query.get(lendingoffer_ID)
     if(request.borrowerID!=userID):
         request.tempApproval=True
-
         db.session.add(request)
         db.session.commit()
-        print(request.toJSON())
         offer.borrowRequestID=id
         offer.Status="Unavailable"
-        print("OFFER BORROW REQUEST ID IS HERE")
-        print(offer.borrowRequestID)
         db.session.add(offer)
         db.session.commit()
-        #print(offer.toJSON())
-        #return request
-        #print(request.toJSON())
         return request.toJSON()
     else:
         #return "Approval denied, users can not approve their own lending requests"
         return None
 
+#Function to unapprove a lending request
 def UnapproveTemp(id,userID):
     request=LendingRequest.query.get(id)
-    print(request)
     offer=LendingOffer.query.filter_by(id=request.lendingoffer_ID,lenderID=userID).first()
-    #offer=LendingOffer.query.get(request.lendingoffer_ID)
     if(userID!=request.borrowerID and offer.lenderID==userID):
         request.tempApproval=False
         offer.borrowRequestID=None
@@ -111,16 +96,13 @@ def UnapproveTemp(id,userID):
         db.session.commit()
         db.session.add(offer)
         db.session.commit()
-        #print(offer.toJSON())
-        #print(request.toJSON())
         return request.toJSON()
     else:
         return "Action Denied"
 
-
+#Function to set the status of a request to true and set the associated offer status to Unavailable
 def changeStatus(id,userID):
     lendingRequest=LendingRequest.query.get(id)
-    
     if(lendingRequest.tempApproval==True and lendingRequest.borrowerID!=userID):
         lendingRequest.Status=True
         offer=LendingOffer.query.get(lendingRequest.lendingoffer_ID)
@@ -129,12 +111,11 @@ def changeStatus(id,userID):
         db.session.commit()
         db.session.add(offer)
         db.session.commit()
-        print(lendingRequest.toJSON())
         return lendingRequest.toJSON()
     return "Action Denied, User must grant temporary approval to the lending request before changing the status of it"
 
 
-
+#Function to delete a lending request and update the manager object for the associated lending offer
 def deleteLendingRequest(requestID):
 
     request = LendingRequest.query.get(requestID)

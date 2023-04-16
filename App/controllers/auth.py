@@ -1,8 +1,7 @@
 import flask_login
-#from flask_jwt import JWT
 from App.models import User
 
-
+#Flask login function for authenticating users
 def authenticate(username, password):
     user = User.query.filter_by(username=username).first()
     if user and user.check_password(password):

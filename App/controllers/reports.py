@@ -2,6 +2,7 @@ from App.models import Report,BlockedUser,User,ReportNotification,LendingNotific
 from App.database import db
 from App.controllers import deleteLendingRequest
 
+#Function to create a report and call the create report notification function and remove and block users with 3 or more reports 
 def create_report(userID,offenderID,description):
     user=User.query.get(offenderID)
     if(userID!=offenderID):
@@ -12,11 +13,6 @@ def create_report(userID,offenderID,description):
         db.session.add(user)
         db.session.commit()
         createReportNotification(offenderID)
-        #reports=Report.query.filter_by(offenderID=offenderID).all()
-        #data = [report.toJSON() for report in reports]
-        #count=0
-        #for item in data:
-        #    count=count+1
         if(user.reportsCount>=3):
             blackListedUser=addBlackListedUser(user.email,user.phoneNumber)
             LNotifications=LendingNotification.query.filter_by(userID=offenderID).all()
@@ -56,9 +52,6 @@ def create_report(userID,offenderID,description):
     else:
         return "Action denied, user cannot report themselves"
 
-        
- 
-
 def get_report_by_ID(reportID):
     return Report.query.filter_by(reportID=reportID).first()
 
@@ -67,6 +60,7 @@ def get_offender(offenderID):
 
 def get_all_reports():
     return Report.query.all()
+
 
 def addBlackListedUser(email,phoneNumber):
     blockedUser = BlockedUser(email=email,phoneNumber=phoneNumber)
@@ -97,7 +91,7 @@ def getAllUserReportNotifications(userID):
 
 
 
-
+#Function to delete a report notification
 def deleteReportNotif(reportID):
     notification = ReportNotification.query.get(reportID)
     db.session.delete(notification)

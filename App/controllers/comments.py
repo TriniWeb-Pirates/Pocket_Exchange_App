@@ -1,8 +1,7 @@
 from App.models import Comment,User
 from App.database import db
 
-#testing new acccount
-
+#Function for adding a comment to another user
 def createComment(commentedUserID,comment):
     newComment = Comment(commentedUserID=commentedUserID,comment=comment)
     db.session.add(newComment)
@@ -10,6 +9,7 @@ def createComment(commentedUserID,comment):
     db.session.commit()
     return newComment
 
+#Function to get all comments from a user
 def getComments(commentedUserID):
     comments = Comment.query.filter_by(commentedUserID=commentedUserID).all()
     if comments:
