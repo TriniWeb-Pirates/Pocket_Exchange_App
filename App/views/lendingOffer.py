@@ -155,7 +155,20 @@ def testGetCategoryOffers():
 @login_required
 def testMakeOfferPage():
     data=request.json#must change json to form for web page
-    offer=create_lendingOffer(data['lenderID'],data['item'],data['category'],data['itemDescription'],data['imageURL'],data['rulesOfUse'],data['condition'],data['preferedLocation'])
+    #pic=request.json["image"]
+    #itemPic=secure_filename(pic.filename)
+    pic=request.json['imageURL']
+    pic=None
+    #itemPic=pic.read()
+    #itemPicName=itemPic
+    #Uploading image to firebase code 
+    if(pic):
+        imageURL = uploadItem(pic, itemPic)
+    else:
+        imageURL = '/static/images/no-image.svg'
+
+    offer=create_lendingOffer(current_user.id,data['item'],data['category'],data['itemDescription'],imageURL,data['rulesOfUse'],data['condition'],data['preferedLocation'])
+    flash('You have successfully added a new item')
     return jsonify(offer.toJSON(),"Lending Offer Created")
 
 
