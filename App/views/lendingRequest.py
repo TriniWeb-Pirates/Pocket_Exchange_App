@@ -43,8 +43,11 @@ def makeLendingRequestPage(lendingoffer_ID):
         return redirect(url_for('user_views.gethomepage',id=current_user.id))
     lendRequest=create_lendingRequest(current_user.id,lendingoffer_ID,data['reasonForUse'],data['preferedLocation'])
     flash(lendRequest)
+    if(lendRequest=="Borrow request created successfully. You can see the status of your request in the My Items Page > My Borrow Requests. "):
+        return redirect(url_for('manager_views.AddUsersToList',borrowerID=current_user.id,lendingoffer_ID=lendingoffer_ID))
+    else:
+        return redirect(url_for('user_views.gethomepage',id=current_user.id))
     #return jsonify(lendRequest)
-    return redirect(url_for('manager_views.AddUsersToList',borrowerID=current_user.id,lendingoffer_ID=lendingoffer_ID))
 
 @lendingRequests_views.route('/updateLendingRequestForm/<id>', methods=['GET'])
 @login_required
