@@ -13,15 +13,7 @@ class LendingRequest(db.Model,UserMixin):
     reasonForUse=db.Column(db.String(300), nullable=False)
     preferedLocation= db.Column(db.String(100), nullable=False)
     Status= db.Column(db.Boolean,nullable=False)
-    #quantity= db.Column(db.Integer,nullable=False)
     tempApproval=db.Column(db.Boolean,nullable=False)
-    #borrowingDays= db.Column(db.Integer, nullable=False)
-    #borrowDate=db.Column(db.Date, nullable=False)
-    #returnDate=db.Column(db.Date,nullable=False)
-    #isReturned=db.Column(db.Boolean,nullable=False)
-    #lendingnotif=db.relationship('LendingNotification',backref='lendingRequest',lazy=True,cascade="all, delete-orphan")
-    
-    
 
     def __init__(self,borrowerID, lendingoffer_ID,reasonForUse,preferedLocation,Status,tempApproval):
         self.borrowerID=borrowerID
@@ -29,12 +21,7 @@ class LendingRequest(db.Model,UserMixin):
         self.reasonForUse=reasonForUse
         self.preferedLocation=preferedLocation
         self.Status=Status
-        #self.quantity=quantity
-        self.tempApproval=tempApproval
-        #self.borrowingDays=0
-       # self.isReturned=False
-        
-        
+        self.tempApproval=tempApproval        
 
     def toJSON(self):
         return{
@@ -46,8 +33,5 @@ class LendingRequest(db.Model,UserMixin):
             'reasonForUse':self.reasonForUse,
             'preferedLocation': self.preferedLocation,
             'Status': self.Status,
-            #'quantity': self.quantity,
             'tempApproval': self.tempApproval
-            #'borrowingDays':self.borrowingDays,
-            #"isReturned": self.isReturned
         }

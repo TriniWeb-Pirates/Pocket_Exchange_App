@@ -2,7 +2,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
-#from App.models import LendingRequest
 from datetime import date, datetime, timedelta
 
 class LendingOffer(db.Model,UserMixin):

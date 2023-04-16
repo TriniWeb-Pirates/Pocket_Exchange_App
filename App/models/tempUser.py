@@ -1,7 +1,5 @@
 from App.database import db
 
-#tempUser model
-
 class TempUser(db.Model):
     __tablename__='tempUser'
     id = db.Column(db.Integer, primary_key=True)

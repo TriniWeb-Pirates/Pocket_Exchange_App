@@ -3,8 +3,6 @@ from App.database import db
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 
-
-
 class User(db.Model,UserMixin):
     __tablename__='user'
     id = db.Column(db.Integer, primary_key=True)
@@ -28,10 +26,6 @@ class User(db.Model,UserMixin):
     lendingnotif=db.relationship('LendingNotification',backref='user',lazy=True,cascade="all, delete-orphan")
     reports=db.relationship('Report',backref='user',lazy=True,cascade="all, delete-orphan")
     
-    #accounts=db.relationship('AccountInfo',backref='accountInfo',lazy=True,cascade="all, delete-orphan")
-    #communication=db.relationship('Message',backref='message',lazy=True,cascade="all, delete-orphan")
-    #donators=db.relationship('DonationRequest',backref='donationRequest',lazy=True,cascade="all, delete-orphan")
-
     def __init__(self, username, password,firstName,lastName,phoneNumber,email,city,Bio,links,imageURL):
         self.username = username
         self.set_password(password)
@@ -45,7 +39,6 @@ class User(db.Model,UserMixin):
         self.imageURL = imageURL
         self.rating=0
         self.reportsCount=0
-        #self.profile_pic=profile_pic
 
     def toJSON(self):
         return{
@@ -55,7 +48,6 @@ class User(db.Model,UserMixin):
             'lastName': self.lastName,
             'phoneNumber': self.phoneNumber,
             'email': self.email,
-            #'rating': self.rating,
             'city': self.city,
             'Bio': self.Bio,
             'links':self.links,
