@@ -203,8 +203,9 @@ def testRetreiveOfferRequests(lendingoffer_ID):
 def testGrantTempApproval():
     data=request.json
     lendingRequest=grantTempApproval(data['id'],data['lendingoffer_ID'],current_user.id)
-    #print(lendingRequest)
+    print(lendingRequest)
     return jsonify("Temporary Approval Granted")
+
 
 #Route for changing request status
 @lendingRequests_views.route('/testChangeStatus', methods=['PUT'])

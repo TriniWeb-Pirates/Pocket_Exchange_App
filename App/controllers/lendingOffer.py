@@ -172,7 +172,8 @@ def getReturnDate(lendingoffer_ID):
 def changeIsReturned(id,userID):
     lendingOffer=LendingOffer.query.get(id)
     lendingRequest = LendingRequest.query.get(lendingOffer.borrowRequestID)
-    if(lendingRequest.tempApproval==True and lendingRequest.Status==True and lendingRequest.borrowerID!=userID):
+    #if(lendingRequest.tempApproval==True and lendingRequest.Status==True and lendingRequest.borrowerID!=userID):
+    if(lendingRequest.tempApproval==True  and lendingRequest.borrowerID!=userID):
         lendingOffer.isReturned=True
         lendingOffer.Status="Unavailable"
         db.session.add(lendingOffer)

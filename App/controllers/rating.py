@@ -14,7 +14,7 @@ def createRating(id,recipientID,rate):
     user.rating=user.rating+rate
     db.session.add(user)
     db.session.commit()
-    return response
+    return response.toJSON()
 
 def retieveAllRatings():
     data=Rating.query.all()

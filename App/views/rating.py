@@ -29,7 +29,9 @@ def AddRatingFunc(recipientID):
 def testAddRatingFunc(id,recipientID):
     data=request.json
     response=createRating(data['id'],data['recipientID'],data['rate'])
-    return jsonify(response.toJSON(),"Rating Added")
+    if(response=="Rating rejected, users can not rate themselves"):
+        return jsonify(response)
+    return jsonify(response,"Rating Added")
 
 @rating_views.route('/testDisplayAllRatings',methods=['GET'])
 @login_required

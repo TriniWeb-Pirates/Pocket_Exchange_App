@@ -4,6 +4,9 @@ from datetime import datetime
 
 #Function to create a lending request
 def create_lendingRequest(borrowerID,lendingoffer_ID,reasonForUse,preferedLocation):
+    response=countRequests(borrowerID)
+    if(response):
+        return response
     validUser=User.query.get(borrowerID)
     if(validUser==None):
         return "Request denied, user does not exist"
@@ -79,6 +82,7 @@ def grantTempApproval(id,lendingoffer_ID,userID):
         offer.Status="Unavailable"
         db.session.add(offer)
         db.session.commit()
+        print(request.toJSON())
         return request.toJSON()
     else:
         #return "Approval denied, users can not approve their own lending requests"

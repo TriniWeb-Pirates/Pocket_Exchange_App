@@ -148,7 +148,7 @@ def CheckisReturned(lendingOfferID):
 def testGetCategoryOffers():
     data=request.json
     offers=getItmesByCategory(data['category'])
-    return jsonify(offers)
+    return jsonify(offers[1])
 
 #Route to test create lending offer 
 @lendingOffer_views.route('/testCreateLendingOfferPage',methods=['POST'])
@@ -177,6 +177,7 @@ def testMakeOfferPage():
 def TestInputDates():
     data=request.json
     offer=setDates(data['lendingoffer_ID'],data['lendingRequestID'],data['returnDate'],data['borrowDate'])
+    print(offer)
     return jsonify(offer.returnDate, "Dates Added")
 
 #Route to test updating a lending offer
@@ -192,9 +193,7 @@ def testChangeOffer(OfferID):
 def testDeleteOffer(id):
     data=request.json
     data=remove_Offer(data['id'])
-    offer=get_offer_by_ID(id)
-    offers=getAllOffersJSON()
-    return jsonify(offers.toJSON(),"Lending Offer Removed")
+    return jsonify("Lending Offer Removed")
 
 #Route to test retrieving all lending offers
 @lendingOffer_views.route('/testGetAllOffers', methods=['GET'])
@@ -223,4 +222,4 @@ def testRestart():
 def testCheckisReturned():
     data=request.json
     lendingRequest=changeIsReturned(data['id'],current_user.id)
-    return jsonify(lendingRequest,"Item Has Been Returned")
+    return jsonify("Item Has Been Returned")
