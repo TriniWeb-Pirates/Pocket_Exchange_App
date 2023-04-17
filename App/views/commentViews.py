@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify, render_template, flash, redirect, url_for
 from flask_login import current_user
-#from models import Comment
 
 comment_views = Blueprint('comment_views',__name__, template_folder='../templates')
 

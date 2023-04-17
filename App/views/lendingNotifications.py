@@ -20,7 +20,6 @@ lendingNotification_views = Blueprint('lendingNotification_views', __name__, tem
 @login_required
 def getNotificationPage():
     lendingNotifications=getAllUserLendingNotifications(current_user.id)
-    print(lendingNotifications)
     if(type(lendingNotifications)==str):
         flash('You have no current Item Notifications.')
         lendingNotifications=None
@@ -50,19 +49,13 @@ def deleteLendingNotification(notificationID):
 @lendingNotification_views.route('/CreateLendingNotification',methods=['POST'])
 @login_required
 def MakeNotification():
-    #message="Sorry but the item you have requested is unavailable at this time, Please try again when it is made available "
     notification=createNotification(data['userID'], data['requestID'], data['itemID'])
-    #notification=createNotification(data['userID'], data['itemID'])
     return jsonify(notification.itemID)
 
 @lendingNotification_views.route("/SendNotifications/<subscriberList>/<lendingoffer_ID>", methods=['GET'])
 @login_required
 def SendNotifications(subscriberList,lendingoffer_ID):
-    #data=request.json
     notification=notifyUsers(subscriberList, lendingoffer_ID)
-    #code to redirect user to some page
-    #return jsonify(notification.userID)
-    print(notification)
     return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
 
 @lendingNotification_views.route("/RetrieveNotifications", methods=['GET'])
@@ -77,9 +70,7 @@ def GetData():
 @login_required
 def testMakeNotificationPage():
     data=request.json
-    #message="Sorry but the item you have requested is unavailable at this time, Please try again when it is made available "
     notification=createNotification(data['userID'], data['itemID'],data['message'])
-    #notification=createNotification(data['userID'], data['itemID'])
     return jsonify(notification.toJSON(),"Lending Notification Added")
 
 @lendingNotification_views.route("/testSendNotifications/<subscriberList>/<lendingoffer_ID>", methods=['GET'])

@@ -41,7 +41,5 @@ def testGetAllRatingsFunc():
 @login_required
 def testUpdateRatingFunc(id):
     data=request.json
-    #print(id)
     response=updateRating(data['id'],data['rate'])
-    #return redirect(url_for())
     return jsonify(response.rate)

@@ -14,7 +14,6 @@ manager_views = Blueprint('manager_views', __name__, template_folder='../templat
 @login_required
 def AddUsersToList(borrowerID,lendingoffer_ID):
     interestedUsers=addToList(borrowerID, lendingoffer_ID)
-    #return jsonify(interestedUsers.InterestedUserList)
     return redirect(url_for("user_views.gethomepage"))
 
 @manager_views.route('/SendList/<lendingoffer_ID>', methods=['GET'])
@@ -22,7 +21,6 @@ def AddUsersToList(borrowerID,lendingoffer_ID):
 def TransmitList(lendingoffer_ID):
     subscriberList=getList(lendingoffer_ID)
     print(subscriberList.toJSON())
-    #return jsonify(subscriberList.InterestedUserList)
     return redirect(url_for('lendingNotification_views.SendNotifications', subscriberList=subscriberList.InterestedUserList,lendingoffer_ID=lendingoffer_ID))
 
 #Testing Routes
@@ -32,7 +30,6 @@ def testAddUsersToList(borrowerID,lendingoffer_ID):
     data=request.json
     interestedUsers=addToList(data['borrowerID'], data['lendingoffer_ID'])
     return jsonify(interestedUsers.InterestedUserList)
-    #return redirect(url_for(""))
 
 @manager_views.route('/testSendList/<lendingoffer_ID>', methods=['GET'])
 @login_required
@@ -40,4 +37,3 @@ def testTransmitList(lendingoffer_ID):
     data=request.json
     subscriberList=getList(data['lendingoffer_ID'])
     return jsonify(subscriberList.InterestedUserList)
-    #return redirect(url_for(),lendingoffer_ID=lendingoffer_ID)

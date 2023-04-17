@@ -47,7 +47,6 @@ def makeLendingRequestPage(lendingoffer_ID):
         return redirect(url_for('manager_views.AddUsersToList',borrowerID=current_user.id,lendingoffer_ID=lendingoffer_ID))
     else:
         return redirect(url_for('user_views.gethomepage',id=current_user.id))
-    #return jsonify(lendRequest)
 
 @lendingRequests_views.route('/updateLendingRequestForm/<id>', methods=['GET'])
 @login_required
@@ -80,7 +79,6 @@ def GrantTempApproval(lendingRequestID,lendingoffer_ID):
     data=request.form
     lendingRequest=grantTempApproval(lendingRequestID,lendingoffer_ID,current_user.id)
     offers=getAllUserOffers(current_user.id)
-    #return jsonify(lendingRequest)#redirect user to setDates route with ID of approved lending request
     flash('You have successfully granted this user temporary approval.')
     return render_template("myLendingOffers.html", offers=offers)
 
@@ -91,16 +89,12 @@ def GrantTempApproval2(lendingRequestID,lendingoffer_ID):
     data=request.form
     lendingRequest=grantTempApproval(lendingRequestID,lendingoffer_ID,current_user.id)
     offers=getAllUserOffers(current_user.id)
-    #return jsonify(lendingRequest)#redirect user to setDates route with ID of approved lending request
     flash('You have successfully granted this user temporary approval. You can see the status of your offer in the My Items Page > My Lending Offers')
     return redirect(url_for('user_views.gethomepage'))
-
-   # return redirect(url_for('lendingOffer_views.InputDates'),id=lendingRequest.id,borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID)
 
 @lendingRequests_views.route('/UnApproveTempApproval/<lendingRequestID>',methods=['POST'])
 @login_required
 def UnApproval(lendingRequestID):
-    #data=request.form
     lendRequest=UnapproveTemp(lendingRequestID,current_user.id)
     flash('You have cancelled this users temporary approval request. Your offer will be re-displayed on the All Items Page. ')
     return redirect(url_for('lendingOffer_views.RetreiveAllUserOffers'))
@@ -114,15 +108,12 @@ def StatusChange(lendingRequestID, lendingoffer_ID):
     lendingRequest=changeStatus(lendingRequestID,current_user.id)
     flash('You have successfully granted this user permanent approval.')
     return redirect(url_for('manager_views.TransmitList',lendingoffer_ID=lendingoffer_ID))
-    #return redirect(url_for(),borrowerID=request.borrowerID,lendingoffer_ID=request.lendingoffer_ID,)
 
 
 @lendingRequests_views.route('/GetAllUserRequests', methods=['GET'])
 @login_required
 def getUserRequests():
-
     requests = getAllUserRequestsJSON(current_user.id)
-    print(requests)
     return render_template('myBorrowRequests.html', requests=requests)
 
 
@@ -131,7 +122,6 @@ def getUserRequests():
 def deleteUserRequest(requestID):
     msg = deleteLendingRequest(requestID)
     flash(msg)
-    
     return redirect(url_for('lendingRequests_views.getUserRequests'))
 
 
@@ -145,9 +135,7 @@ def testGetLendingRequestData():
     result=countRequests(borrowerID)
     if result!=None:
         return jsonify(result)
-        #return redirect(url_for('user_views.gethomepage',id=id))
     return jsonify(result)
-    #return render_template()
 
 #Route to test creating a lending request 
 @lendingRequests_views.route('/testCreatelendingRequest',methods=['POST'])
@@ -155,10 +143,7 @@ def testGetLendingRequestData():
 def testMakeLendingRequestPage():
     data=request.json#must change json to form for web page
     lendRequest=create_lendingRequest(data['borrowerID'],data['lendingoffer_ID'],data['reasonForUse'],data['preferedLocation'])
-    #print(lendRequest.borrowDate)
     return jsonify(lendRequest)
-    #return redirect(url_for("manager_views.testAddUsersToList"),borrowerID=data['borrowerID'],lendingoffer_ID=data['lendingoffer_ID'])
-    #Code to redirect user to manager views to add user to list
 
 #Route to test updating lending request object
 @lendingRequests_views.route('/testUpdateLendingRequest',methods=['PUT'])
@@ -204,7 +189,6 @@ def testRetreiveOfferRequests(lendingoffer_ID):
 def testGrantTempApproval():
     data=request.json
     lendingRequest=grantTempApproval(data['id'],data['lendingoffer_ID'],current_user.id)
-    print(lendingRequest)
     return jsonify("Temporary Approval Granted")
 
 

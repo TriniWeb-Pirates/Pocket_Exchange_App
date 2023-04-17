@@ -32,9 +32,6 @@ def makeOfferPage():
     data=request.form
     pic=request.files["image"]
     itemPic=secure_filename(pic.filename)
-    
-    #itemPic=pic.read()
-    #itemPicName=itemPic
     #Uploading image to firebase code 
     if(pic):
         imageURL = uploadItem(pic, itemPic)
@@ -42,7 +39,6 @@ def makeOfferPage():
         imageURL = '/static/images/no-image.svg'
 
     offer=create_lendingOffer(current_user.id,data['item'],data['category'],data['itemDescription'],imageURL,data['rulesOfUse'],data['condition'],data['preferedLocation'])
-    print(offer.item)
     flash('You have successfully added a new item')
     return redirect(url_for('user_views.gethomepage'))
 
@@ -76,7 +72,6 @@ def changeOffer(OfferID):
 #Route to delete a lending offer
 @lendingOffer_views.route('/removeLendingOffer<id>',methods=['POST'])
 def deleteOffer(id):
-    #data=request.form
     data=remove_Offer(id)
     offer=get_offer_by_ID(id)
     flash('Lending Offer has been successfully deleted. ')
@@ -86,10 +81,7 @@ def deleteOffer(id):
 @lendingOffer_views.route('/GetCategoryOffers/<category>',methods=['GET'])
 @login_required
 def GetCategoryOffers(category):
-
     offers=getItmesByCategory(category)
-    print(offers)
-    print(category)
     selection=category
     return render_template('homepage.html', selection=selection, offers=offers, search=None, user=current_user)
 
@@ -103,7 +95,6 @@ def InputDatesPage(lendingRequestID,lendingoffer_ID):
 def InputDates(lendingRequestID,borrowerID,lendingoffer_ID):
     data=request.form
     offer=setDates(lendingoffer_ID,lendingRequestID,data['returnDate'],data['borrowDate'])
-    #return jsonify(offer.returnDate)
     return redirect(url_for('manager_views.TransmitList',lendingoffer_ID=lendingoffer_ID))
 
 @lendingOffer_views.route('/RemoveLendingOffer<id>',methods=['POST'])
@@ -121,10 +112,7 @@ def RetreiveAllOffers():
 @login_required
 def RetreiveAllUserOffers():
     offers=getAllUserOffers(current_user.id)
-
     borrowingDays = getAllBorrowingDays()
-
-    
     return render_template('myLendingOffers.html', offers=offers)
 
 @lendingOffer_views.route('/RestartOffer/<lendingoffer_ID>',methods=['GET'])
@@ -155,12 +143,8 @@ def testGetCategoryOffers():
 @login_required
 def testMakeOfferPage():
     data=request.json#must change json to form for web page
-    #pic=request.json["image"]
-    #itemPic=secure_filename(pic.filename)
     pic=request.json['imageURL']
     pic=None
-    #itemPic=pic.read()
-    #itemPicName=itemPic
     #Uploading image to firebase code 
     if(pic):
         imageURL = uploadItem(pic, itemPic)
@@ -205,8 +189,7 @@ def testRetreiveAllOffers():
 @lendingOffer_views.route('/TestGetAllUserOffers', methods=['GET'])
 @login_required
 def testRetreiveAllUserOffers():
-    offers=getAllUserOffers(current_user.id)
-    #data=json.dumps(offers)    
+    offers=getAllUserOffers(current_user.id)  
     return jsonify(offers[1]['item'],offers[2]['item'],offers[3]['item'],"All User Items Offers Displayed")
 
 @lendingOffer_views.route('/testRestartOffer',methods=['PUT'])
