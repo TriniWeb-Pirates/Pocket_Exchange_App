@@ -213,10 +213,7 @@ def testCreate_user_page2():
         return jsonify('This phone number is already taken. Please enter a different number.')
 
     pic=None
-    #pic=request.json["profile_pic"] #actual picture 
-    #if(pic):
-        #profile_pic=secure_filename(pic.filename) #actual filename 
-    #    profile_pic=secure_filename(data2['filename'])
+    
   
     #storing our images here 
     if pic:

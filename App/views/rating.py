@@ -18,8 +18,6 @@ def AddRatingFunc(recipientID):
     response=createRating(current_user.id,recipientID,rating)
     flash("Rating successfully added!")
     return redirect(url_for('user_views.getUserProfilepage',id=recipientID))
-    #return jsonify(response.rate)
-
 
 
 #Testing Routes
@@ -37,7 +35,6 @@ def testAddRatingFunc(id,recipientID):
 @login_required
 def testGetAllRatingsFunc():
     ratings=retieveAllRatings()
-    #print(response.rate)
     return jsonify(ratings,"All Rating Data Displayed")
 
 @rating_views.route('/testUpdateRating/<id>',methods=['PUT'])
