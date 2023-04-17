@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, jsonify, request, send_from_direct
 from flask import Flask, flash
 from flask_login import login_required, current_user, LoginManager
 from datetime import datetime
-
+import json
 from App.controllers import (
     create_lendingRequest, 
     get_request_by_ID,
@@ -186,8 +186,9 @@ def testRetreiveAllRequests():
 @lendingRequests_views.route('/testGetAllUserRequests/<borrowerID>', methods=['GET'])
 @login_required
 def testRetreiveAllUserRequests(borrowerID):
-    requests=getAllUserRequestsJSON(borrowerID)
-    return requests
+    data=request.json
+    requests=getAllUserRequestsJSON(data['borrowerID'])
+    return jsonify(requests[1]['id'],"All User Lending Requests")
 
 
 #Route for retrieving all requests for an offer
@@ -215,3 +216,10 @@ def TestStatusChange():
     offer=setDates(data['id'],data['lendingRequestID'],data['returnDate'],data['borrowDate'])
     lendingRequest=changeStatus(data['lendingRequestID'],current_user.id)
     return jsonify(lendingRequest['tempApproval'], "Dates Added and Permanent Approval Granted")
+
+@lendingRequests_views.route('/testDeleteRequest/<requestID>', methods=['GET'])
+@login_required
+def testDeleteUserRequest(requestID):
+    data=request.json
+    msg = deleteLendingRequest(data['requestID'])
+    return jsonify(msg)

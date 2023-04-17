@@ -40,6 +40,7 @@ def getRequest(id):
 #function to return all user requests in a list of dicts
 def getAllUserRequestsJSON(borrowerID):
     data = LendingRequest.query.filter_by(borrowerID=borrowerID).all()
+    print(data)
     if not data:
         return []
     items = [request.toJSON() for request in data]
@@ -140,12 +141,13 @@ def deleteLendingRequest(requestID):
     manager=Manager.query.filter_by(lendingOfferID=request.lendingoffer_ID).first()
     x=request.borrowerID
     person=str(x)
-    for value in manager.InterestedUserList:
-        
-        if(value==person):
-            manager.InterestedUserList=manager.InterestedUserList.replace(value,",")
-            db.session.add(manager)
-            db.session.commit()
+    if(manager!=None):
+        for value in manager.InterestedUserList:
+            
+            if(value==person):
+                manager.InterestedUserList=manager.InterestedUserList.replace(value,",")
+                db.session.add(manager)
+                db.session.commit()
 
     db.session.add(offer)
     db.session.commit()

@@ -206,8 +206,8 @@ def testRetreiveAllOffers():
 @login_required
 def testRetreiveAllUserOffers():
     offers=getAllUserOffers(current_user.id)
-    data=json.dumps(offers)    
-    return jsonify(data.item,"All User Items Offers Displayed")
+    #data=json.dumps(offers)    
+    return jsonify(offers[1]['item'],offers[2]['item'],offers[3]['item'],"All User Items Offers Displayed")
 
 @lendingOffer_views.route('/testRestartOffer',methods=['PUT'])
 @login_required
@@ -223,3 +223,10 @@ def testCheckisReturned():
     data=request.json
     lendingRequest=changeIsReturned(data['id'],current_user.id)
     return jsonify("Item Has Been Returned")
+
+@lendingOffer_views.route('/testSearchItem',methods=['GET'])
+@login_required
+def testLookup():
+    data=request.json
+    results=findItems(data['userInput'])
+    return jsonify(results)

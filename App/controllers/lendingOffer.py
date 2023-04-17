@@ -139,12 +139,15 @@ def restartOffer(userID,id):
         offer.borrowDate = None
         offer.isReturned = False
         offer.Status="Available"
+        db.session.add(offer)
+        db.session.commit()
         manager = Manager.query.filter_by(lendingOfferID=offer.id).first()
+        if(manager==None):
+            return offer.toJSON()
         manager.InterestedUserList = ''
         db.session.add(manager)
         db.session.commit()
-        db.session.add(offer)
-        db.session.commit()
+       
         return offer.toJSON()
     else:
         return "Action denied, You cannit restart this offer"
