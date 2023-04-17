@@ -11,6 +11,13 @@
         background-color: #0C49CF;
     }
 
+    @media screen and (max-width:600px){
+
+      #word{
+        font-size:14px;
+      }
+    }
+
     
 
 
@@ -87,13 +94,13 @@
 
                                 
                                 <div class="row">
-                                <div class="file-field input-field col s8">
+                                <div class="file-field input-field col l8 s12">
                                     <div class="btn blue"><i class="material-icons left">photo_camera</i>
                                       <span>Photo</span>
                                       <input name="profile_pic" type="file">
                                     </div>
                                     <div class="file-path-wrapper">
-                                      <input class="file-path validate" name="profile_pic" type="text" placeholder="Select a profile photo to upload (optional)">
+                                      <input id="word" class="file-path validate" name="profile_pic" type="text" placeholder="Select a profile photo to upload (optional)">
                                     </div>
                                   </div>
                                 </div>
