@@ -230,17 +230,6 @@ class UsersIntegrationTests(unittest.TestCase):
         offer=restartOffer(2,2)
         assert offer!="Action denied, You cannit restart this offer"
     
-    
-    
-    #def test_changeStatus(self):
-    #    user = create_user("josiah", "bobpass","bobby","brown","josiah@gmail.com",482000251,"Arima","I like cars","www.bobbyPage.com",None)
-    #    offer=create_lendingOffer(2,"pen","Stationary","writes with ink",None,"Do not break it","good","Arima",)
-    #    lendingRequest=create_lendingRequest(2,1,"i need it for exams","arima")
-    #    print(lendingRequest)
-    #    requestData=grantTempApproval(1,1,1)
-    #    response=changeStatus(1,1)
-    #    assert response!="Action Denied, User must grant temporary approval to the lending request before changing the status of it" 
-    
     def test_remove_Offer(self):
         response=remove_Offer(1)
         assert response.item=="pen"
