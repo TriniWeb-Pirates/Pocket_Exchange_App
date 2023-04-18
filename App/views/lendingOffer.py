@@ -136,7 +136,7 @@ def CheckisReturned(lendingOfferID):
 def testGetCategoryOffers():
     data=request.json
     offers=getItmesByCategory(data['category'])
-    return jsonify(offers[1])
+    return jsonify(offers[0])
 
 #Route to test create lending offer 
 @lendingOffer_views.route('/testCreateLendingOfferPage',methods=['POST'])

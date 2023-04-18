@@ -158,14 +158,14 @@ def testUpdateLendingRequestPage():
 def testUnApproval():
     data=request.json
     lendRequest=UnapproveTemp(data['lendingRequestID'],current_user.id)
-    return lendRequest
+    return jsonify(lendRequest['id'],"Request has been unapproved")
 
 #Route to test retrieving all lending request objects in the database
 @lendingRequests_views.route('/testGetAllRequests', methods=['GET'])
 @login_required
 def testRetreiveAllRequests():
     requests=getAllRequestsJSON()
-    return jsonify(requests)
+    return jsonify(requests[0]['id'])
 
 #Route to test retrieving all lending request objects in the database
 @lendingRequests_views.route('/testGetAllUserRequests/<borrowerID>', methods=['GET'])
@@ -173,15 +173,16 @@ def testRetreiveAllRequests():
 def testRetreiveAllUserRequests(borrowerID):
     data=request.json
     requests=getAllUserRequestsJSON(data['borrowerID'])
-    return jsonify(requests[1]['id'],"All User Lending Requests")
+    return jsonify("Request ID",requests[0]['id'],"All User Lending Requests")
 
 
 #Route for retrieving all requests for an offer
 @lendingRequests_views.route('/testGetAllOfferRequests/<lendingoffer_ID>', methods=['GET'])
 @login_required
 def testRetreiveOfferRequests(lendingoffer_ID):
-    requests=getAllOfferRequests(lendingoffer_ID)
-    return jsonify(requests) 
+    data=request.json
+    requests=getAllOfferRequests(data['lendingoffer_ID'])
+    return jsonify(requests[0]['id']) 
 
 #Route for granting temporary approval
 @lendingRequests_views.route('/testGrantTempApproval', methods=['PUT'])
