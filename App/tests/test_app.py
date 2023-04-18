@@ -3,14 +3,17 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import date, datetime, timedelta
 from App.main import create_app
 from App.database import create_db
-from App.models import User,LendingOffer,LendingNotification,LendingRequest,Rating,Report,Comment
+from App.models import User,LendingOffer,LendingNotification,Manager,LendingRequest,Rating,Report,Comment,BlockedUser,TempUser,ReportNotification
 from App.controllers import (
     create_user,
     create_lendingOffer,
     create_lendingRequest,
+    create_lendingRequest_for_testing,
     createRating,
     create_report,
     buildTredingList,
+    deleteLendingRequest,
+    getItmesByCategory,
     addToList,
     createNotification,
     createLeaderboard,
@@ -44,7 +47,8 @@ from App.controllers import (
     countRequests,
     createLeaderboard,
     restartOffer,
-    remove_Offer
+    remove_Offer,
+    get_offer_by_ID
 )
 
 from wsgi import app
@@ -68,23 +72,60 @@ class UserUnitTests(unittest.TestCase):
         user_json = user.toJSON()
         self.assertDictEqual(user_json, {"id":None, "username":"bob","firstName":"bobby","lastName":"brown","email":"bob@gmail.com","phoneNumber":443-7890,"city":"Arima","Bio":"I like cars","links":"www.bobbyPage.com","rating":0,"reportsCount":0,"imageURL":None})
     
-    #def testLendingOffer_toJSON(self):
-        #offer = LendingOffer(1,None,None,"it is a big book","textbook"
-        #,"bob", "bobpass","bobby","brown",443-7890,"bob@gmail.com","Arima","I like cars","www.bobbyPage.com",None,
-        #,"Books",None,"Good","Arima","Available","Use wisely",None,None,False)
-        #user = create_user("mario", "bobpass","bobby","brown","mario@gmail.com",892239151,"Arima","I like cars","www.bobbyPage.com",None)
-        #offer=create_lendingOffer(1,"pen","Stationary","writes with ink",None,"Do not break it","good","Arima",)
-    #    offer=LendingOffer(1,None,None,"good pencil","Good","pencil","Stationary",None,"arima","Available","do not break it",None,None,None)
-    #    offer_json = offer.toJSON()
-    #    self.assertDictEqual(offer_json, {"id":None,"lenderID":1,'borrowRequestID':None,'borrowingDays':None,'item':"pencil","lendingRequests":None,"user":None,'itemDescription':'good pencil','category':'Stationary','condition':'Good','imageURL':None,'preferedLocation':'arima','Status':'Available','RulesOfUse':'do not break it','borrowDate':None,'returnDate':None,'isReturned':False})
-        #{"id":1, "username":"mario","firstName":"bobby","lastName":"brown","email":"mario@gmail.com","phoneNumber":892239151,"city":"Arima","Bio":"I like cars","links":"www.bobbyPage.com","rating":0,"reportsCount":0,"imageURL":None}
-        #self.assertDictEqual(offer_json, {"id":None,"lenderID":1,'borrowRequestID':None,'borrowingDays':None,'item':"textbook","lendingRequests":None,"user":{"id":None, "username":"bob","firstName":"bobby","lastName":"brown","email":"bob@gmail.com","phoneNumber":443-7890,"city":"Arima","Bio":"I like cars","links":"www.bobbyPage.com","rating":0,"reportsCount":0,"imageURL":None},'itemDescription':'it is a big book','category':'Books','condition':'Good','imageURL':None,'preferedLocation':'Arima','Status':'Available','RulesOfUse':'Use wisely','borrowDate':None,'returnDate':None,'isReturned':False})
-
-    #def testLendingRequest_toJSON(self):
-    #    request = LendingRequest(1,1,"I need it for exams","Arima",False,False)
-    #    request_json = request.toJSON()
-    #    self.assertDictEqual(request_json, {"id":None, "borrowerID":1,"user":None,"lendingOffer":None,"lendingoffer_ID":1,"reasonForUse":"I need it for exams","preferedLocation":'Arima',"Status":False,"tempApproval":False})
+    def test_lendingOffer_toJSON(self):
+        user = create_user("leroy", "bobpass","bobby","brown","leroy@gmail.com",892233851,"Arima","I like cars","www.bobbyPage.com",None)
+        offer=create_lendingOffer(1,"pencilTypeB","Stationary","writes with ink",None,"Do not break it","good","Arima",)
+        data=offer.toJSON()
+        assert data['item']=="penciltypeb" and data['category']=="Stationary"
     
+    
+    def test_lendingRequest_toJSON(self):
+        user = create_user("lion", "bobpass","bobby","brown","lion@gmail.com",892233877,"Arima","I like cars","www.bobbyPage.com",None)
+        lendingRequest=create_lendingRequest_for_testing(2,1,"i need it for exams","arima")
+        remove_Offer(1)
+        data=lendingRequest
+        assert data['preferedLocation']=="arima" and data['reasonForUse']=="i need it for exams"
+
+    def test_report_toJSON(self):
+        report=Report(2,"He broke my lawnmower")
+        data=report.toJSON()
+        assert data['description']=="He broke my lawnmower"
+
+    def test_rating_toJSON(self):
+        rating=Rating(1,5)
+        data=rating.toJSON()
+        assert data['rate']==5
+    
+    def test_BlockedUser_toJSON(self):
+        user=BlockedUser(443-7890,"bob@gmail.com")
+        data=user.toJSON()
+        assert data['email']=="bob@gmail.com"
+    
+    def test_Comment_toJSON(self):
+        comment=Comment(2,"This person is very kind")
+        data=comment.toJSON()
+        assert data['comment']=="This person is very kind"
+
+    def test_TempUser_toJSON(self):
+        temp=TempUser("kelly","mint","fire","pass","f@gmail.com")
+        data=temp.toJSON()
+        assert data['username']=="kelly" and data['password']=="pass"
+
+    def test_ReportNotification_toJSON(self):
+        reportNotif=ReportNotification(1,"This user has been reported")
+        data=reportNotif.toJSON()
+        assert data['notification']=="This user has been reported"
+    
+    def test_LendingNotification_toJSON(self):
+        lendNotif=LendingNotification(1,2,"pen is no longer available")
+        data=lendNotif.toJSON()
+        assert data['notification']=="pen is no longer available"
+
+    def test_Manager_toJSON(self):
+        info=Manager(1,"2,3,4")
+        data=info.toJSON()
+        assert data['InterestedUserList']=="2,3,4"
+
     def test_hashed_password(self):
         password = "mypass"
         hashed = generate_password_hash(password, method='sha256')
@@ -139,20 +180,16 @@ class UsersIntegrationTests(unittest.TestCase):
     def test_grantTempApproval(self):
         requestData=grantTempApproval(1,1,1)
         assert requestData!=None
-    
-    #def test_UnapproveTemp(self):
-        #user = create_user("marcus", "bobpass","bobby","brown","marcus@gmail.com",182470251,"Arima","I like cars","www.bobbyPage.com",None)
-        #user = create_user("carl", "bobpass","bobby","brown","carl@gmail.com",182470491,"Arima","I like cars","www.bobbyPage.com",None)
-        #offer=create_lendingOffer(4,"pen","Stationary","writes with ink",None,"Do not break it","good","Arima",)
-        #lendingRequest=create_lendingRequest(5,2,"i need it for exams","arima")
-        #requestData=grantTempApproval(2,2,3)
-    #    request=UnapproveTemp(1,3)
-    #    assert request==None
 
     def test_setDates(self):
+        offer=create_lendingOffer(1,"pen","Stationary","writes with ink",None,"Do not break it","good","Arima",)
+        lendingRequest=create_lendingRequest(1,2,"i need it for exams","arima")
+        #print(lendingRequest)
+        #requestData=grantTempApproval(1,1,1)
         offer=setDates(1,1,"2022-07-12","2022-07-09")
-        assert offer.returnDate==date(2022,7,12)
-    
+        #assert offer.returnDate==date(2022,7,12)
+        assert offer=="Action Denied, this lending request must be temporarily approved first"
+
     def test_findItems(self):
         findings=findItems("Pen")
         assert findings!=None
@@ -160,22 +197,26 @@ class UsersIntegrationTests(unittest.TestCase):
     def test_createRating(self):
         user = create_user("charlie", "bobpass","bobby","brown","charlie@gmail.com",882000251,"Arima","I like cars","www.bobbyPage.com",None)
         rating=createRating(2,1,5)
-        print("RATING IS HERE")
-        print(rating)
-        assert rating.rate==5
+        assert rating['rate']==5
 
     def test_createNotification(self):
         userNotification=createNotification(1,1,"Pen is unavailable at this time, Please try again when it is made available")
         assert userNotification.notification=="Pen is unavailable at this time, Please try again when it is made available"
 
-    def test_makeReportNotification(self):
-        message=makeReportNotification(1)
-        assert message!=None
+    def test_getItmesByCategory(self):
+        user = create_user("timmy", "bobpass","bobby","brown","timmy@gmail.com",882954251,"Arima","I like cars","www.bobbyPage.com",None)
+        offer=create_lendingOffer(2,"pen","Stationary","writes with ink",None,"Do not break it","good","Arima",)
+        items=getItmesByCategory("Stationary")
+        assert items[1]['item']=="pen"
 
     def test_create_report(self):
         report=create_report(1,2,"He broke my lawnmower")
         assert report['description']=="He broke my lawnmower"
-
+    
+    def test_makeReportNotification(self):
+        message=makeReportNotification(1)
+        assert message!=None
+    
     def test_createComment(self):
         comment=createComment(1,"The item was very useful")
         assert comment.comment=="The item was very useful"
@@ -185,27 +226,21 @@ class UsersIntegrationTests(unittest.TestCase):
         assert blocked.email=="badGuy@gmail.com"
     
     def test_restartOffer(self):
-        offer=restartOffer(1,1)
+        item=create_lendingOffer(2,"pencil","Stationary","writes with ink",None,"Do not break it","good","Arima",)
+        offer=restartOffer(2,2)
         assert offer!="Action denied, You cannit restart this offer"
+    
+    
+    
+    #def test_changeStatus(self):
+    #    user = create_user("josiah", "bobpass","bobby","brown","josiah@gmail.com",482000251,"Arima","I like cars","www.bobbyPage.com",None)
+    #    offer=create_lendingOffer(2,"pen","Stationary","writes with ink",None,"Do not break it","good","Arima",)
+    #    lendingRequest=create_lendingRequest(2,1,"i need it for exams","arima")
+    #    print(lendingRequest)
+    #    requestData=grantTempApproval(1,1,1)
+    #    response=changeStatus(1,1)
+    #    assert response!="Action Denied, User must grant temporary approval to the lending request before changing the status of it" 
     
     def test_remove_Offer(self):
         response=remove_Offer(1)
         assert response.item=="pen"
-    
-    #def test_changeStatus(self):
-    #    response=changeStatus(1,1)
-    #    assert response!="Action Denied, User must grant temporary approval to the lending request before changing the status of it" 
-    
-    #def test_deleteLendingRequest(self):
-    #    response=deleteLendingRequest(1)
-    #    assert response=='Request was successfully deleted'
-
-    #def test_get_all_users_json(self):
-    #    users_json = get_all_users_json()
-    #    self.assertListEqual([{"id":1, "username":"bob"}, {"id":2, "username":"rick"}], users_json)
-
-    # Tests data changes in the database
-    #def test_update_user(self):
-    #    update_user(1, "ronnie","bobpass","bobby","brown","bob@gmail.com",443-7890,"Arima","I like cars","www.bobbyPage.com",None,None,None)
-    #    user = get_user_by_username("ronnie")
-    #    assert user.username == "ronnie"

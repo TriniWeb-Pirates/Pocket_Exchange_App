@@ -26,6 +26,29 @@ def create_lendingRequest(borrowerID,lendingoffer_ID,reasonForUse,preferedLocati
     else:
         return "Request denied, user can not request their own lending offer"
 
+def create_lendingRequest_for_testing(borrowerID,lendingoffer_ID,reasonForUse,preferedLocation):
+    response=countRequests(borrowerID)
+    if(response):
+        return response
+    validUser=User.query.get(borrowerID)
+    if(validUser==None):
+        return "Request denied, user does not exist"
+    validOffer=LendingOffer.query.get(lendingoffer_ID)
+    if(validOffer==None):
+        return "Request denied, lending offer does not exist"
+    data=LendingOffer.query.filter_by(id=lendingoffer_ID,lenderID=borrowerID).first()
+    duplicate = LendingRequest.query.filter_by(lendingoffer_ID=lendingoffer_ID, borrowerID=borrowerID).first()
+    if(duplicate):
+        return "Request denied, you cannot make more than one request per item. "
+
+    if(data==None):
+        request = LendingRequest(borrowerID=borrowerID,lendingoffer_ID=lendingoffer_ID,reasonForUse=reasonForUse,preferedLocation=preferedLocation,Status=False,tempApproval=False)
+        db.session.add(request)
+        db.session.commit()
+        return request.toJSON()
+    else:
+        return "Request denied, user can not request their own lending offer"
+
 def getAllRequestsJSON():
     data = LendingRequest.query.all()
     if not data:
